@@ -6,7 +6,6 @@ export default function Home() {
       <Container
         className="contenedor"
         style={{
-          marginLeft: "0.5rem",
           display: "flex",
           alignItems: "stretch",
           flexDirection: "row",

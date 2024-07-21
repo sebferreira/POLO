@@ -7,7 +7,11 @@ export default function NavbarAuth() {
         position: "relative",
       }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar
+          style={{
+            height: "3rem",
+            minHeight: "3.5rem",
+          }}>
           <Typography
             variant="h6"
             sx={{flexGrow: 1, fontSize: {xs: "1.25rem", xl: "1.5rem"}}}>

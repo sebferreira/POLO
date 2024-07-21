@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import {createContext, useContext, useEffect, useState} from "react";
-import {loginRequest, registerRequest, verifyTokenRequest} from "../api/auth";
+import {signIn, signUp, verifyCookies} from "./../queryFn";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -22,31 +22,25 @@ export const AuthProvider = ({children}) => {
   const [loading, setLoading] = useState(true);
 
   const signup = async (value) => {
-    try {
-      const res = await registerRequest(value);
-      setUser(res.data);
-      setIsAuthRegistered(true);
-      setRegisterErrors([]);
-    } catch (error) {
-      if (Array.isArray(error.response.data)) {
-        return setRegisterErrors(error.response.data);
-      }
-      setRegisterErrors([error.response.data.message]);
+    const data = await signUp(value);
+    if (data.length > 0) {
+      return setRegisterErrors(data);
     }
+    setUser(data);
+    setIsAuthRegistered(true);
+    setRegisterErrors([]);
   };
+
   const signin = async (value) => {
-    try {
-      const res = await loginRequest(value);
-      setUser(res.data);
-      setIsAuthenticated(true);
-      setLoginErrors([]);
-    } catch (error) {
-      if (Array.isArray(error.response.data)) {
-        return setLoginErrors(error.response.data);
-      }
-      setLoginErrors([error.response.data.message]);
+    const data = await signIn(value);
+    if (data.length > 0) {
+      return setLoginErrors(data);
     }
+    setUser(data);
+    setIsAuthenticated(true);
+    setLoginErrors([]);
   };
+
   const logout = () => {
     Cookies.remove("token");
     setUser(null);
@@ -77,24 +71,19 @@ export const AuthProvider = ({children}) => {
         setLoading(false);
         return setUser(null);
       }
-      try {
-        const res = await verifyTokenRequest(cookie.token);
-        if (!res.data) {
-          setIsAuthenticated(false);
-          setLoading(false);
-          return;
-        }
-        setUser(res.data);
-        setIsAuthenticated(true);
-        setLoading(false);
-      } catch (error) {
+      const data = await verifyCookies();
+      if (!data) {
         setIsAuthenticated(false);
-        setUser(null);
         setLoading(false);
+        return;
       }
+      setUser(data);
+      setIsAuthenticated(true);
+      setLoading(false);
     }
     checkLogin();
   }, []);
+  console.log({user});
 
   return (
     <AuthContext.Provider

@@ -11,7 +11,7 @@ const Users_Boards = sequelize.define("users_boards", {
       key: "username",
     },
   },
-  role:{
+  role: {
     type: DataTypes.STRING,
     defaultValue: "user",
   },
@@ -24,8 +24,8 @@ const Users_Boards = sequelize.define("users_boards", {
   },
 });
 
-User.belongsToMany(Board, {through: "user_boards"});
-Board.belongsToMany(User, {through: "user_boards"});
+User.belongsToMany(Board, {through: "users_boards", foreignKey: "username"});
+Board.belongsToMany(User, {through: "users_boards", foreignKey: "boardId"});
 
 Users_Boards.sync();
 

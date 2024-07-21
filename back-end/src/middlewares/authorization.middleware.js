@@ -14,9 +14,7 @@ export async function revisarCookie(req, res, next) {
       const response = await User.findOne({where: {username}});
       const {password, ...user} = response._previousDataValues;
       req.user = user;
-      if (user) {
-        next();
-      }
+      next();
     });
   } catch (error) {
     res.status(401).json(["Unauthorized"]);

@@ -1,33 +1,49 @@
+import Board from "../models/boards.model.js";
+import User from "../models/users.model.js";
 import Users_Boards from "../models/users_boards.model.js";
 
 export const getUsers_Boards = async (req, res) => {
   try {
-    const boards = await Users_Boards.findAll();
+    const {username} = req.user;
+    console.log(username);
+    const boards = await User.findAll({
+      where: {username: username},
+      include: [{model: Board}],
+    });
     if (boards.length <= 0) return res.status(404).json(["Boards not found"]);
-    res.status(200).json(boards);
+    const userBoards = {
+      boards: boards[0].dataValues.Boards,
+    };
+    res.json(userBoards);
   } catch (error) {
     console.error(error);
     res.status(500).json("Server error");
   }
 };
 
+/* 
 export const getUser_Boards = async (req, res) => {
   try {
-    const {username} = req.params;
-    const boards = await Users_Boards.findAll({where: {username}});
+    const {username} = req.user;
+    console.log(username);
+    const boards = await Users_Boards.findAll({where: {username: username}});
     if (boards.length <= 0) return res.status(404).json(["Boards not found"]);
-    res.json(boards);
+    console.log("hola");
+    res.json(boards); 
   } catch (error) {
     console.error(error);
     res.status(500).json("Server error");
   }
-};
+}; */
 
 export const getBoard_Users = async (req, res) => {
   try {
     const {boardId} = req.params;
     console.log(req.params);
-    const users = await Users_Boards.findAll({where: {boardId}});
+    const users = await Users_Boards.findAll({
+      attributes: ["username"],
+      where: {boardId},
+    });
     if (users.length <= 0) return res.status(404).json(["Users not found"]);
     res.json(users);
   } catch (error) {

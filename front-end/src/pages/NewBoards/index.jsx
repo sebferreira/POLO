@@ -6,28 +6,43 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 import {useForm} from "react-hook-form";
-import {useAuth} from "../../context/AuthContext";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import {createBoards} from "../../queryFn";
 
-export default function Signin() {
+export default function NewBoard() {
   const {
     register,
     handleSubmit,
     formState: {errors},
   } = useForm();
-  const {signin, loginErrors, isAuthenticated} = useAuth();
   const navigate = useNavigate();
+  const [boardId, setBoardId] = useState(null);
+  const [newBoardErrors, setNewBoardErrors] = useState([]);
 
   const onSubmit = handleSubmit(async (data) => {
-    signin(data);
+    console.log(data);
+    const response = await createBoards(data);
+    setBoardId(response.newBoard.id_board);
+    setNewBoardErrors([]);
+    if (response.length > 0) {
+      setNewBoardErrors(response);
+    }
   });
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/");
+    if (newBoardErrors.length > 0) {
+      const timer1 = setTimeout(() => {
+        setNewBoardErrors([]);
+      }, 5000);
+      return () => clearTimeout(timer1);
     }
-  }, [isAuthenticated, navigate]);
+  });
+  useEffect(() => {
+    if (boardId) {
+      navigate(`/${boardId}/invites`);
+    }
+  }, [navigate, boardId]);
   return (
     <Grid
       container
@@ -38,14 +53,20 @@ export default function Signin() {
       <Card
         sx={{
           mt: {xs: "3rem", md: "5rem", xl: "10rem"},
-          width: {xs: "15rem", md: "15rem", lg: "25rem"},
+          width: {xs: "15rem", md: "20rem", lg: "25rem"},
+          height: {lg: "25rem"},
         }}
         style={{
           padding: "1.7rem",
           backgroundColor: "#F1F2F4",
           borderRadius: 12,
         }}>
-        <CardContent>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 5,
+          }}>
           <Typography
             variant="h5"
             component="h2"
@@ -55,10 +76,10 @@ export default function Signin() {
               marginBottom: {xs: 2, md: 5},
               fontSize: {xs: "1.1rem", md: "1.5rem"},
             }}>
-            Iniciar Sesion
+            Crear Tablero
           </Typography>
           <form onSubmit={onSubmit}>
-            {loginErrors.map((error, i) => {
+            {newBoardErrors.map((error, i) => {
               return (
                 <Typography
                   color="error"
@@ -80,7 +101,7 @@ export default function Signin() {
                 margin: 0,
                 fontSize: {xs: "1rem", md: "1.2rem"},
               }}>
-              Username
+              Nombre del tablero
             </Typography>
             <TextField
               fullWidth
@@ -90,11 +111,11 @@ export default function Signin() {
               }}
               type="text"
               fontWeight="bold"
-              {...register("username", {required: true})}
+              {...register("name", {required: true})}
               size="small"
               variant="outlined"
             />
-            {errors.username && (
+            {errors.name && (
               <Typography
                 color="error"
                 variant="body2"
@@ -102,40 +123,7 @@ export default function Signin() {
                 sx={{
                   marginTop: "0.5rem",
                 }}>
-                Username is required
-              </Typography>
-            )}
-
-            <Typography
-              variant="h6"
-              component="label"
-              textAlign="center"
-              sx={{
-                margin: 0,
-                fontSize: {xs: "1rem", md: "1.2rem"},
-              }}>
-              Password
-            </Typography>
-            <TextField
-              fullWidth
-              sx={{
-                display: "block",
-                marginBottom: "1rem",
-              }}
-              type="password"
-              {...register("password", {required: true})}
-              size="small"
-              variant="outlined"
-            />
-            {errors.password && (
-              <Typography
-                color="error"
-                fontWeight="bold"
-                variant="body2"
-                sx={{
-                  marginTop: "0.5rem",
-                }}>
-                Password is required
+                Board name is required
               </Typography>
             )}
             <Button
@@ -151,11 +139,11 @@ export default function Signin() {
                 textTransform: "none",
               }}
               type="submit">
-              Iniciar Sesion
+              Crear tableros
             </Button>
           </form>
           <Typography
-            variant="body2"
+            variant="subtitle1"
             component="p"
             textAlign="center"
             fontWeight="bold"
@@ -163,11 +151,8 @@ export default function Signin() {
               marginTop: "1rem",
               color: "black",
             }}>
-            <Link
-              to="/register"
-              style={{color: "black", textDecoration: "none"}}>
-              ¿No tienes una cuenta?
-              <br /> Registrate.
+            <Link to="/tables" style={{color: "black", textDecoration: "none"}}>
+              ¿Deseas volver?
             </Link>
           </Typography>
         </CardContent>

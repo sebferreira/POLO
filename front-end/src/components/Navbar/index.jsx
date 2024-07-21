@@ -8,15 +8,16 @@ import {
   Button,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import NavDrawer from "./NavDrawer";
+import NavDrawer from "./Drawers/NavDrawer";
 import {useState} from "react";
 import {navLinks, navLinksAuthenticated} from "../../scripts/NavbarLinks";
 import {Link} from "react-router-dom";
 import {useAuth} from "../../context/AuthContext";
+import Profile from "../Menu/profile";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const {isAuthenticated, logout} = useAuth();
+  const {isAuthenticated, user} = useAuth();
 
   return (
     <>
@@ -26,13 +27,14 @@ export default function Navbar() {
             display: "flex",
             justifyContent: "space-between",
             height: "3rem",
+            minHeight: "3.5rem",
           }}>
           <IconButton
             color="inherit"
             size="large"
             onClick={() => setOpen(true)}
             sx={{
-              display: {xs: "flex", sm: "none"},
+              display: {xs: "flex", md: "none"},
             }}>
             <MenuIcon />
           </IconButton>
@@ -49,116 +51,107 @@ export default function Navbar() {
               POLO
             </Link>
           </Typography>
-          <Box
-            sx={{
-              display: {xs: "none", sm: "flex"},
-              gap: "1rem",
+          <div
+            style={{
+              display: "flex",
               height: "100%",
-              alignItems: "center",
             }}>
-            {isAuthenticated &&
-              navLinksAuthenticated.map((item) => {
-                if (item.label === "Cerrar Sesion") {
+            <Box
+              sx={{
+                display: {xs: "none", md: "flex"},
+                gap: "1rem",
+                height: "100%",
+                alignItems: "center",
+              }}>
+              {isAuthenticated &&
+                navLinksAuthenticated.map((item) => {
                   return (
                     <Button
                       key={item.label}
-                      variant="contained"
-                      color="error"
                       style={{
-                        borderRadius: 0,
                         height: "100%",
                         fontSize: "16px",
                         fontWeight: "bold",
                         textTransform: "none",
-                        color: "#FFF",
                       }}
-                      onClick={logout}>
-                      {item.label}
+                      variant="text"
+                      component={Link}
+                      to={item.href}>
+                      <Typography
+                        style={{
+                          color: "white",
+                          fontWeight: "bold",
+                          fontSize: "1.1rem",
+                        }}>
+                        {item.label}
+                      </Typography>
                     </Button>
                   );
-                }
-                return (
-                  <Button
-                    key={item.label}
-                    style={{
-                      height: "100%",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                      textTransform: "none",
-                    }}
-                    variant="text">
-                    <Link
-                      to={item.href}
-                      style={{
-                        color: "#FFF",
-                        textDecoration: "none",
-                        fontWeight: "bold",
-                      }}>
-                      {item.label}
-                    </Link>
-                  </Button>
-                );
-              })}
-            {!isAuthenticated &&
-              navLinks.map((item) => {
-                if (item.label === "Iniciar Sesion") {
+                })}
+              {!isAuthenticated &&
+                navLinks.map((item) => {
+                  if (item.label === "Iniciar Sesion") {
+                    return (
+                      <Button
+                        key={item.label}
+                        variant="text"
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                          textTransform: "none",
+                          paddingInline: "1.2rem",
+                          margin: 0,
+                          height: "100%",
+                        }}
+                        component={Link}
+                        to={item.href}>
+                        <Typography
+                          style={{
+                            color: "#FFF",
+                            fontWeight: "bold",
+                            fontSize: "1.1rem",
+                          }}>
+                          {item.label}
+                        </Typography>
+                      </Button>
+                    );
+                  }
                   return (
                     <Button
                       key={item.label}
-                      variant="text"
                       style={{
+                        backgroundColor: "#FFFF",
+                        borderRadius: 0,
                         fontSize: "16px",
                         fontWeight: "bold",
                         textTransform: "none",
                         paddingInline: "1.2rem",
                         margin: 0,
                         height: "100%",
-                      }}>
-                      <Link
-                        to={item.href}
+                      }}
+                      variant="contained"
+                      component={Link}
+                      to={item.href}>
+                      <Typography
                         style={{
-                          color: "#FFF",
-                          textDecoration: "none",
+                          color: "#1976d2",
                           fontWeight: "bold",
+                          fontSize: "1.1rem",
                         }}>
                         {item.label}
-                      </Link>
+                      </Typography>
                     </Button>
                   );
-                }
-                return (
-                  <Button
-                    key={item.label}
-                    style={{
-                      backgroundColor: "#FFFF",
-                      borderRadius: 0,
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                      textTransform: "none",
-                      paddingInline: "1.2rem",
-                      margin: 0,
-                      height: "100%",
-                    }}
-                    variant="contained">
-                    <Link
-                      to={item.href}
-                      style={{
-                        color: "#3181FA",
-                        textDecoration: "none",
-                        fontWeight: "bold",
-                      }}>
-                      {item.label}
-                    </Link>
-                  </Button>
-                );
-              })}
-          </Box>
+                })}
+            </Box>
+            {user && <Profile user={user} />}
+          </div>
           <Drawer
             open={open}
             anchor="left"
             onClose={() => setOpen(false)}
             sx={{
-              display: {xs: "flex", sm: "none"},
+              display: {xs: "flex", md: "none"},
             }}>
             <NavDrawer />
           </Drawer>

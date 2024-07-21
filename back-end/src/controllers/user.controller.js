@@ -38,16 +38,15 @@ export const loginUser = async (req, res, next) => {
     }
     const {password, ...user} = userFound._previousDataValues;
 
-    const token = jwt.sign(user, process.env.SECRET_KEY, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(user, process.env.SECRET_KEY, {});
     const cookieOption = {
+      expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
       path: "/",
+      secure: false,
     };
     res.cookie("token", token, cookieOption);
-    res.json({token});
+    res.json({token, user});
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
@@ -72,8 +71,6 @@ export const verifyToken = async (req, res) => {
     const userFound = await User.findByPk(user.username);
     if (!userFound) return res.status(401).json(["Unauthorized"]);
 
-    return res.json({
-      userFound,
-    });
+    return res.json(userFound);
   });
 };

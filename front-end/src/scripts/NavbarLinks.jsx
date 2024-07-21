@@ -1,9 +1,10 @@
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
 import HowToRegRoundedIcon from "@mui/icons-material/HowToRegRounded"; /* 
 import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded"; */
-import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 import AutoAwesomeMosaicIcon from "@mui/icons-material/AutoAwesomeMosaic";
-
+import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
+import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 export const navLinks = [
   {
     label: "Iniciar Sesion",
@@ -22,15 +23,28 @@ export const navLinksAuthenticated = [
     href: "/tables",
     icon: <AutoAwesomeMosaicIcon />,
   },
-  {
-    label: "Cerrar Sesion",
-    href: "/logout",
-    icon: <ExitToAppRoundedIcon />,
-  },
   /* 
    {
     label: "Profile",
     href: "/profile",
     icon: <AccountBoxRoundedIcon />,
   },  */
+];
+
+export const BoardLinks = [
+  {
+    label: "Volver",
+    href: "/tables",
+    icon: <ArrowBackIcon />,
+  },
+  {
+    label: "Nuevo Tablero",
+    href: "/boards/new",
+    icon: <AddToPhotosIcon />,
+  },
+  {
+    label: "Agregar Miembros",
+    href: "/:boardId/invites",
+    icon: <GroupAddOutlinedIcon />,
+  },
 ];
