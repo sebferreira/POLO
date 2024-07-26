@@ -95,7 +95,7 @@ export default function Home() {
                 y organizar las secciones y tareas. En las secciones se
                 guardaran las tareas a hacer, las pendientes o las completadas.
                 Luego se encuentran las tareas que nos muestra la información a
-                hacer
+                hacer.
               </Typography>
               {!isAuthenticated && (
                 <Box
