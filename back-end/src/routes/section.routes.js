@@ -23,12 +23,12 @@ routerSection.post(
   createSection
 );
 routerSection.patch(
-  "/:sectionId",
+  "/:sectionId/:boardId",
   revisarCookie,
   validateSchema(sectionSchema),
   updateSection
 );
-routerSection.delete("/:sectionId", revisarCookie, deleteSection);
+routerSection.delete("/:sectionId/:boardId", revisarCookie, deleteSection);
 routerSection.get("/tasks/:sectionId", revisarCookie, getTasksSection);
 
 export default routerSection;

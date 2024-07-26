@@ -1,14 +1,17 @@
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import {Button} from "@mui/material";
-import {getUsersBoard} from "../../queryFn";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import {useState} from "react";
+import {Button, Modal, Typography} from "@mui/material";
+import ModalDelete from "../DeleteModal";
+import {useAuth} from "../../context/AuthContext";
 
-export default function UsersMenu() {
+export default function UsersMenu({users, boardId}) {
+  const {user} = useAuth();
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+  const handleOpenModalDelete = () => setOpenModalDelete(true);
+  const handleCloseModalDelete = () => setOpenModalDelete(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [users, setUsers] = useState([]);
-  const params = useParams();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -16,13 +19,7 @@ export default function UsersMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  useEffect(() => {
-    const getAllUsers = async () => {
-      const data = await getUsersBoard(params.boardId);
-      setUsers(data);
-    };
-    getAllUsers();
-  }, [params.boardId]);
+  const userFound = users.find((a) => a.username === user.username);
 
   return (
     <div>
@@ -52,8 +49,38 @@ export default function UsersMenu() {
         onClose={handleClose}>
         {users &&
           users.map((user) => (
-            <MenuItem key={user.username} onClick={handleClose}>
+            <MenuItem
+              key={user.username}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                fontSize: 16,
+                cursor: "pointer",
+              }}>
               {user.username}
+              {user.role === "owner" && <Typography>. (Owner)</Typography>}
+              {userFound && userFound.role === "owner" && (
+                <Button
+                  onClick={handleOpenModalDelete}
+                  sx={{
+                    color: "inherit",
+                  }}>
+                  <DeleteForeverIcon fontSize="small" color="error" />
+                </Button>
+              )}
+              <Modal
+                open={openModalDelete}
+                onClose={handleCloseModalDelete}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description">
+                <ModalDelete
+                  data={user.username}
+                  type={"users"}
+                  message={"¿Estas seguro de eliminar a este usuario?"}
+                  boardId={boardId}
+                />
+              </Modal>
             </MenuItem>
           ))}
       </Menu>

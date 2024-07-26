@@ -46,7 +46,6 @@ export const AuthProvider = ({children}) => {
     setUser(null);
     setIsAuthenticated(false);
     setIsAuthRegistered(false);
-    console.log("User logged out");
   };
   useEffect(() => {
     if (registerErrors.length > 0) {
@@ -83,7 +82,6 @@ export const AuthProvider = ({children}) => {
     }
     checkLogin();
   }, []);
-  console.log({user});
 
   return (
     <AuthContext.Provider

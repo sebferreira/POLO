@@ -1,18 +1,8 @@
 import {Box, Card, CardContent, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
-import {getAllSectionTasks} from "../../queryFn/index.js";
+import TaskMenu from "../Menu/taskMenu.jsx";
+import {verificarCompletado} from "../../helpers/index.jsx";
 
-export default function TaskCard({section}) {
-  const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
-    const getTasks = async () => {
-      const res = await getAllSectionTasks(section.tasks);
-      console.log(res.tasks);
-      setTasks(res.tasks);
-    };
-    getTasks();
-  }, [section]);
+export default function TaskCard({tasks}) {
   return (
     <>
       {tasks.length > 0 &&
@@ -26,7 +16,7 @@ export default function TaskCard({section}) {
               marginTop: "0.7rem",
               boxSizing: "border-box",
               borderRadius: "5px",
-              padding: "1rem",
+              padding: "0.2rem",
               color: "#fff",
               backgroundColor: "#ffff",
               width: "90%",
@@ -42,13 +32,18 @@ export default function TaskCard({section}) {
                   alignItems: "center",
                   color: "#172b4d",
                 }}>
-                <Typography
-                  sx={{
-                    fontSize: "1.1rem",
-                    fontWeight: 400,
-                  }}>
-                  {task.title}
-                </Typography>
+                <Box>
+                  <Typography
+                    sx={{
+                      fontSize: "1.1rem",
+                      fontWeight: 400,
+                      overflow: "auto",
+                    }}>
+                    {task.title}
+                  </Typography>
+                  {verificarCompletado(task)}
+                </Box>
+                <TaskMenu task={task} />
               </Box>
             </CardContent>
           </Card>

@@ -1,7 +1,8 @@
 import {Box, Button, Modal, TextField, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {createTasks} from "../../queryFn/index.js";
+import {useNavigate, useParams} from "react-router-dom";
+import {createSections} from "../../../queryFn/index.js";
 const style = {
   position: "absolute",
   top: "50%",
@@ -15,7 +16,7 @@ const style = {
   color: "black",
 };
 
-export default function ModalTasksCreate({section}) {
+export default function ModalSections() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -27,15 +28,23 @@ export default function ModalTasksCreate({section}) {
   const [validateErrors, setValidateErrors] = useState([]);
   const [create, setCreate] = useState(false);
 
+  const params = useParams();
+
+  const navigate = useNavigate();
+
   const onSubmit = handleSubmit(async (data) => {
-    const res = await createTasks(data, section.id_section);
-    console.log(res);
-    setValidateErrors([]);
-    setCreate(true);
-    if (res.length > 0) {
-      setValidateErrors(res);
-      setCreate(false);
-      return;
+    if (params.boardId) {
+      const res = await createSections(data, params.boardId);
+      console.log(res);
+      if (res.length > 0) {
+        setValidateErrors(res);
+        setCreate(false);
+        return;
+      }
+      setValidateErrors([]);
+      setCreate(true);
+      console.log("hola");
+      navigate(0);
     }
   });
 
@@ -48,16 +57,19 @@ export default function ModalTasksCreate({section}) {
       return () => clearTimeout(timer);
     }
   }, [validateErrors]);
+
   return (
     <>
       <Button
         variant="contained"
         color="primary"
-        size="medium"
         sx={{
+          marginTop: "2.5rem",
+          marginRight: "2rem",
           backgroundColor: "#fff",
           color: "#3181FA",
-          borderRadius: 12,
+          borderRadius: 2,
+          minWidth: "15rem",
           fontSize: "16px",
           fontWeight: "bold",
           textTransform: "none",
@@ -67,7 +79,7 @@ export default function ModalTasksCreate({section}) {
           },
         }}
         onClick={handleOpen}>
-        Crear tarea
+        + Añade una Sección
       </Button>
       <Modal
         open={open}
@@ -83,7 +95,7 @@ export default function ModalTasksCreate({section}) {
               textAlign: "center",
               marginBottom: "1rem",
             }}>
-            Crear Tareas
+            Crear Sección
           </Typography>
           <form onSubmit={onSubmit}>
             {create && (
@@ -94,7 +106,7 @@ export default function ModalTasksCreate({section}) {
                   color: "#2e7d32",
                   marginTop: "0.5rem",
                 }}>
-                Tarea creada correctamente
+                Seccion creada correctamente
               </Typography>
             )}
             {validateErrors.map((error, i) => {
@@ -119,7 +131,7 @@ export default function ModalTasksCreate({section}) {
                 margin: 0,
                 fontSize: {xs: "1rem", md: "1.2rem"},
               }}>
-              Titulo
+              Titulo de la Sección
             </Typography>
             <TextField
               fullWidth
@@ -141,86 +153,9 @@ export default function ModalTasksCreate({section}) {
                 sx={{
                   marginTop: "0.5rem",
                 }}>
-                Task title is required
+                Section title is required
               </Typography>
             )}
-            <Typography
-              variant="h6"
-              component="label"
-              textAlign="center"
-              sx={{
-                margin: 0,
-                fontSize: {xs: "1rem", md: "1.2rem"},
-              }}>
-              Descripcion
-            </Typography>
-            <TextField
-              fullWidth
-              sx={{
-                display: "block",
-                marginBottom: "1rem",
-              }}
-              type="text"
-              fontWeight="bold"
-              {...register("description", {required: true})}
-              size="small"
-              variant="outlined"
-            />
-            {errors.title && (
-              <Typography
-                color="error"
-                variant="body2"
-                fontWeight="bold"
-                sx={{
-                  marginTop: "0.5rem",
-                }}>
-                Task description is required
-              </Typography>
-            )}
-            <Typography
-              variant="h6"
-              component="label"
-              textAlign="center"
-              sx={{
-                margin: 0,
-                fontSize: {xs: "1rem", md: "1.2rem"},
-              }}>
-              ImageUrl
-            </Typography>
-            <TextField
-              fullWidth
-              sx={{
-                display: "block",
-                marginBottom: "1rem",
-              }}
-              type="text"
-              fontWeight="bold"
-              {...register("image")}
-              size="small"
-              variant="outlined"
-            />
-            <Typography
-              variant="h6"
-              component="label"
-              textAlign="center"
-              sx={{
-                margin: 0,
-                fontSize: {xs: "1rem", md: "1.2rem"},
-              }}>
-              Fecha de expiración
-            </Typography>
-            <TextField
-              fullWidth
-              sx={{
-                display: "block",
-                marginBottom: "1rem",
-              }}
-              type="text"
-              fontWeight="bold"
-              {...register("due_date")}
-              size="small"
-              variant="outlined"
-            />
             <Button
               variant="contained"
               size="medium"

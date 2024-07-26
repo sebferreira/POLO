@@ -9,7 +9,6 @@ import {
   IconButton,
   Tooltip,
   ListItemButton,
-  Typography,
 } from "@mui/material";
 import {useAuth} from "../../context/AuthContext";
 
@@ -38,7 +37,7 @@ export default function Profile() {
           textAlign: "center",
           marginRight: "1rem",
         }}>
-        <Tooltip title="Account settings">
+        <Tooltip title="Tu cuenta">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -49,17 +48,6 @@ export default function Profile() {
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}>
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                textTransform: "none",
-                color: "white",
-                fontSize: "1.1rem",
-                marginRight: "0.5rem",
-                display: {xs: "none", md: "flex"},
-              }}>
-              {name}
-            </Typography>
             <Avatar sx={{width: 32, height: 32}}>{FirsLetter}</Avatar>
           </IconButton>
         </Tooltip>

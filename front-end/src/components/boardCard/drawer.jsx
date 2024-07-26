@@ -13,6 +13,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 
 export default function BoardDrawer({boards}) {
   const dash = <DashboardIcon sx={{color: "white"}} />;
+
   const params = useParams();
   return (
     <>
@@ -63,7 +64,17 @@ export default function BoardDrawer({boards}) {
                       },
                     }}>
                     <ListItemIcon>{dash}</ListItemIcon>
-                    <ListItemText primary={item.name} />
+                    <ListItemText
+                      primary={item.name}
+                      sx={{
+                        "& .MuiTypography-root": {
+                          width: " 10rem",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        },
+                      }}
+                    />
                   </ListItemButton>
                 </ListItem>
               );
@@ -82,6 +93,12 @@ export default function BoardDrawer({boards}) {
                       },
                       "&:active": {
                         backgroundColor: "#1565c0",
+                      },
+                      "& .MuiTypography-root": {
+                        width: " 10rem",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
                       },
                     }}>
                     <ListItemIcon>{dash}</ListItemIcon>

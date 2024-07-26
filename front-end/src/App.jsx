@@ -15,11 +15,13 @@ import ProtectedRoute from "./ProtectedRoute";
 import Boards from "./pages/Boards";
 import InviteUsers from "./pages/InviteUsers";
 //imagenes
-import background from "./assets/fondoHome.jpg";
-import background2 from "./assets/wallpaperbetter1.jpg";
+import background from "./assets/fondoHomeWebp.webp";
+import background2 from "./assets/wallpaperbetter1webp.webp";
 import background3 from "./assets/path_clouds_landscape_237076_1920x1080.jpg";
-import background4 from "./assets/landscape_art_road_127350_1920x1080.jpg";
-
+import background4 from "./assets/8d98wrhcwlp51.webp";
+import linkedin from "./assets/pngwing.com.png";
+import github from "./assets/github-pages-logo-repository-fork-github-86eddab19cbc3ae293ada0fe0fb9e27d.png";
+import {Box, Typography} from "@mui/material";
 export default function App() {
   return (
     <AuthProvider>
@@ -34,7 +36,7 @@ export default function App() {
                   style={{
                     backgroundImage: `url(${background})`,
                     backgroundSize: "cover",
-                    height: "100vh",
+                    height: "100%",
                     width: "100%",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
@@ -53,7 +55,70 @@ export default function App() {
                     padding: "0.5rem",
                     textAlign: "center",
                   }}>
-                  <p>2024 POLO. All rights reserved.</p>
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      marginBottom: "1rem",
+                    }}>
+                    <Typography
+                      component="p"
+                      variant="h5"
+                      sx={{
+                        fontWeight: "bold",
+                        fontSize: {xs: "1rem", md: "1.5rem"},
+                        marginBottom: "2rem",
+                        marginTop: "1rem",
+                      }}>
+                      Contactos
+                    </Typography>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "2rem",
+                      }}>
+                      <a
+                        href="https://www.linkedin.com/in/sebastian-galarza-3a9b48262/"
+                        style={{
+                          color: "#fff",
+                          textDecoration: "none",
+                        }}>
+                        <img
+                          src={linkedin}
+                          alt="linkedin"
+                          style={{
+                            width: "25px",
+                            height: "25px",
+                          }}
+                        />
+                      </a>
+                      <a href="https://github.com/sebferreira">
+                        <img
+                          src={github}
+                          alt="github"
+                          style={{
+                            width: "25px",
+                            height: "25px",
+                          }}
+                        />
+                      </a>
+                    </div>
+                  </Box>
+                  <Box>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        fontSize: {xs: "0.9rem", md: "1.1rem"},
+                      }}
+                      style={{
+                        marginTop: "2rem",
+                        marginBottom: "1rem",
+                      }}>
+                      2024 POLO.
+                    </Typography>
+                  </Box>
                 </footer>
               </>
             }
@@ -116,7 +181,8 @@ export default function App() {
                     style={{
                       backgroundImage: `url(${background4})`,
                       backgroundSize: "cover",
-                      height: "100vh",
+                      minHeight: "100vh",
+                      maxHeight: "100vh",
                       width: "100%",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center",

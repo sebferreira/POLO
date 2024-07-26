@@ -6,13 +6,14 @@ export function useBoard() {
 
   const getAllBoards = async () => {
     const data = await getAllUserBoards();
-    if (data.length > 0) {
-      return console.log(data);
+    if (data.length === 0) {
+      return console.log(data, "hola11");
     }
-    setBoards(data.boards);
+    setBoards(data);
   };
   useEffect(() => {
     getAllBoards();
   }, []);
+  console.log(boards);
   return {boards};
 }

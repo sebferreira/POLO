@@ -1,5 +1,6 @@
 import {DataTypes} from "sequelize";
 import sequelize from "../config/db.js";
+import Sections from "./sections.model.js";
 
 const Board = sequelize.define(
   "Boards",
@@ -13,8 +14,9 @@ const Board = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    sections: {
-      type: DataTypes.STRING,
+    date: {
+      type: DataTypes.DATE,
+      defaultValue: Date.now(),
       allowNull: false,
     },
   },
@@ -22,6 +24,14 @@ const Board = sequelize.define(
     timestamps: true,
   }
 );
+
+Board.hasMany(Sections, {
+  foreignKey: "id_board",
+});
+
+Sections.belongsTo(Board, {
+  foreignKey: "id_board",
+});
 
 Board.sync();
 

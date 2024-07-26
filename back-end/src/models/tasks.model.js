@@ -26,12 +26,13 @@ const Task = sequelize.define(
       type: DataTypes.DATEONLY,
       allowNull: true,
     },
+    completed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
     id_section: {
       type: DataTypes.INTEGER,
-      references: {
-        model: Sections,
-        key: "id_section",
-      },
       allowNull: false,
     },
   },

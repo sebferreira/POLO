@@ -9,6 +9,7 @@ import {
   updateBoard,
   deleteBoard,
   inviteBoard,
+  getBoardContainById,
 } from "../controllers/board.controller.js";
 import {getBoardSections} from "../controllers/section.controller.js";
 
@@ -30,6 +31,6 @@ routerBoard.post(
   validateSchema(inviteBoardSchema),
   inviteBoard
 );
-routerBoard.get("/sections/:boardId", revisarCookie, getBoardSections);
+routerBoard.get("/contains/:boardId", revisarCookie, getBoardContainById);
 
 export default routerBoard;

@@ -1,3 +1,4 @@
+import {setUpdateDateFromBoard} from "../helpers/index.js";
 import Sections from "../models/sections.model.js";
 import Task from "../models/tasks.model.js";
 
@@ -25,11 +26,8 @@ export const createSection = async (req, res) => {
   try {
     const {boardId} = req.params;
     const {title} = req.body;
+    await setUpdateDateFromBoard({boardId});
     const section = await Sections.create({title, id_board: boardId});
-    console.log(section.dataValues.id_section);
-    const tasks = `http://localhost:3000/api/sections/tasks/${section.dataValues.id_section}`;
-    await section.update({tasks});
-
     res.status(201).json(section);
   } catch (error) {
     console.log(error);
@@ -38,8 +36,9 @@ export const createSection = async (req, res) => {
 
 export const updateSection = async (req, res) => {
   try {
-    const {sectionId} = req.params;
+    const {sectionId, boardId} = req.params;
     const {title} = req.body;
+    await setUpdateDateFromBoard({boardId});
     const section = await Sections.findByPk(sectionId);
     if (!section) return res.status(404).json(["Section not found"]);
     await section.update({title});
@@ -51,8 +50,9 @@ export const updateSection = async (req, res) => {
 
 export const deleteSection = async (req, res) => {
   try {
-    const {sectionId} = req.params;
+    const {sectionId, boardId} = req.params;
     const section = await Sections.findByPk(sectionId);
+    await setUpdateDateFromBoard({boardId});
     if (!section) return res.status(404).json(["Section not found"]);
     await section.destroy();
     res.json({message: "Section deleted successfully"});

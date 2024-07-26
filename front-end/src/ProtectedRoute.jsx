@@ -5,7 +5,6 @@ import {CircularProgress} from "@mui/material";
 
 function ProtectedRoute() {
   const {isAuthenticated, loading} = useAuth();
-  console.log(isAuthenticated, loading);
   if (loading) {
     return (
       <Box

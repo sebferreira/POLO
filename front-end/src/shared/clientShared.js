@@ -1,4 +1,5 @@
 const handleCustomApiRequest = async ({url, method, body}) => {
+  console.log(url, method, body);
   const fetching = await fetch(url, {
       method,
       headers: {"Content-Type": "application/json"},
@@ -6,7 +7,6 @@ const handleCustomApiRequest = async ({url, method, body}) => {
       body: body ? JSON.stringify(body) : undefined,
     }),
     petition = await fetching.json();
-
   return petition;
 };
 

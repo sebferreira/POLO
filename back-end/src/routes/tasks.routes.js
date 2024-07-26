@@ -15,17 +15,17 @@ const routerTask = express.Router();
 routerTask.get("/", revisarCookie, getAllTasks);
 routerTask.get("/:taskId", revisarCookie, getTaskById);
 routerTask.post(
-  "/:sectionId",
+  "/:sectionId/:boardId",
   revisarCookie,
   validateSchema(taskSchema),
   createTask
 );
 routerTask.patch(
-  "/:taskId",
+  "/:taskId/:boardId",
   revisarCookie,
   validateSchema(taskSchema),
   updateTask
 );
-routerTask.delete("/:taskId", revisarCookie, deleteTask);
+routerTask.delete("/:taskId/:boardId", revisarCookie, deleteTask);
 
 export default routerTask;

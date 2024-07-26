@@ -1,6 +1,11 @@
-import {Box, Container, Typography} from "@mui/material";
+import {Box, Button, Container, Typography} from "@mui/material";
+import mockup from "./../../assets/mockup.png";
+import {useAuth} from "../../context/AuthContext";
+import {useNavigate} from "react-router-dom";
 
 export default function Home() {
+  const {isAuthenticated} = useAuth();
+  const navigate = useNavigate();
   return (
     <>
       <Container
@@ -9,34 +14,161 @@ export default function Home() {
           display: "flex",
           alignItems: "stretch",
           flexDirection: "row",
+          width: "100%",
         }}>
         <Box
-          sx={{
-            width: {xs: "15rem", sm: "32rem"},
-            marginTop: "5rem",
+          style={{
+            width: "100%",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
           }}>
-          <Typography
-            component="p"
-            variant="h3"
+          <Box
             sx={{
-              fontWeight: "bold",
-              fontSize: {xs: "1.5rem", sm: "3rem"},
-              marginBottom: "2rem",
+              width: {xs: "15rem", sm: "35rem", md: "50rem"},
+              marginTop: {xs: "2rem", sm: "2rem", md: "0"},
             }}>
-            Con Polo puedes organizarte mejor.
-          </Typography>
-          <Typography
-            component="p"
-            variant="h6"
+            <Typography
+              component="p"
+              variant="h3"
+              sx={{
+                fontWeight: "bold",
+                marginBottom: {xs: "1rem", sm: "2rem"},
+              }}
+              fontSize={{xs: "1.5rem", sm: "3rem", lg: "3rem", xl: "4rem"}}
+              color={"#1c1a42"}>
+              Con Polo puedes organizarte mejor.
+            </Typography>
+            <Typography
+              component="p"
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                fontSize: {xs: "0.8rem", sm: "1.1rem", md: "1.5rem"},
+              }}
+              color={"#1c1a42"}>
+              Polo unifica tus tareas, compañeros de equipo y herramientas. Te
+              ayudamos a organizar tus areas laborales para una mayor
+              productividad.
+            </Typography>
+          </Box>
+          <Box
+            className="cajaImg"
             sx={{
-              fontWeight: "bold",
-              fontSize: {xs: "0.8rem", sm: "1.2rem"},
+              width: {xs: "100%"},
+              backgroundColor: "#f8f9fa6b",
+              borderRadius: "1.5rem",
+              display: "flex",
+              flexDirection: {xs: "column", md: "row"},
+              alignItems: "center",
+              backdropFilter: "blur(8px)",
+              marginBottom: "1rem",
+              marginTop: "1rem",
             }}>
-            Polo unifica tus tareas, compañeros de equipo y herramientas.
-            <br />
-            Te ayudamos a organizar tus areas laborales para una mayor
-            productividad.
-          </Typography>
+            <img
+              src={mockup}
+              alt="Home"
+              className="mockup"
+              style={{
+                padding: "1rem",
+              }}
+            />
+            <Box
+              sx={{
+                height: "100%",
+
+                display: "flex",
+                flexDirection: "column",
+              }}>
+              <Typography
+                component="p"
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: {xs: "0.7rem", sm: "1.2rem", md: "1.6rem"},
+                  padding: "1rem",
+                  marginTop: {sx: 0, sm: "1rem"},
+                }}
+                color={"#1c1a42"}>
+                Puedes crear tableros donde se podran invitar miembros, guardar
+                y organizar las secciones y tareas. En las secciones se
+                guardaran las tareas a hacer, las pendientes o las completadas.
+                Luego se encuentran las tareas que nos muestra la información a
+                hacer
+              </Typography>
+              {!isAuthenticated && (
+                <Box
+                  sx={{
+                    margin: "1rem",
+                    display: "flex",
+                    justifyContent: {xs: "center", md: "flex-end"},
+                    flexDirection: {xs: "row", md: "column"},
+                    alignItems: "flex-end",
+                    borderRadius: "1.5rem",
+                    height: "100%",
+                    paddingBottom: "2rem",
+                    width: "calc(100% - 64px)",
+                  }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      width: {xs: "8rem", sm: "10rem"},
+                      fontSize: {xs: "0.6rem", sm: "1.2rem"},
+                      fontWeight: "bold",
+                      textTransform: "none",
+                      borderRadius: "0.7rem",
+                      backgroundColor: "#1c1a42",
+                      "&:hover": {
+                        backgroundColor: "#fff",
+                        color: "#1c1a42",
+                      },
+                    }}
+                    onClick={() => {
+                      navigate("/login");
+                    }}>
+                    Empieza ahora
+                  </Button>
+                </Box>
+              )}
+              {isAuthenticated && (
+                <Box
+                  sx={{
+                    margin: "1rem",
+                    display: "flex",
+                    justifyContent: {xs: "center", md: "flex-end"},
+                    flexDirection: {xs: "row", md: "column"},
+                    alignItems: "flex-end",
+                    borderRadius: "1.5rem",
+                    height: "100%",
+                    paddingBottom: "2rem",
+                    width: "calc(100% - 64px)",
+                  }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      width: {xs: "8rem", sm: "10rem"},
+                      fontSize: {xs: "0.6rem", sm: "1.2rem"},
+                      fontWeight: "bold",
+                      textTransform: "none",
+                      borderRadius: "0.7rem",
+                      backgroundColor: "#1c1a42",
+                      "&:hover": {
+                        backgroundColor: "#fff",
+                        color: "#1c1a42",
+                      },
+                    }}
+                    onClick={() => {
+                      navigate("/tables");
+                    }}>
+                    Crea tus tableros
+                  </Button>
+                </Box>
+              )}
+            </Box>
+          </Box>
         </Box>
       </Container>
     </>

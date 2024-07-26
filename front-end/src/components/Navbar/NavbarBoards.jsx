@@ -10,7 +10,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import {useState} from "react";
 import {BoardLinks} from "../../scripts/NavbarLinks";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import NavDrawerBoards from "./Drawers/DrawerNavbarBoard";
 import {useAuth} from "../../context/AuthContext";
 import Profile from "../Menu/profile";
@@ -18,6 +18,7 @@ import Profile from "../Menu/profile";
 export default function NavbarBoards() {
   const {user} = useAuth();
   const [open, setOpen] = useState(false);
+  const params = useParams();
 
   return (
     <>
@@ -69,7 +70,34 @@ export default function NavbarBoards() {
               }}>
               {BoardLinks.map((item) => {
                 if (item.label === "Volver") {
-                  return;
+                  if (params.boardId) {
+                    return (
+                      <Button
+                        key={item.label}
+                        sx={{
+                          height: "100%",
+                          width: "5rem",
+                          fontWeight: "bold",
+                          textTransform: "none",
+                          backgroundColor: "#1976d2",
+                          color: "#fff",
+                          paddingX: "3rem",
+                        }}
+                        variant="text"
+                        component={Link}
+                        to={item.href}>
+                        <Typography
+                          style={{
+                            fontWeight: "bold",
+                            fontSize: "1.1rem",
+                          }}>
+                          {item.label}
+                        </Typography>
+                      </Button>
+                    );
+                  } else {
+                    return;
+                  }
                 } else if (item.label === "Agregar Miembros") {
                   return;
                 }

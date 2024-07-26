@@ -3,13 +3,11 @@ import BoardDrawer from "../../components/boardCard/drawer";
 import BarBoards from "../../components/Navbar/BarBoards";
 import {useBoard} from "../../hooks/useBoard";
 import SectionCard from "../../components/sectionCard";
-import ModalSections from "../../components/sectionModal";
-import {useEffect} from "react";
+import ModalSections from "../../components/sectionModals/sectionModal";
 
 export default function Boards() {
   const {boards} = useBoard();
-  useEffect(() => {}, [boards]);
-
+  console.log(boards);
   return (
     <>
       <nav>
@@ -17,23 +15,20 @@ export default function Boards() {
       </nav>
       <Box
         sx={{
+          marginLeft: {xs: "0", lg: "16rem"},
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          overflowX: "auto",
+          scrollbarColor: "#262626 transparent",
+          scrollbarWidth: "thin",
+          scrollbarGutter: "stable",
+        }}
+        style={{
+          height: "calc(100vh - 112px)",
         }}>
-        <Box
-          sx={{
-            marginLeft: {xs: "0", lg: "16rem"},
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            overflowX: "auto",
-            scrollbarColor: "#262626 transparent",
-            scrollbarWidth: "thin",
-            scrollbarGutter: "stable",
-          }}>
-          <SectionCard boards={boards} />
-          <ModalSections />
-        </Box>
+        <SectionCard boards={boards} />
+        <ModalSections />
       </Box>
 
       <Drawer
@@ -50,7 +45,7 @@ export default function Boards() {
             backgroundColor: "transparent",
             color: "white",
             borderRight: 0,
-            width: "25rem",
+            width: 260,
             marginTop: "3.5rem",
             overflowY: "auto",
             top: 0,

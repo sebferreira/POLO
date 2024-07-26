@@ -22,13 +22,13 @@ export default function NewBoard() {
   const [newBoardErrors, setNewBoardErrors] = useState([]);
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
     const response = await createBoards(data);
-    setBoardId(response.newBoard.id_board);
-    setNewBoardErrors([]);
-    if (response.length > 0) {
+    if (response.length >= 0) {
       setNewBoardErrors(response);
     }
+    console.log(response);
+    setBoardId(response.newBoard.id_board);
+    setNewBoardErrors([]);
   });
   useEffect(() => {
     if (newBoardErrors.length > 0) {
@@ -73,7 +73,7 @@ export default function NewBoard() {
             textAlign="center"
             fontWeight="bold"
             sx={{
-              marginBottom: {xs: 2, md: 5},
+              marginBottom: 2,
               fontSize: {xs: "1.1rem", md: "1.5rem"},
             }}>
             Crear Tablero

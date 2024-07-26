@@ -1,6 +1,7 @@
 import {DataTypes} from "sequelize";
 import sequelize from "../config/db.js";
 import Board from "./boards.model.js";
+import Task from "./tasks.model.js";
 
 const Sections = sequelize.define(
   "Sections",
@@ -15,16 +16,9 @@ const Sections = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    tasks: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
+
     id_board: {
       type: DataTypes.STRING,
-      references: {
-        model: Board,
-        key: "id_board",
-      },
       allowNull: false,
     },
   },
@@ -33,6 +27,8 @@ const Sections = sequelize.define(
   }
 );
 
+Sections.hasMany(Task, {foreignKey: "id_section"});
+Task.belongsTo(Sections, {foreignKey: "id_section"});
 Sections.sync();
 
 export default Sections;

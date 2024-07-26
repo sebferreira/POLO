@@ -6,26 +6,21 @@ import {DataTypes} from "sequelize";
 const Users_Boards = sequelize.define("users_boards", {
   username: {
     type: DataTypes.STRING,
-    references: {
-      model: User,
-      key: "username",
-    },
   },
   role: {
     type: DataTypes.STRING,
-    defaultValue: "user",
+    defaultValue: "owner",
   },
   boardId: {
     type: DataTypes.STRING,
-    references: {
-      model: Board,
-      key: "id_board",
-    },
   },
 });
 
-User.belongsToMany(Board, {through: "users_boards", foreignKey: "username"});
-Board.belongsToMany(User, {through: "users_boards", foreignKey: "boardId"});
+User.belongsToMany(Board, {through: Users_Boards, foreignKey: "username"});
+Board.belongsToMany(User, {through: Users_Boards, foreignKey: "boardId"});
+
+Users_Boards.belongsTo(User, {targetKey: "username", foreignKey: "username"});
+Users_Boards.belongsTo(Board, {targetKey: "id_board", foreignKey: "boardId"});
 
 Users_Boards.sync();
 

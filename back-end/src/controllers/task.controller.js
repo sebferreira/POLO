@@ -1,16 +1,6 @@
+import {setUpdateDateFromBoard} from "../helpers/index.js";
+import Board from "../models/boards.model.js";
 import Task from "../models/tasks.model.js";
-const isValidURL = (urlString) => {
-  let patronURL = new RegExp(
-    "^(https?:\\/\\/)?" +
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
-      "((\\d{1,3}\\.){3}\\d{1,3}))" +
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +
-      "(\\?[;&a-z\\d%_.~+=-]*)?" +
-      "(\\#[-a-z\\d_]*)?$",
-    "i"
-  );
-  return !!patronURL.test(urlString);
-};
 
 export const getAllTasks = async (req, res) => {
   try {
@@ -39,30 +29,16 @@ export const getTaskById = async (req, res) => {
 
 export const createTask = async (req, res) => {
   try {
-    const {sectionId} = req.params;
-    const {title, description, image, dueDate} = req.body;
-    if (image) {
-      if (!isValidURL(image)) {
-        return res.status(400).json(["Invalid image URL"]);
-      }
-      const task = await Task.create({
-        title,
-        description,
-        image,
-        due_date: dueDate,
-        id_section: sectionId,
-      });
-      res.status(201).json(task);
-    } else {
-      const task = await Task.create({
-        title,
-        description,
-        image,
-        due_date: dueDate,
-        id_section: sectionId,
-      });
-      res.status(201).json(task);
-    }
+    const {sectionId, boardId} = req.params;
+    const {title, description, due_date} = req.body;
+    await setUpdateDateFromBoard({boardId});
+    const task = await Task.create({
+      title,
+      description,
+      due_date,
+      id_section: sectionId,
+    });
+    res.status(201).json(task);
   } catch (error) {
     console.error(error);
     res.status(500).json(["Server error"]);
@@ -71,8 +47,9 @@ export const createTask = async (req, res) => {
 
 export const updateTask = async (req, res) => {
   try {
-    const {taskId} = req.params;
-    const {title, description, image, dueDate} = req.body;
+    const {taskId, boardId} = req.params;
+    const {title, description, image, completed, due_date} = req.body;
+    await setUpdateDateFromBoard({boardId});
     const task = await Task.findByPk(taskId);
     if (!task) {
       return res.status(404).json(["Task not found"]);
@@ -81,7 +58,8 @@ export const updateTask = async (req, res) => {
       title,
       description,
       image,
-      dueDate,
+      completed,
+      due_date,
     });
     res.json(task);
   } catch (error) {
@@ -92,7 +70,8 @@ export const updateTask = async (req, res) => {
 
 export const deleteTask = async (req, res) => {
   try {
-    const {taskId} = req.params;
+    const {taskId, boardId} = req.params;
+    await setUpdateDateFromBoard({boardId});
     const task = await Task.findByPk(taskId);
     if (!task) {
       return res.status(404).json(["Task not found"]);
