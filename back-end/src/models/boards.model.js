@@ -1,6 +1,5 @@
 import {DataTypes} from "sequelize";
 import sequelize from "../config/db.js";
-import Sections from "./sections.model.js";
 
 const Board = sequelize.define(
   "Boards",
@@ -24,15 +23,5 @@ const Board = sequelize.define(
     timestamps: true,
   }
 );
-
-Board.hasMany(Sections, {
-  foreignKey: "id_board",
-});
-
-Sections.belongsTo(Board, {
-  foreignKey: "id_board",
-});
-
-Board.sync();
 
 export default Board;

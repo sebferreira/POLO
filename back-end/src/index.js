@@ -20,10 +20,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
 
-app.use("/api", router);
-app.use("/api/users", routerUserBoard);
 app.use("/api/boards", routerBoard);
 app.use("/api/sections", routerSection);
+app.use("/api", router);
+app.use("/api/users", routerUserBoard);
 app.use("/api/tasks", routerTask);
 
 //para que devuelva el error si es que hay alguno

@@ -31,15 +31,14 @@ const Task = sequelize.define(
       defaultValue: false,
       allowNull: false,
     },
-    id_section: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   },
   {
     timestamps: true,
   }
 );
+
+Task.belongsTo(Sections, {foreignKey: "id_section"});
+Sections.hasMany(Task, {foreignKey: "id_section"});
 
 Task.sync();
 

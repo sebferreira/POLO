@@ -35,7 +35,6 @@ export default function ModalSections() {
   const onSubmit = handleSubmit(async (data) => {
     if (params.boardId) {
       const res = await createSections(data, params.boardId);
-      console.log(res);
       if (res.length > 0) {
         setValidateErrors(res);
         setCreate(false);
@@ -43,7 +42,6 @@ export default function ModalSections() {
       }
       setValidateErrors([]);
       setCreate(true);
-      console.log("hola");
       navigate(0);
     }
   });

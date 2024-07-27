@@ -44,9 +44,14 @@ export default function ModalDelete({data, type, message, boardId}) {
       break;
     case "users":
       handleDelete = async () => {
-        console.log(data);
         await DeleteUserfromBoard(data, boardId);
         navigate(0);
+      };
+      break;
+    case "leave":
+      handleDelete = async () => {
+        await DeleteUserfromBoard(data, boardId);
+        navigate("/tables");
       };
       break;
   }

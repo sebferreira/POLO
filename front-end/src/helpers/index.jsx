@@ -17,7 +17,7 @@ export const verificarCompletado = (task) => {
     return (
       <Typography
         variant="body1"
-        component="body1"
+        component="h4"
         sx={{
           fontSize: "12px",
           color: "green",
@@ -37,7 +37,7 @@ const validarFecha = (task) => {
       return (
         <Typography
           variant="body1"
-          component="body1"
+          component="h4"
           sx={{
             fontSize: "12px",
             color: "red",

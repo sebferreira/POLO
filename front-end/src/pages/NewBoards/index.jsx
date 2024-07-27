@@ -26,7 +26,6 @@ export default function NewBoard() {
     if (response.length >= 0) {
       setNewBoardErrors(response);
     }
-    console.log(response);
     setBoardId(response.newBoard.id_board);
     setNewBoardErrors([]);
   });

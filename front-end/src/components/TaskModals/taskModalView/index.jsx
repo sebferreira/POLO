@@ -53,7 +53,6 @@ export default function ModalTaskView({task}) {
       completed,
     };
     const res = await UpdateTask(task.id_task, body, params.boardId);
-    console.log(res);
     setValidateErrors([]);
     if (res.length > 0) {
       setValidateErrors(res);

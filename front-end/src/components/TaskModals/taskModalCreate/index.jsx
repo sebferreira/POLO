@@ -40,9 +40,7 @@ export default function ModalTasksCreate({section}) {
       description: data.description,
       due_date: data.due_date ? dayjs(data.due_date).utc().format() : null,
     };
-    console.log(body);
     const res = await createTasks(body, section.id_section, params.boardId);
-    console.log(res);
     if (res.length > 0) {
       setValidateErrors(res);
       setCreate(false);

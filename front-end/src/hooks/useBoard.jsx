@@ -14,6 +14,5 @@ export function useBoard() {
   useEffect(() => {
     getAllBoards();
   }, []);
-  console.log(boards);
   return {boards};
 }

@@ -184,6 +184,7 @@ export default function BarBoards({boards}) {
                 </Typography>
               </Button>
             )}
+
             <UsersMenu users={users} boardId={params.boardId} />
           </div>
         </Toolbar>

@@ -7,7 +7,6 @@ import ModalSections from "../../components/sectionModals/sectionModal";
 
 export default function Boards() {
   const {boards} = useBoard();
-  console.log(boards);
   return (
     <>
       <nav>

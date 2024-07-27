@@ -1,16 +1,20 @@
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import {useState} from "react";
 import {Button, Modal, Typography} from "@mui/material";
 import ModalDelete from "../DeleteModal";
 import {useAuth} from "../../context/AuthContext";
+import BorrarUser from ".";
 
 export default function UsersMenu({users, boardId}) {
-  const {user} = useAuth();
-  const [openModalDelete, setOpenModalDelete] = useState(false);
-  const handleOpenModalDelete = () => setOpenModalDelete(true);
-  const handleCloseModalDelete = () => setOpenModalDelete(false);
+  const {user: usuario} = useAuth();
+
+  const [openModalLeave, setOpenModalLeave] = useState(false);
+
+  const handleOpenModalLeave = () => setOpenModalLeave(true);
+  const handleCloseModalLeave = () => setOpenModalLeave(false);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -19,7 +23,7 @@ export default function UsersMenu({users, boardId}) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const userFound = users.find((a) => a.username === user.username);
+  const userFound = users.find((a) => a.username === usuario.username);
 
   return (
     <div>
@@ -58,29 +62,43 @@ export default function UsersMenu({users, boardId}) {
                 fontSize: 16,
                 cursor: "pointer",
               }}>
-              {user.username}
-              {user.role === "owner" && <Typography>. (Owner)</Typography>}
-              {userFound && userFound.role === "owner" && (
-                <Button
-                  onClick={handleOpenModalDelete}
-                  sx={{
-                    color: "inherit",
-                  }}>
-                  <DeleteForeverIcon fontSize="small" color="error" />
-                </Button>
+              <div
+                style={{
+                  display: "flex",
+                }}>
+                {user.username}
+                {user.role === "owner" && <Typography> (Owner)</Typography>}
+              </div>
+              {userFound &&
+                userFound.role === "owner" &&
+                userFound.username != user.username && (
+                  <>
+                    <BorrarUser user={user} boardId={boardId} />
+                  </>
+                )}
+              {userFound && userFound.username === user.username && (
+                <>
+                  <Button
+                    onClick={handleOpenModalLeave}
+                    sx={{
+                      color: "inherit",
+                    }}>
+                    <PersonRemoveIcon fontSize="small" color="error" />
+                  </Button>
+                  <Modal
+                    open={openModalLeave}
+                    onClose={handleCloseModalLeave}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description">
+                    <ModalDelete
+                      data={user.username}
+                      type={"leave"}
+                      message={"¿Estas seguro de salir?"}
+                      boardId={boardId}
+                    />
+                  </Modal>
+                </>
               )}
-              <Modal
-                open={openModalDelete}
-                onClose={handleCloseModalDelete}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description">
-                <ModalDelete
-                  data={user.username}
-                  type={"users"}
-                  message={"¿Estas seguro de eliminar a este usuario?"}
-                  boardId={boardId}
-                />
-              </Modal>
             </MenuItem>
           ))}
       </Menu>
