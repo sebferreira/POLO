@@ -17,5 +17,10 @@ router.post("/login", validateSchema(loginSchema), loginUser);
 router.post("/logout", logoutUser);
 router.get("/verify", verifyToken);
 router.get("/profile", revisarCookie, profileUser);
+router.get("/", (req, res) =>
+  res.json({
+    message: "Hi",
+  })
+);
 
 export default router;

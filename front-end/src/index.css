@@ -55,7 +55,7 @@ code {
 }
 @media (700px < height <= 1000px) {
   .mockup {
-    height: 350px !important;
+    height: 300px !important;
   }
 }
 @media (width>=1200px) {

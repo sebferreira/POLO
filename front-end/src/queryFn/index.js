@@ -1,6 +1,6 @@
 import {handleCustomApiRequest} from "./../shared/clientShared.js";
 
-const URL = "http://localhost:3000/api";
+const URL = "https://poloweb-api.vercel.app/api";
 
 function verifyCookies() {
   return handleCustomApiRequest({
