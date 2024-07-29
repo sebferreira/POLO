@@ -1,6 +1,8 @@
 import {Box, Button, Checkbox, TextField, Typography} from "@mui/material";
 import ViewComfyAltIcon from "@mui/icons-material/ViewComfyAlt";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
+import CheckIcon from "@mui/icons-material/Check";
+import EventIcon from "@mui/icons-material/Event";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {UpdateTask} from "../../../queryFn";
@@ -199,7 +201,7 @@ export default function ModalTaskView({task}) {
 
               marginBottom: "1rem",
             }}>
-            <FormatAlignLeftIcon />
+            <EventIcon />
             <Typography
               id="modal-modal-title"
               variant="h6"
@@ -208,7 +210,7 @@ export default function ModalTaskView({task}) {
                 textAlign: "left",
                 marginLeft: "1rem",
               }}>
-              Descripcion
+              Fecha de expiracion
             </Typography>
           </div>
           <TextField
@@ -228,7 +230,7 @@ export default function ModalTaskView({task}) {
               marginTop: "1rem",
               marginBottom: "1rem",
             }}>
-            <FormatAlignLeftIcon />
+            <CheckIcon />
             <Typography
               id="modal-modal-title"
               variant="h6"
