@@ -8,7 +8,7 @@ import routerSection from "./routes/section.routes.js";
 import routerTask from "./routes/tasks.routes.js";
 import routerUserBoard from "./routes/users_boards.routes.js";
 const app = express();
-
+ 
 app.use(
   cors({
     credentials: true,
