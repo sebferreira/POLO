@@ -41,13 +41,13 @@ export const loginUser = async (req, res, next) => {
     const token = jwt.sign(user, process.env.SECRET_KEY, {});
     const cookieOption = {
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-      path: "/",
       secure: true,
       sameSite: "none",
+      domain:process.env.DOMAIN,
       maxAge: Date.now() + 1000 * 60 * 30,
     };
-    res.cookie("token", token, cookieOption);
-    res.json(user);
+    res.cookie("token-back", token, cookieOption);
+    res.json({user, token});
   } catch (error) {
     next(error);
   }
@@ -65,7 +65,7 @@ export const profileUser = (req, res) => {
 };
 
 export const verifyToken = async (req, res) => {
-  const {token} = req.cookies;
+  const token = req.headers.authorization.split(" ")[1];
   if (!token) return res.status(401).json(["Unauthorized"]);
   jwt.verify(token, process.env.SECRET_KEY, async (err, user) => {
     if (err) return res.status(401).json(["Unauthorized"]);
