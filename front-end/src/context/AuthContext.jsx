@@ -1,18 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-import {createContext, useContext, useEffect, useState} from "react";
-import {signIn, signUp, verifyCookies} from "./../queryFn";
-import Cookies from "js-cookie";
-
-export const AuthContext = createContext();
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
-
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [isAuthRegistered, setIsAuthRegistered] = useState(false);
@@ -36,13 +21,17 @@ export const AuthProvider = ({children}) => {
     if (data.length > 0) {
       return setLoginErrors(data);
     }
-    setUser(data);
+    setUser(data.user);
+    
+    Cookies.set("token", data.token)
     setIsAuthenticated(true);
     setLoginErrors([]);
   };
 
   const logout = () => {
+    console.log("A")
     Cookies.remove("token");
+    userLogout();
     setUser(null);
     setIsAuthenticated(false);
     setIsAuthRegistered(false);
