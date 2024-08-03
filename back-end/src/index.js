@@ -12,7 +12,8 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:5173",
+     origin: "https://poloweb.vercel.app",
+     methods: "GET,OPTIONS,PUT,PATCH,POST,DELETE",
   })
 );
 app.use(morgan("dev"));
