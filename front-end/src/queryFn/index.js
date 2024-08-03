@@ -1,7 +1,7 @@
 import {handleCustomApiRequest} from "./../shared/clientShared.js";
 
 const URL = "https://poloweb-api.vercel.app/api";
-
+ 
 function verifyCookies() {
   return handleCustomApiRequest({
     url: `${URL}/verify`,
