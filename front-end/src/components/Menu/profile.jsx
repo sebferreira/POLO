@@ -17,6 +17,9 @@ export default function Profile() {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const handleLogout = (event) => {
+    logout();
+  };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -26,6 +29,7 @@ export default function Profile() {
   const FirsLetter = user.username
     ? user.username[0].toUpperCase()
     : user.user.username[0].toUpperCase();
+  console.log(user)
   const name = user.username ? user.username : user.user.username;
 
   return (
@@ -69,7 +73,7 @@ export default function Profile() {
             sx={{
               padding: 0,
             }}
-            onClick={logout}>
+            onClick={handleLogout}>
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>
