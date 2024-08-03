@@ -1,11 +1,12 @@
 import {handleCustomApiRequest} from "./../shared/clientShared.js";
 
-const URL = "http://localhost:3000/api";
+const URL = "https://poloweb-api.vercel.app/api";
 
 function verifyCookies() {
   return handleCustomApiRequest({
     url: `${URL}/verify`,
     method: "GET",
+    withToken: true,
   });
 }
 
@@ -23,10 +24,18 @@ function signUp(body) {
     body,
   });
 }
+function userLogout() {
+  return handleCustomApiRequest({
+    url: `${URL}/logout`,
+    method: "POST",
+    withToken: true,
+  });
+}
 function getAllUserBoards() {
   return handleCustomApiRequest({
     url: `${URL}/users/boards`,
     method: "GET",
+    withToken: true,
   });
 }
 function createBoards(body) {
@@ -34,6 +43,7 @@ function createBoards(body) {
     url: `${URL}/boards/`,
     method: "POST",
     body,
+    withToken: true,
   });
 }
 function inviteUsers(body, boardId) {
@@ -41,12 +51,14 @@ function inviteUsers(body, boardId) {
     url: `${URL}/boards/${boardId}/inviteBoard`,
     method: "POST",
     body,
+    withToken: true,
   });
 }
 function getUsersBoard(boardId) {
   return handleCustomApiRequest({
     url: `${URL}/users/board/${boardId}`,
     method: "GET",
+    withToken: true,
   });
 }
 function createSections(body, boardId) {
@@ -54,6 +66,7 @@ function createSections(body, boardId) {
     url: `${URL}/sections/${boardId}/`,
     method: "POST",
     body,
+    withToken: true,
   });
 }
 
@@ -62,12 +75,14 @@ function createTasks(body, sectionId, boardId) {
     url: `${URL}/tasks/${sectionId}/${boardId}`,
     method: "POST",
     body,
+    withToken: true,
   });
 }
 function DeleteTask(taskId, boardId) {
   return handleCustomApiRequest({
     url: `${URL}/tasks/${taskId}/${boardId}`,
     method: "DELETE",
+    withToken: true,
   });
 }
 function UpdateTask(taskId, body, boardId) {
@@ -75,6 +90,7 @@ function UpdateTask(taskId, body, boardId) {
     url: `${URL}/tasks/${taskId}/${boardId}`,
     method: "PATCH",
     body,
+    withToken: true,
   });
 }
 function UpdateSection(sectionId, body, boardId) {
@@ -82,12 +98,14 @@ function UpdateSection(sectionId, body, boardId) {
     url: `${URL}/sections/${sectionId}/${boardId}`,
     method: "PATCH",
     body,
+    withToken: true,
   });
 }
 function DeleteSections(sectionId, boardId) {
   return handleCustomApiRequest({
     url: `${URL}/sections/${sectionId}/${boardId}`,
     method: "DELETE",
+    withToken: true,
   });
 }
 function UpdateBoard(boardId, body) {
@@ -95,18 +113,21 @@ function UpdateBoard(boardId, body) {
     url: `${URL}/boards/${boardId}`,
     method: "PATCH",
     body,
+    withToken: true,
   });
 }
 function DeleteBoard(boardId) {
   return handleCustomApiRequest({
     url: `${URL}/boards/${boardId}`,
     method: "DELETE",
+    withToken: true,
   });
 }
 function DeleteUserfromBoard(username, boardId) {
   return handleCustomApiRequest({
     url: `${URL}/users/${username}/${boardId}`,
     method: "DELETE",
+    withToken: true,
   });
 }
 
@@ -114,6 +135,7 @@ function getAllContentBoard(boardId) {
   return handleCustomApiRequest({
     url: `${URL}/boards/contains/${boardId}`,
     method: "GET",
+    withToken: true,
   });
 }
 
@@ -121,6 +143,7 @@ export {
   verifyCookies,
   signIn,
   signUp,
+  userLogout,
   inviteUsers,
   getAllUserBoards,
   getAllContentBoard,
