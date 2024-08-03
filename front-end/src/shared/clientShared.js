@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-
+ 
 const handleCustomApiRequest = async ({url, method, body, withToken}) => {
   const cookie = Cookies.get();
   let headers = {
