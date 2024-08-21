@@ -1,3 +1,17 @@
+import {createContext, useContext, useEffect, useState} from "react";
+import {signIn, signUp,userLogout, verifyCookies} from "./../queryFn";
+import Cookies from "js-cookie";
+
+export const AuthContext = createContext();
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
+
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [isAuthRegistered, setIsAuthRegistered] = useState(false);
