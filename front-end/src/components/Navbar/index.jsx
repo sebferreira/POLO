@@ -5,7 +5,6 @@ import {
   Toolbar,
   Typography,
   Box,
-  Button,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import NavDrawer from "./Drawers/NavDrawer";
@@ -14,6 +13,7 @@ import {navLinks, navLinksAuthenticated} from "../../scripts/NavbarLinks";
 import {Link} from "react-router-dom";
 import {useAuth} from "../../context/AuthContext";
 import Profile from "../Menu/profile";
+import {ButtonsNavbar} from "./Drawers/ButtonsDrawers";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -21,12 +21,19 @@ export default function Navbar() {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: "#00000024",
+          boxShadow: "0",
+          backdropFilter: "blur(2px)",
+        }}>
         <Toolbar
           style={{
             display: "flex",
             justifyContent: "space-between",
             height: "3rem",
+
             minHeight: "3.5rem",
           }}>
           <IconButton
@@ -65,83 +72,14 @@ export default function Navbar() {
               }}>
               {isAuthenticated &&
                 navLinksAuthenticated.map((item) => {
-                  return (
-                    <Button
-                      key={item.label}
-                      style={{
-                        height: "100%",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                        textTransform: "none",
-                      }}
-                      variant="text"
-                      component={Link}
-                      to={item.href}>
-                      <Typography
-                        style={{
-                          color: "white",
-                          fontWeight: "bold",
-                          fontSize: "1.1rem",
-                        }}>
-                        {item.label}
-                      </Typography>
-                    </Button>
-                  );
+                  return ButtonsNavbar(item, "#FFF", "transparent");
                 })}
               {!isAuthenticated &&
                 navLinks.map((item) => {
                   if (item.label === "Iniciar Sesion") {
-                    return (
-                      <Button
-                        key={item.label}
-                        variant="text"
-                        style={{
-                          fontSize: "16px",
-                          fontWeight: "bold",
-                          textTransform: "none",
-                          paddingInline: "1.2rem",
-                          margin: 0,
-                          height: "100%",
-                        }}
-                        component={Link}
-                        to={item.href}>
-                        <Typography
-                          style={{
-                            color: "#FFF",
-                            fontWeight: "bold",
-                            fontSize: "1.1rem",
-                          }}>
-                          {item.label}
-                        </Typography>
-                      </Button>
-                    );
+                    return ButtonsNavbar(item, "#FFF", "transparent");
                   }
-                  return (
-                    <Button
-                      key={item.label}
-                      style={{
-                        backgroundColor: "#FFFF",
-                        borderRadius: 0,
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                        textTransform: "none",
-                        paddingInline: "1.2rem",
-                        margin: 0,
-                        height: "100%",
-                      }}
-                      variant="contained"
-                      component={Link}
-                      to={item.href}>
-                      <Typography
-                        style={{
-                          color: "#1976d2",
-                          fontWeight: "bold",
-                          fontSize: "1.1rem",
-                        }}>
-                        {item.label}
-                      </Typography>
-                    </Button>
-                  );
+                  return ButtonsNavbar(item, "#1c1a42", "#FFF");
                 })}
             </Box>
             {user && <Profile user={user} />}

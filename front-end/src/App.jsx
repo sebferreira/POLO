@@ -31,7 +31,6 @@ export default function App() {
             path="/"
             element={
               <>
-                <Navbar />
                 <main
                   style={{
                     backgroundImage: `url(${background})`,
@@ -43,6 +42,7 @@ export default function App() {
                     backgroundAttachment: "fixed",
                     overflowY: "hidden",
                   }}>
+                  <Navbar />
                   <Home />
                 </main>
                 <footer
