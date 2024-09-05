@@ -1,7 +1,7 @@
-import express from "express";
-import {boardSchema, inviteBoardSchema} from "../schemas/boards.schema.js";
-import validateSchema from "../middlewares/validaciones.middleware.js";
-import {revisarCookie} from "../middlewares/authorization.middleware.js";
+import express from "express";  // Importa el framework Express
+import { revisarCookie } from "../middlewares/authorization.middleware.js"; // Importa middleware para revisar cookies
+import validateSchema from "../middlewares/validaciones.middleware.js"; // Importa middleware para validar esquemas
+import { boardSchema, inviteBoardSchema } from "../schemas/board.schema.js"; // Importa los esquemas de validación
 import {
   getBoards,
   getBoardById,
@@ -10,11 +10,12 @@ import {
   deleteBoard,
   inviteBoard,
   getBoardContainById,
-} from "../controllers/board.controller.js";
-import {getBoardSections} from "../controllers/section.controller.js";
+} from "../controllers/board.controller.js";// Importa controladores de board
+import {getBoardSections} from "../controllers/section.controller.js";// Importa controlador de secciones
 
-const routerBoard = express.Router();
+const routerBoard = express.Router();// Crea un enrutador para rutas de board
 
+//define las rutas para board
 routerBoard.get("/", revisarCookie, getBoards);
 routerBoard.get("/:boardId", revisarCookie, getBoardById);
 routerBoard.post("/", revisarCookie, validateSchema(boardSchema), createBoard);
@@ -33,4 +34,4 @@ routerBoard.post(
 );
 routerBoard.get("/contains/:boardId", revisarCookie, getBoardContainById);
 
-export default routerBoard;
+export default routerBoard; // Exporta el enrutador para que pueda ser utilizado en la aplicación principal

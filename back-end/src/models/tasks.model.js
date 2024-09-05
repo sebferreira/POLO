@@ -1,7 +1,9 @@
-import {DataTypes} from "sequelize";
-import sequelize from "../config/db.js";
-import Sections from "./sections.model.js";
 
+import { DataTypes } from "sequelize"; // Importa tipos de datos de Sequelize
+import sequelize from "../config/db.js"; // Importa la instancia de conexión a la base de datos
+import Sections from "./sections.model.js"; // Importa el modelo Sections
+
+// Define el modelo Task
 const Task = sequelize.define(
   "Tasks",
   {
@@ -37,9 +39,13 @@ const Task = sequelize.define(
   }
 );
 
-Task.belongsTo(Sections, {foreignKey: "id_section"});
-Sections.hasMany(Task, {foreignKey: "id_section"});
+// Establece la relación: una Task pertenece a una Section
+Task.belongsTo(Sections, { foreignKey: "id_section" });
 
+// Establece la relación: una Section tiene muchas Tasks
+Sections.hasMany(Task, { foreignKey: "id_section" });
+
+// Sincroniza el modelo con la base de datos (crea la tabla si no existe)
 Task.sync();
 
-export default Task;
+export default Task; // Exporta el modelo Task

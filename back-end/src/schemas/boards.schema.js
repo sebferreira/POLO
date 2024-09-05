@@ -1,5 +1,6 @@
-import {z} from "zod";
+import {z} from "zod";// Importa Zod para validación de esquemas
 
+// Esquema de validación para el nombre de un board
 export const boardSchema = z.object({
   name: z
     .string({
@@ -13,6 +14,7 @@ export const boardSchema = z.object({
     }),
 });
 
+// Esquema de validación para invitar a un usuario al board
 export const inviteBoardSchema = z.object({
   username: z
     .string({

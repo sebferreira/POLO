@@ -1,5 +1,6 @@
-import {z} from "zod";
+import {z} from "zod";// Importa Zod para la validación de esquemas
 
+// Esquema de validación para el título de una sección
 export const sectionSchema = z.object({
   title: z
     .string({

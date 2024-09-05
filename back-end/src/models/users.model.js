@@ -1,6 +1,7 @@
-import {DataTypes} from "sequelize";
-import sequelize from "../config/db.js";
+import { DataTypes } from "sequelize"; // Importa tipos de datos de Sequelize
+import sequelize from "../config/db.js"; // Importa la instancia de conexión a la base de datos
 
+// Define el modelo User
 const User = sequelize.define(
   "Users",
   {
@@ -28,6 +29,7 @@ const User = sequelize.define(
   }
 );
 
+// Sincroniza el modelo con la base de datos (crea la tabla si no existe)
 User.sync();
 
-export default User;
+export default User; // Exporta el modelo User

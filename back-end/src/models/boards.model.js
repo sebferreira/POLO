@@ -1,6 +1,7 @@
-import {DataTypes} from "sequelize";
-import sequelize from "../config/db.js";
+import {DataTypes} from "sequelize";// Importa tipos de datos de Sequelize
+import sequelize from "../config/db.js"; // Importa la instancia de conexión a la base de datos
 
+// Define el modelo Board
 const Board = sequelize.define(
   "Boards",
   {
@@ -24,4 +25,4 @@ const Board = sequelize.define(
   }
 );
 
-export default Board;
+export default Board;// Exporta el modelo Board

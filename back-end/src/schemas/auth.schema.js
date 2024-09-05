@@ -1,5 +1,6 @@
-import {z} from "zod";
+import {z} from "zod";// Importa Zod para la validación de esquemas
 
+// Esquema de validación para el registro de usuarios
 export const registerSchema = z.object({
   username: z
     .string({
@@ -29,6 +30,8 @@ export const registerSchema = z.object({
       message: "Password must not exceed 50 characters",
     }),
 });
+
+// Esquema de validación para el login de usuarios
 export const loginSchema = z.object({
   username: z.string({
     required_error: "Username is required",

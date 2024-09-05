@@ -2,31 +2,33 @@ import {setUpdateDateFromBoard} from "../helpers/index.js";
 import Board from "../models/boards.model.js";
 import Task from "../models/tasks.model.js";
 
-export const getAllTasks = async (req, res) => {
-  try {
+// Función para obtener todas las tareas.
+export const getAllTasks = async (req, res) => { 
+  try { 
     const tasks = await Task.findAll();
-    if (tasks.length <= 0) return res.status(404).json(["Task not found"]);
+    if (tasks.length <= 0) return res.status(404).json(["Task not found"]); // Imprime un error si no se encuentran tareas.
     res.status(200).json(tasks);
-  } catch (error) {
+  } catch (error) { // Atrapa los errores del servidor y los imprime.
     console.error(error);
     res.status(500).json(["Server error"]);
   }
 };
 
+// Función para obtener las tareas por su id.
 export const getTaskById = async (req, res) => {
   try {
     const {taskId} = req.params;
     const task = await Task.findByPk(taskId);
-    if (!task) {
+    if (!task) { // Imprime un error si no se encuentran tareas.
       return res.status(404).json(["Task not found"]);
     }
-    res.status(200).json(task);
-  } catch (error) {
+  } catch (error) { // Atrapa los errores del servidor y los imprime.
     console.error(error);
     res.status(500).json(["Server error"]);
   }
 };
 
+// Función para crear una tarea.
 export const createTask = async (req, res) => {
   try {
     const {sectionId, boardId} = req.params;
@@ -39,19 +41,20 @@ export const createTask = async (req, res) => {
       id_section: sectionId,
     });
     res.status(201).json(task);
-  } catch (error) {
+  } catch (error) { // Atrapa los errores del servidor y los imprime.
     console.error(error);
     res.status(500).json(["Server error"]);
   }
 };
 
+// Función para actualizar una tarea.
 export const updateTask = async (req, res) => {
   try {
     const {taskId, boardId} = req.params;
     const {title, description, image, completed, due_date} = req.body;
     await setUpdateDateFromBoard({boardId});
     const task = await Task.findByPk(taskId);
-    if (!task) {
+    if (!task) { // Imprime un error si no se encontró la tarea.
       return res.status(404).json(["Task not found"]);
     }
     await task.update({
@@ -62,23 +65,24 @@ export const updateTask = async (req, res) => {
       due_date,
     });
     res.json(task);
-  } catch (error) {
+  } catch (error) { // Atrapa los errores del servidor y los imprime.
     console.error(error);
     res.status(500).json(["Server error"]);
   }
 };
 
+// Función para borrar una tarea.
 export const deleteTask = async (req, res) => {
   try {
     const {taskId, boardId} = req.params;
     await setUpdateDateFromBoard({boardId});
     const task = await Task.findByPk(taskId);
-    if (!task) {
+    if (!task) { // Imprime un error si no se encontró la tarea.
       return res.status(404).json(["Task not found"]);
     }
     await task.destroy();
     res.json({message: "Task deleted successfully"});
-  } catch (error) {
+  } catch (error) { // Atrapa los errores del servidor y los imprime.
     console.error(error);
     res.status(500).json(["Server error"]);
   }
