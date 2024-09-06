@@ -1,5 +1,4 @@
 import express from "express"; // Importa el framework Express
-import validateSchema from "../middlewares/validaciones.middleware.js";
 import validateSchema from "../middlewares/validaciones.middleware.js"; // Middleware para validar esquemas de datos
 import { revisarCookie } from "../middlewares/authorization.middleware.js"; // Middleware para revisar la cookie de autenticación
 import { sectionSchema } from "../schemas/sections.schema.js"; //validación para las secciones
