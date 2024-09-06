@@ -1,7 +1,7 @@
 import express from "express";  // Importa el framework Express
 import { revisarCookie } from "../middlewares/authorization.middleware.js"; // Importa middleware para revisar cookies
 import validateSchema from "../middlewares/validaciones.middleware.js"; // Importa middleware para validar esquemas
-import { boardSchema, inviteBoardSchema } from "../schemas/board.schema.js"; // Importa los esquemas de validación
+import { boardSchema, inviteBoardSchema } from "../schemas/boards.schema.js"; // Importa los esquemas de validación
 import {
   getBoards,
   getBoardById,
