@@ -62,7 +62,7 @@ export const loginUser = async (req, res, next) => {
       maxAge: Date.now() + 1000 * 60 * 30, // Tiempo máximo de vida de la cookie
     };
     // Envía la cookie con el token al cliente
-    res.cookie("token", token, cookieOption);
+    res.cookie("token-back", token, cookieOption);
     // Devuelve el usuario y el token en la respuesta
 
     res.json({user, token});
