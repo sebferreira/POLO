@@ -43,7 +43,7 @@ export const AuthProvider = ({children}) => {
   };
 
   const logout = () => {
-    console.log("A")
+    
     Cookies.remove("token");
     userLogout();
     setUser(null);
