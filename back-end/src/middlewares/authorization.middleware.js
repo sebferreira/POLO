@@ -9,8 +9,8 @@ import User from "../models/users.model.js";
 export async function revisarCookie(req, res, next) {
   try {
     // Obtiene el token JWT del encabezado de autorización
-    /* const token = req.headers.authorization.split(" ")[1]; */ //agregarlo en produccion
-    const token = req.cookies.token;
+    const token = req.headers.authorization.split(" ")[1]; //agregarlo en produccion
+    /*const token = req.cookies.token;*/
     // Si no hay un token, devuelve un error 401
     if (!token) return res.status(401).json(["Unauthorized"]);
     // Verifica el token utilizando la clave secreta
