@@ -14,12 +14,12 @@ const sequelize = new Sequelize({
   host: process.env.POSTGRES_HOST,
   dialectModule: pg,
   dialect: "postgres",
-  /* dialectOptions: {
+  dialectOptions: {
     ssl: {
       require: true,
       rejectUnauthorized: false,
     },
-  }, */
+  }, 
 });
 
 // Exporta la instancia de Sequelize para que pueda ser utilizada en otros archivos del proyecto
