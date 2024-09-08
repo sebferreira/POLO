@@ -36,7 +36,7 @@ export const AuthProvider = ({children}) => {
       return setLoginErrors(data);
     }
     setUser(data.user);
-    console.log(data)
+    
     Cookies.set("token", data.token)
     setIsAuthenticated(true);
     setLoginErrors([]);
