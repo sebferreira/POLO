@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize"; // Importa tipos de datos de Sequelize
+import {DataTypes} from "sequelize"; // Importa tipos de datos de Sequelize
 import sequelize from "../config/db.js"; // Importa la instancia de conexión a la base de datos
 import Board from "./boards.model.js"; // Importa el modelo Board
 

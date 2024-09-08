@@ -1,4 +1,5 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {Box, Typography} from "@mui/material";
 //providers
 import {AuthProvider} from "./context/AuthContext";
 //navbars
@@ -14,6 +15,7 @@ import Tables from "./pages/Tables";
 import ProtectedRoute from "./ProtectedRoute";
 import Boards from "./pages/Boards";
 import InviteUsers from "./pages/InviteUsers";
+import ProfilePage from "./pages/Profile/profile";
 //imagenes
 import background from "./assets/fondoHomeWebp.webp";
 import background2 from "./assets/wallpaperbetter1webp.webp";
@@ -21,7 +23,7 @@ import background3 from "./assets/path_clouds_landscape_237076_1920x1080.jpg";
 import background4 from "./assets/8d98wrhcwlp51.webp";
 import linkedin from "./assets/pngwing.com.png";
 import github from "./assets/github-pages-logo-repository-fork-github-86eddab19cbc3ae293ada0fe0fb9e27d.png";
-import {Box, Typography} from "@mui/material";
+
 export default function App() {
   return (
     <AuthProvider>
@@ -50,7 +52,7 @@ export default function App() {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    backgroundColor: "#222",
+                    backgroundColor: "#000",
                     color: "#fff",
                     padding: "0.5rem",
                     textAlign: "center",
@@ -111,6 +113,7 @@ export default function App() {
                       variant="subtitle1"
                       sx={{
                         fontSize: {xs: "0.9rem", md: "1.1rem"},
+                        fontWeight: "bold",
                       }}
                       style={{
                         marginTop: "2rem",
@@ -127,7 +130,6 @@ export default function App() {
             path="/login"
             element={
               <>
-                <NavbarAuth />
                 <main
                   style={{
                     backgroundImage: `url(${background2})`,
@@ -138,6 +140,7 @@ export default function App() {
                     backgroundPosition: "center",
                     backgroundAttachment: "fixed",
                   }}>
+                  <NavbarAuth />
                   <Signin />
                 </main>
               </>
@@ -231,6 +234,15 @@ export default function App() {
                     }}>
                     <InviteUsers />
                   </main>
+                </>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <>
+                  <NavbarAuth />
+                  <ProfilePage />
                 </>
               }
             />

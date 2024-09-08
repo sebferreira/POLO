@@ -14,10 +14,13 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ViewComfyAltIcon from "@mui/icons-material/ViewComfyAlt";
 import ModalTaskView from "../TaskModals/taskModalView";
 import ModalDelete from "../DeleteModal";
-import {useParams} from "react-router-dom";
+import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+import {useNavigate, useParams} from "react-router-dom";
+import {updateInChargeTask} from "../../queryFn";
 
 export default function TaskMenu({task}) {
   const params = useParams();
+  const navigate = useNavigate();
   const [openModalView, setOpenModalView] = useState(false);
   const handleOpenModalView = () => setOpenModalView(true);
   const handleCloseModalView = () => setOpenModalView(false);
@@ -25,6 +28,17 @@ export default function TaskMenu({task}) {
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const handleOpenModalDelete = () => setOpenModalDelete(true);
   const handleCloseModalDelete = () => setOpenModalDelete(false);
+  const handleInCharge = async () => {
+    if (params.boardId) {
+      const taskChanged = await updateInChargeTask(
+        params.boardId,
+        task.id_task
+      );
+      if (taskChanged) {
+        navigate(0);
+      }
+    }
+  };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -88,6 +102,19 @@ export default function TaskMenu({task}) {
               <DeleteForeverIcon fontSize="small" />
             </ListItemIcon>
             Borrar
+          </ListItemButton>
+        </MenuItem>
+        <MenuItem onClick={() => handleClose}>
+          <ListItemButton
+            sx={{
+              padding: 0,
+              width: "100%",
+            }}
+            onClick={handleInCharge}>
+            <ListItemIcon>
+              <EmojiPeopleIcon fontSize="small" />
+            </ListItemIcon>
+            Asignarse
           </ListItemButton>
         </MenuItem>
       </Menu>

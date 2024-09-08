@@ -11,15 +11,17 @@ import {
   ListItemButton,
 } from "@mui/material";
 import {useAuth} from "../../context/AuthContext";
+import {useNavigate} from "react-router-dom";
 
 export default function Profile() {
   const {user, logout} = useAuth();
-
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleLogout = (event) => {
+  const handleLogout = () => {
     logout();
   };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -29,7 +31,6 @@ export default function Profile() {
   const FirsLetter = user.username
     ? user.username[0].toUpperCase()
     : user.user.username[0].toUpperCase();
-  console.log(user)
   const name = user.username ? user.username : user.user.username;
 
   return (
@@ -65,8 +66,16 @@ export default function Profile() {
         transformOrigin={{horizontal: "right", vertical: "top"}}
         anchorOrigin={{horizontal: "right", vertical: "bottom"}}>
         <MenuItem onClick={handleClose}>
-          <Avatar sx={{width: 27, height: 27, marginRight: "0.3rem"}} />
-          {name}
+          <ListItemButton
+            sx={{
+              padding: 0,
+            }}
+            onClick={() => {
+              navigate("/profile");
+            }}>
+            <Avatar sx={{width: 27, height: 27, marginRight: "0.3rem"}} />
+            {name}
+          </ListItemButton>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemButton

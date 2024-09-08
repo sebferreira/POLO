@@ -49,6 +49,7 @@ export default function InputSection({section}) {
                 fontWeight: "bold",
                 fontSize: {xs: "1.1rem", xl: "1.2rem"},
                 width: "100%",
+                color: "#172b4d",
               },
               "& .MuiOutlinedInput-notchedOutline": {
                 border: "unset",
@@ -58,7 +59,6 @@ export default function InputSection({section}) {
                 padding: "2px",
               },
               textAlign: "left",
-              color: "black",
 
               marginBottom: "1px",
               width: {xs: "60%", sm: "60%", md: "75%"},

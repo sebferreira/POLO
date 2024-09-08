@@ -41,6 +41,15 @@ export default function TaskCard({tasks}) {
                     }}>
                     {task.title}
                   </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: {xs: "0.6rem", sm: "0.7rem"},
+                      color: "#6a6b6b",
+                      fontWeight: 500,
+                    }}>
+                    Persona Asignada:{" "}
+                    {task.personaAsignada ? task.personaAsignada : "ninguna"}
+                  </Typography>
                   {verificarCompletado(task)}
                 </Box>
                 <TaskMenu task={task} />
