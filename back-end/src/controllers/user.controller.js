@@ -38,14 +38,14 @@ export const registerUser = async (req, res, next) => {
 export const loginUser = async (req, res, next) => {
   try {
     // Obtiene el nombre de usuario y la contraseña enviada  de la solicitud
-    const {username, password: passwordSended} = req.body;
+    const {username, password: contraseñaNueva} = req.body;
     // Verifica si el usuario existe en la base de datos
     const userFound = await User.findOne({where: {username}});
     if (!userFound) {
       return res.status(401).json(["User not found"]); // Si no se encuentra, devuelve un error 401
     }
     // Compara la contraseña enviada con la contraseña guardada en la base de datos
-    const isMatch = bcrypt.compareSync(passwordSended, userFound.password);
+    const isMatch = bcrypt.compareSync(contraseñaNueva, userFound.password);
     if (!isMatch) {
       return res.status(404).json(["Incorrect password"]); // Si no coincide, devuelve un error 404
     }
@@ -107,4 +107,54 @@ export const verifyToken = async (req, res) => {
 
     return res.json(userFound);
   });
+};
+
+export const updateUser = async (req, res, next) => {
+  try {
+    //saco el usuairo del req.params y los datos a actualizar del req.body
+    const {username} = req.params;
+    const {email, contraseñaNueva, confirmarContraseña, contraseñaAnterior} =
+      req.body;
+    const user = await User.findByPk(username); //busco un usuario con ese username
+    if (!user) {
+      //si no hay ninguno, me manda error
+      return res.status(404).json(["User not found"]);
+    }
+    if (email) {
+      // si le pasamos un email, busca si el email ya esta en uso, si no está en uso le setea el nuevo valor
+      const userFound = await User.findOne({where: {email}});
+      if (userFound) {
+        return res.status(400).json(["El email ya existe"]);
+      }
+      user.email = email;
+    }
+    if (contraseñaNueva && contraseñaAnterior) {
+      const esLaMisma = bcrypt.compareSync(contraseñaAnterior, user.password);
+      if (!esLaMisma) {
+        //verifica si la contraseña anterior es correcta
+        return res.status(400).json(["Contraseña anterior incorrecta"]);
+      }
+      if (contraseñaNueva.length < 8) {
+        //verifica si las contraseñas tienen un minimo de 8 caracteres
+        return res.status(400).json(["La contraseña debe tener 8 caracteres"]);
+      }
+      if (contraseñaNueva !== confirmarContraseña) {
+        //verifica si las contraseñas son iguales
+        return res.status(400).json(["Las contraseñas son diferentes"]);
+      }
+      const isMatch = bcrypt.compareSync(contraseñaNueva, user.password);
+      if (isMatch) {
+        //verifica si la contraseña que se quiere cambiar es la misma que la que ya tiene
+        return res.status(400).json(["Ya estás usando esa contraseña"]);
+      }
+      const hashedPassword = await bcrypt.hash(contraseñaNueva, salt); // hashea la contraseña y la guarda
+      user.password = hashedPassword;
+    }
+    await user.save(); //guarda el usuario con los nuevos datos
+    console.log(user);
+    const {password, ...userUpdated} = user.dataValues; //saco la contraseña del objeto usuario
+    res.json(userUpdated); //devuelve el usuario sin la contraseña
+  } catch (err) {
+    next(err); //envia el error en caso de que el intento falle
+  }
 };

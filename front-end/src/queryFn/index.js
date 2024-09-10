@@ -146,6 +146,14 @@ function updateInChargeTask(boardId, taskId) {
     withToken: true,
   });
 }
+function updateUser(username, body) {
+  return handleCustomApiRequest({
+    url: `${URL}/profile/${username}`,
+    method: "PATCH",
+    body,
+    withToken: true,
+  });
+}
 
 export {
   verifyCookies,
@@ -167,4 +175,5 @@ export {
   UpdateSection,
   UpdateBoard,
   updateInChargeTask,
+  updateUser,
 };

@@ -19,7 +19,7 @@ const sequelize = new Sequelize({
       require: true,
       rejectUnauthorized: false,
     },
-  }, 
+  },
 });
 
 // Exporta la instancia de Sequelize para que pueda ser utilizada en otros archivos del proyecto

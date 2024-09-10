@@ -17,8 +17,10 @@ import ModalDelete from "../DeleteModal";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import {useNavigate, useParams} from "react-router-dom";
 import {updateInChargeTask} from "../../queryFn";
+import {useAuth} from "../../context/AuthContext";
 
 export default function TaskMenu({task}) {
+  const {user} = useAuth();
   const params = useParams();
   const navigate = useNavigate();
   const [openModalView, setOpenModalView] = useState(false);
@@ -48,6 +50,12 @@ export default function TaskMenu({task}) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  let userIsPersonaAsignada = false;
+  if (user) {
+    userIsPersonaAsignada =
+      user.username === task.personaAsignada ? true : false;
+  }
 
   return (
     <>
@@ -104,19 +112,21 @@ export default function TaskMenu({task}) {
             Borrar
           </ListItemButton>
         </MenuItem>
-        <MenuItem onClick={() => handleClose}>
-          <ListItemButton
-            sx={{
-              padding: 0,
-              width: "100%",
-            }}
-            onClick={handleInCharge}>
-            <ListItemIcon>
-              <EmojiPeopleIcon fontSize="small" />
-            </ListItemIcon>
-            Asignarse
-          </ListItemButton>
-        </MenuItem>
+        {user && !userIsPersonaAsignada && (
+          <MenuItem onClick={() => handleClose}>
+            <ListItemButton
+              sx={{
+                padding: 0,
+                width: "100%",
+              }}
+              onClick={handleInCharge}>
+              <ListItemIcon>
+                <EmojiPeopleIcon fontSize="small" />
+              </ListItemIcon>
+              Asignarse
+            </ListItemButton>
+          </MenuItem>
+        )}
       </Menu>
       <Modal
         open={openModalView}
