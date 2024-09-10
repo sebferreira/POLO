@@ -13,7 +13,7 @@ import {useForm} from "react-hook-form";
 import Close from "@mui/icons-material/Close";
 import {updateUser} from "../../queryFn";
 import {useNavigate} from "react-router-dom";
-import ProfileModal from "../ModalProfile/modalProfile";
+import ProfileModal from "../ModalProfile/ModalProfile";
 
 export default function ProfileCard({user, logout}) {
   const navigate = useNavigate();
