@@ -139,6 +139,7 @@ req.params:
     taskId: la tarea a eliminar.
     
 respuesta: devuelve un mensaje de que la tarea ha sido eliminada.
+
 -----------------------
 Rutas de Usuario
 
