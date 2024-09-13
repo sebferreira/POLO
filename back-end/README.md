@@ -151,6 +151,8 @@ Registro de usuario
 o	username: nombre de usuario (string, obligatorio).
 o	email: correo electrónico (string, obligatorio).
 o	password: contraseña (string, obligatorio).
+o	confirmPassword: contraseña (string, obligatorio).
+
 •	Respuesta:
 {
   "username": "string",
