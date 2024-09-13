@@ -139,3 +139,209 @@ req.params:
     taskId: la tarea a eliminar.
     
 respuesta: devuelve un mensaje de que la tarea ha sido eliminada.
+-----------------------
+Rutas de Usuario
+
+Registro de usuario
+•	Método: POST
+•	Descripción: Registra un nuevo usuario, validando los datos (nombre de usuario, correo y contraseña).
+•	Endpoint: /api/users/register
+•	Entrada: Un objeto JSON con los campos:
+o	username: nombre de usuario (string, obligatorio).
+o	email: correo electrónico (string, obligatorio).
+o	password: contraseña (string, obligatorio).
+•	Respuesta:
+{
+  "username": "string",
+  "email": "string",
+  "role": "user",
+  "createdAt": "2024-09-12T10:00:00.000Z",
+  "updatedAt": "2024-09-12T10:00:00.000Z"
+}
+
+
+________________________________________
+Inicio de sesión
+•	Método: POST
+•	Descripción: Permite a un usuario registrado iniciar sesión, verificando su contraseña y generando un token JWT.
+•	Endpoint: /api/users/login
+•	Entrada: Un objeto JSON con:
+o	username: nombre de usuario (string, obligatorio).
+o	password: contraseña (string, obligatorio).
+
+
+
+
+•	Respuesta:
+
+{
+  "user": {
+    "username": "string",
+    "email": "string",
+    "role": "user",
+    "createdAt": "2024-09-12T10:00:00.000Z",
+    "updatedAt": "2024-09-12T10:00:00.000Z"
+  },
+  "token": "jwt_token"
+}
+
+________________________________________
+Cierre de sesión
+•	Método: POST
+•	Descripción: Cierra sesión eliminando la cookie con el token JWT.
+•	Endpoint: /api/users/logout
+•	Entrada: Ninguna.
+•	Respuesta:
+{
+  "message": "Logged out successfully"
+}
+________________________________________
+Verificación de token
+•	Método: GET
+•	Descripción: Verifica si un token JWT es válido y si el usuario está autorizado.
+•	Endpoint: /api/users/verify
+•	Entrada: Un token JWT en el encabezado Authorization (formato: Bearer <token>).
+•	Respuesta:
+{
+  "username": "string",
+  "email": "string",
+  "role": "user",
+  "createdAt": "2024-09-12T10:00:00.000Z",
+  "updatedAt": "2024-09-12T10:00:00.000Z" 
+ }
+________________________________________
+ GET: Prueba de Conexión
+•	Método: GET
+•	Descripción: Ruta de prueba que devuelve un mensaje simple.
+•	Endpoint: GET /api/users/
+•	Entrada: Nada.
+•	Respuesta:
+{
+  "message": "Hi"
+}
+
+________________________________________
+Perfil de usuario
+•	Método: GET
+•	Descripción: Obtiene los detalles del perfil del usuario autenticado. El token JWT se verifica mediante una cookie.
+•	Endpoint: /api/users/profile
+•	Entrada: Ninguna, el token JWT se obtiene de la cookie.
+•	Respuesta:
+{
+  "username": "string",
+  "email": "string",
+  "role": "user",
+  "createdAt": "2024-09-12T10:00:00.000Z",
+  "updatedAt": "2024-09-12T10:00:00.000Z"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________________
+Actualizar perfil de usuario
+•	Método: PATCH
+•	Descripción: Actualiza los detalles del perfil del usuario autenticado. El token JWT se verifica mediante una cookie.
+•	Endpoint: /api/users/profile/
+•	Entrada:
+o	username (en la URL): Nombre del usuario cuyo perfil se desea actualizar.
+o	Un objeto JSON con los campos :
+	email: nuevo correo electrónico (string).
+	password: nueva contraseña (string).
+	confirmPassword: confirmación de la nueva contraseña (string).
+	oldPassword: contraseña actual (string).
+•	Respuesta:
+{
+  "username": "string",
+  "email": "string",
+  "role": "user",
+  "createdAt": "2024-09-12T10:00:00.000Z",
+  "updatedAt": "2024-09-12T10:00:00.000Z"
+}
+
+
+
+
+
+
+
+
+
+Rutas de User Boards
+
+Obtener todos los boards de un usuario
+•	Método: GET
+•	Descripción: Devuelve los boards asociados al usuario autenticado, con los detalles de cada uno.
+•	Endpoint: /api/userboards/
+•	Entrada: La autenticación se gestiona mediante cookies (verificadas por un middleware).
+•	Respuesta:
+[
+  {
+    "username": "string",
+    "role": "string",
+    "boardId": "string",
+    "Board": {
+      "id_board": "string",
+      "name": "string",
+      "updatedAt": "2024-09-12T10:00:00.000Z"
+    },
+    "User": {
+      "username": "string",
+      "email": "string",
+      "role": "user"
+    }
+  }
+]
+
+
+
+________________________________________
+Obtener nombres de boards
+•	Método: GET
+•	Descripción: Devuelve los nombres y detalles de los boards de un usuario autenticado.
+•	Endpoint: /api/userboards/boards
+•	Entrada: La autenticación se gestiona con cookies (verificadas por un middleware).
+
+•	Respuesta:
+[
+  {
+    "name": "string",
+    "id_board": "string",
+    "updatedAt": "2024-09-12T10:00:00.000Z"
+  }
+]
+
+________________________________________
+Obtener usuarios de un board
+•	Método: GET
+•	Descripción: Devuelve los usuarios asociados a un board específico, identificado por el ID del board.
+•	Endpoint: /api/userboards/board/:boardId
+•	Entrada:
+o	boardId (en la URL): El ID del board cuyos usuarios se desean obtener.
+•	Respuesta:
+[
+  {
+    "username": "string",
+    "role": "string"
+  }
+]
+
+________________________________________
+Eliminar relación usuario-board
+•	Método: DELETE
+•	Descripción: Elimina la relación entre un usuario y un board específico.
+•	Endpoint: /api/userboards/:username/:boardId
+•	Entrada:
+o	username (en la URL): El nombre del usuario cuya relación se desea eliminar.
+o	boardId (en la URL): El ID del board asociado al usuario.
+•	Respuesta:
+"User-Board deleted successfully"
+
