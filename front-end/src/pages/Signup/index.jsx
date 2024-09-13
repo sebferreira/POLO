@@ -102,7 +102,7 @@ export default function Signup() {
                 sx={{
                   marginTop: "0.5rem",
                 }}>
-                Username is required
+                El nombre de usuario es necesario
               </Typography>
             )}
 
@@ -135,7 +135,7 @@ export default function Signup() {
                 sx={{
                   marginTop: "0.5rem",
                 }}>
-                Email is required
+                El Email es necesario
               </Typography>
             )}
             <Typography
@@ -146,7 +146,7 @@ export default function Signup() {
                 margin: 0,
                 fontSize: {xs: "1rem", md: "1.2rem"},
               }}>
-              Password
+              Contraseña
             </Typography>
             <TextField
               fullWidth
@@ -167,7 +167,39 @@ export default function Signup() {
                 sx={{
                   marginTop: "0.5rem",
                 }}>
-                Password is required
+                La contraseña es necesaria
+              </Typography>
+            )}
+            <Typography
+              variant="h6"
+              component="label"
+              textAlign="center"
+              sx={{
+                margin: 0,
+                fontSize: {xs: "1rem", md: "1.2rem"},
+              }}>
+              Confirmar Contraseña
+            </Typography>
+            <TextField
+              fullWidth
+              sx={{
+                display: "block",
+                marginBottom: {xs: "0.5rem", md: "1rem"},
+              }}
+              type="password"
+              {...register("confirmPassword", {required: true})}
+              size="small"
+              variant="outlined"
+            />
+            {errors.confirmPassword && (
+              <Typography
+                color="error"
+                variant="body2"
+                fontWeight="bold"
+                sx={{
+                  marginTop: "0.5rem",
+                }}>
+                Es necesario confirmar la contraseña
               </Typography>
             )}
             <Button

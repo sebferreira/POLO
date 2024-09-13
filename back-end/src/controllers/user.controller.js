@@ -11,12 +11,16 @@ const salt = Number(process.env.SALT);
 // Controlador para registrar un nuevo usuario
 export const registerUser = async (req, res, next) => {
   try {
-    const {username, email, password} = req.body; // Obtiene el nombre de usuario, correo electrónico y contraseña del cuerpo de la solicitud
+    const {username, email, password, confirmPassword} = req.body; // Obtiene el nombre de usuario, correo electrónico y contraseña del cuerpo de la solicitud
 
     // Verifica si el usuario ya existe en la base de datos
     const userFound = await User.findOne({where: {username}});
     if (userFound) {
-      return res.status(400).json(["User already exists"]); // Si existe, devuelve un error 400
+      return res.status(400).json(["El usuario ya existe"]); // Si existe, devuelve un error 400
+    }
+
+    if (password !== confirmPassword) {
+      return res.status(400).json(["Las contraseñas son diferentes"]);
     }
     // Hash de la contraseña utilizando bcrypt y el salt especificado
     const hashedPassword = await bcrypt.hash(password, salt);

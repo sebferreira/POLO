@@ -24,5 +24,5 @@ const Board = sequelize.define(
     timestamps: true,
   }
 );
-/* Board.sync(); */ //sacar en produccion por las dudas
+Board.sync(); //sacar en produccion por las dudas
 export default Board; // Exporta el modelo Board

@@ -102,7 +102,7 @@ export default function Signin() {
                 sx={{
                   marginTop: "0.5rem",
                 }}>
-                Username is required
+                El nombre de usuario es requerido
               </Typography>
             )}
 
@@ -135,7 +135,7 @@ export default function Signin() {
                 sx={{
                   marginTop: "0.5rem",
                 }}>
-                Password is required
+                La contraseña es requerida
               </Typography>
             )}
             <Button
