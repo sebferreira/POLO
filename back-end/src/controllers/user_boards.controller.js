@@ -8,7 +8,6 @@ import Users_Boards from "../models/users_boards.model.js";
 export const getUsers_Boards = async (req, res) => {
   try {
     const {username} = req.user; // Obtiene el nombre de usuario del request
-    console.log(username); // imprime por consola nombre de usuario
 
     // Busca todos los registros de Users_Boards relacionados con el usuario
     const boards = await Users_Boards.findAll({
@@ -61,7 +60,6 @@ export const getBoardNamesByUser = async (req, res) => {
 export const getBoard_Users = async (req, res) => {
   try {
     const {boardId} = req.params; // Obtiene el ID del board de los parámetros del request
-    console.log(req.params);
     // Busca todos los usuarios asociados al board especificado
     const users = await Users_Boards.findAll({
       attributes: ["username", "role"], // Atributos específicos a devolver

@@ -155,7 +155,7 @@ export const updateUser = async (req, res, next) => {
       user.password = hashedPassword;
     }
     await user.save(); //guarda el usuario con los nuevos datos
-    console.log(user);
+   
     const {password, ...userUpdated} = user.dataValues; //saco la contraseña del objeto usuario
     res.json(userUpdated); //devuelve el usuario sin la contraseña
   } catch (err) {

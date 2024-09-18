@@ -7,7 +7,7 @@ export function useBoard() {
   const getAllBoards = async () => {
     const data = await getAllUserBoards();
     if (data.length === 0) {
-      return console.log(data, "hola11");
+      return console.log(data);
     }
     setBoards(data);
   };

@@ -34,18 +34,17 @@ export const getTaskById = async (req, res) => {
 // Función para crear una tarea.
 export const createTask = async (req, res) => {
   try {
-    const {username} = req.user;
-    console.log(username);
+    const {username} = req.user; //agarro el usuario del middleware
     const {sectionId, boardId} = req.params;
     const {title, description, due_date} = req.body;
-    await setUpdateDateFromBoard({boardId});
+    await setUpdateDateFromBoard({boardId}); //actualizo la fecha de modificacion del tablero
     const task = await Task.create({
       title,
       description,
       due_date,
       id_section: sectionId,
       personaCreador: username,
-    });
+    }); //creo una tarea con los datos del req
     res.status(201).json(task);
   } catch (error) {
     // Atrapa los errores del servidor y los imprime.
@@ -56,15 +55,17 @@ export const createTask = async (req, res) => {
 
 export const hacerseCargo = async (req, res) => {
   try {
-    const {username} = req.user;
-    console.log(username);
-    const {boardId, taskId} = req.params;
-    await setUpdateDateFromBoard({boardId});
-    const task = await Task.findByPk(taskId);
+    let {username} = req.params; //agarro al usuario del req, que me llega del middleware
+    const {boardId, taskId} = req.params; //agarro los parametros del req
+    await setUpdateDateFromBoard({boardId}); //actualizo la fecha de modificacion del tablero
+    const task = await Task.findByPk(taskId); //busco una tarea
+    if (username === "null") {
+      username = null;
+    }
     await task.update({
       personaAsignada: username,
-    });
-    res.status(201).json(task);
+    }); //modifico la tarea con el nombre del usuario
+    res.status(201).json(task); //devuelvo la tarea
   } catch (error) {
     // Atrapa los errores del servidor y los imprime.
     console.error(error);
@@ -110,6 +111,25 @@ export const deleteTask = async (req, res) => {
     }
     await task.destroy();
     res.json({message: "Task deleted successfully"});
+  } catch (error) {
+    // Atrapa los errores del servidor y los imprime.
+    console.error(error);
+    res.status(500).json(["Server error"]);
+  }
+};
+export const insertImage = async (req, res) => {
+  try {
+    const {taskId, boardId} = req.params;
+    await setUpdateDateFromBoard({boardId});
+    const task = await Task.findByPk(taskId);
+    if (!task) {
+      // Imprime un error si no se encontró la tarea.
+      return res.status(404).json(["Task not found"]);
+    }
+    task.image = req.file.path;
+    console.log(req.file.path);
+    await task.save();
+    res.json(task);
   } catch (error) {
     // Atrapa los errores del servidor y los imprime.
     console.error(error);

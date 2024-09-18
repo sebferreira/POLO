@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
   Box,
   Menu,
@@ -16,32 +16,52 @@ import ModalTaskView from "../TaskModals/taskModalView";
 import ModalDelete from "../DeleteModal";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import {useNavigate, useParams} from "react-router-dom";
-import {updateInChargeTask} from "../../queryFn";
+import {getUsersBoard, updateInChargeTask} from "../../queryFn";
 import {useAuth} from "../../context/AuthContext";
+import TaskModalUpdateAsign from "../TaskModals/taskModalUpdateAsign/TaskModalUpdateAsign";
+import Salir from "@mui/icons-material/ExitToApp";
 
 export default function TaskMenu({task}) {
   const {user} = useAuth();
   const params = useParams();
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
   const [openModalView, setOpenModalView] = useState(false);
+  const [openModalUpdateAsign, setOpenModalUpdateAsign] = useState(false);
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+
   const handleOpenModalView = () => setOpenModalView(true);
   const handleCloseModalView = () => setOpenModalView(false);
 
-  const [openModalDelete, setOpenModalDelete] = useState(false);
+  const handleOpenModalUpdateAsign = () => setOpenModalUpdateAsign(true);
+  const handleCloseModalUpdateAsign = () => setOpenModalUpdateAsign(false);
+
   const handleOpenModalDelete = () => setOpenModalDelete(true);
   const handleCloseModalDelete = () => setOpenModalDelete(false);
-  const handleInCharge = async () => {
+
+  const handleInCharge = async (opcion) => {
     if (params.boardId) {
-      const taskChanged = await updateInChargeTask(
-        params.boardId,
-        task.id_task
-      );
-      if (taskChanged) {
-        navigate(0);
+      if (opcion) {
+        const taskChanged = await updateInChargeTask(
+          user.username,
+          params.boardId,
+          task.id_task
+        );
+        if (taskChanged) {
+          navigate(0);
+        }
+      } else {
+        const taskChanged = await updateInChargeTask(
+          null,
+          params.boardId,
+          task.id_task
+        );
+        if (taskChanged) {
+          navigate(0);
+        }
       }
     }
   };
-
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -56,6 +76,19 @@ export default function TaskMenu({task}) {
     userIsPersonaAsignada =
       user.username === task.personaAsignada ? true : false;
   }
+
+  useEffect(() => {
+    if (params.boardId) {
+      const getAllUsers = async () => {
+        const data = await getUsersBoard(params.boardId);
+        setUsers(data);
+      };
+      getAllUsers();
+    }
+  }, [params.boardId]);
+  const username = user.username ? user.username : user.user.username;
+
+  const userFound = users.find((user) => user.username === username);
 
   return (
     <>
@@ -112,18 +145,55 @@ export default function TaskMenu({task}) {
             Borrar
           </ListItemButton>
         </MenuItem>
-        {user && !userIsPersonaAsignada && (
+        {user &&
+          userFound &&
+          userFound.role === "user" &&
+          !userIsPersonaAsignada &&
+          !task.personaAsignada && (
+            <MenuItem onClick={() => handleClose}>
+              <ListItemButton
+                sx={{
+                  padding: 0,
+                  width: "100%",
+                }}
+                onClick={() => {
+                  handleInCharge(true);
+                }}>
+                <ListItemIcon>
+                  <EmojiPeopleIcon fontSize="small" />
+                </ListItemIcon>
+                Asignarse
+              </ListItemButton>
+            </MenuItem>
+          )}
+        {user && userIsPersonaAsignada && (
           <MenuItem onClick={() => handleClose}>
             <ListItemButton
               sx={{
                 padding: 0,
                 width: "100%",
               }}
-              onClick={handleInCharge}>
+              onClick={() => {
+                handleInCharge(false);
+              }}>
+              <ListItemIcon>
+                <Salir fontSize="small" />
+              </ListItemIcon>
+              Dejar
+            </ListItemButton>
+          </MenuItem>
+        )}
+        {user && userFound && userFound.role === "owner" && (
+          <MenuItem onClick={(() => handleClose, handleOpenModalUpdateAsign)}>
+            <ListItemButton
+              sx={{
+                padding: 0,
+                width: "100%",
+              }}>
               <ListItemIcon>
                 <EmojiPeopleIcon fontSize="small" />
               </ListItemIcon>
-              Asignarse
+              Modificar Responsable
             </ListItemButton>
           </MenuItem>
         )}
@@ -134,6 +204,13 @@ export default function TaskMenu({task}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
         <ModalTaskView task={task} />
+      </Modal>
+      <Modal
+        open={openModalUpdateAsign}
+        onClose={handleCloseModalUpdateAsign}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <TaskModalUpdateAsign task={task} users={users} />
       </Modal>
       <Modal
         open={openModalDelete}

@@ -13,8 +13,6 @@ if (mes >= 10) {
   fechaHoy = `${año}-0${mes}-${hoy}`;
 }
 export const verificarCompletado = (task) => {
-  /* console.log(fechaHoy, task.due_date);
-  console.log(fechaHoy > task.due_date); */
   if (task.completed) {
     return (
       <Typography
