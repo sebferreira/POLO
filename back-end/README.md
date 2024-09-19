@@ -246,15 +246,6 @@ Perfil de usuario
 
 
 
-
-
-
-
-
-
-
-
-
 ________________________________________
 Actualizar perfil de usuario
 •	Método: PATCH
@@ -524,3 +515,109 @@ o boardId (en el URL): Solicita el id del tablero.
 
 
 • Bad request: Problema con la solicitud (Por ejemplo, si el board no existe)
+
+________________________________________
+
+-GET: Conseguir todas las secciones.
+Esta ruta pasa por un middleware el cual verifica si recibió el token del usuario y valida su autorización.
+endpoint: https://poloweb-api.vercel.app/api/sections/
+recibe: nada
+respuesta=Array de objetos con todas las secciones
+[
+{
+"title": "sec1",
+"createdAt": "2024-09-08T20:59:16.051Z",
+"updatedAt": "2024-09-08T21:37:17.972Z",
+"id_section": 2,
+"id_board": 1
+},
+...
+]
+
+________________________________________
+
+-GET: Conseguir una sección por id.
+Esta ruta pasa por un middleware el cual verifica si recibió el token del usuario y valida su autorización.
+endpoint: https://poloweb-api.vercel.app/api/sections/:sectionId
+recibe:
+  req.params:id de la sección
+respuesta=Objeto con la seccion
+{
+"title": "sec1",
+"createdAt": "2024-09-08T20:59:16.051Z",
+"updatedAt": "2024-09-08T21:37:17.972Z",
+"id_section": 2,
+"id_board": 1
+},
+
+________________________________________
+
+-POST: Crear una sección.
+Esta ruta pasa por dos middlewares, uno el cual verifica si recibió el token del usuario y valida su autorización y otro el cual hace las validaciones del cuerpo del formulario con la dependencia "zod".
+endpoint: https://poloweb-api.vercel.app/api/sections/:boardId/
+recibe: 
+  req.params:id del tablero 
+  req.body:{
+    "title": "sec1"
+  }
+respuesta=Objeto con la seccion
+{
+"title": "sec1",
+"createdAt": "2024-09-08T20:59:16.051Z",
+"updatedAt": "2024-09-08T21:37:17.972Z",
+"id_section": 2,
+"id_board": 1
+},
+
+________________________________________
+
+-PATCH: Actualizar sección.
+Esta ruta pasa por dos middlewares, uno el cual verifica si recibió el token del usuario y valida su autorización y otro el cual hace las validaciones del cuerpo del formulario con la dependencia "zod".
+endpoint: https://poloweb-api.vercel.app/api/sections/:sectionId/:boardId/
+recibe: 
+  req.params:id del tablero, id de la sección 
+  req.body:{
+    "title": "sec1"
+  }
+respuesta=Objeto con la seccion
+{
+"title": "sec1",
+"createdAt": "2024-09-08T20:59:16.051Z",
+"updatedAt": "2024-09-08T21:37:17.972Z",
+"id_section": 2,
+"id_board": 1
+},
+
+________________________________________
+
+-DELETE: Eliminar una sección por id.
+Esta ruta pasa por un middleware el cual verifica si recibió el token del usuario y valida su autorización.
+endpoint: https://poloweb-api.vercel.app/api/sections/:sectionId/:boardId
+recibe:
+  req.params:id de la sección, id del tablero
+respuesta=Un mensaje con la confirmación de que se eliminó la sección
+
+________________________________________
+
+-GET: Conseguir las tareas de una sección.
+Esta ruta pasa por un middleware el cual verifica si recibió el token del usuario y valida su autorización.
+endpoint: https://poloweb-api.vercel.app/api/tasks/:sectionId
+recibe:
+  req.params:id de la sección
+respuesta=Array de objetos con las tareas de una seccion
+[
+{
+"id_task": 1,
+"title": "tar1",
+"description": "desc1",
+"image": null,
+"due_date": null,
+"completed": false,
+"personaAsignada": "sebasGalarza",
+"personaCreador": "sebasGalarza",
+"createdAt": "2024-09-08T20:59:16.051Z",
+"updatedAt": "2024-09-08T21:37:17.972Z",
+"id_section": 2
+},
+...
+]
