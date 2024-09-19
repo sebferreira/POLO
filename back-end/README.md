@@ -146,7 +146,7 @@ boardId: para que modifique la fecha de modificacion del tablero
 
 respuesta: devuelve un mensaje de que la tarea ha sido eliminada.
 
------------------------
+---
 Rutas de Usuario
 
 Registro de usuario
@@ -247,6 +247,7 @@ Perfil de usuario
 
 
 ________________________________________
+
 Actualizar perfil de usuario
 •	Método: PATCH
 •	Descripción: Actualiza los detalles del perfil del usuario autenticado. El token JWT se verifica mediante una cookie.
@@ -266,7 +267,8 @@ o	Un objeto JSON con los campos :
   "createdAt": "2024-09-12T10:00:00.000Z",
   "updatedAt": "2024-09-12T10:00:00.000Z"
 }
-----------------------------
+
+---
 
 
 
@@ -344,6 +346,7 @@ o	username (en la URL): El nombre del usuario cuya relación se desea eliminar.
 o	boardId (en la URL): El ID del board asociado al usuario.
 •	Respuesta:
 "User-Board deleted successfully"
+
 -----------------------------
 Rutas de Board
 
