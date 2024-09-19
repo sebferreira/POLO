@@ -266,6 +266,7 @@ o	Un objeto JSON con los campos :
   "createdAt": "2024-09-12T10:00:00.000Z",
   "updatedAt": "2024-09-12T10:00:00.000Z"
 }
+----------------------------
 
 
 
@@ -274,8 +275,7 @@ o	Un objeto JSON con los campos :
 
 
 
-
-Rutas de User Boards
+Rutas de User_Boards
 
 Obtener todos los boards de un usuario
 •	Método: GET
@@ -344,7 +344,7 @@ o	username (en la URL): El nombre del usuario cuya relación se desea eliminar.
 o	boardId (en la URL): El ID del board asociado al usuario.
 •	Respuesta:
 "User-Board deleted successfully"
-
+-----------------------------
 Rutas de Board
 
 
@@ -517,6 +517,7 @@ o boardId (en el URL): Solicita el id del tablero.
 • Bad request: Problema con la solicitud (Por ejemplo, si el board no existe)
 
 ________________________________________
+Secciones Endpoints:
 
 -GET: Conseguir todas las secciones.
 Esta ruta pasa por un middleware el cual verifica si recibió el token del usuario y valida su autorización.
