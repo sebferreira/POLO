@@ -125,7 +125,7 @@ export default function BarBoards({boards}) {
                         color: "#FFFFFF",
                         borderRadius: "7px",
                         boxShadow: "0px 4px 12px rgba(211, 47, 47, 0.4)",
-                        padding: "8px 16px",
+                        padding: "4px 16px",
                         transition: "all 0.3s ease",
                       }}
                     />
