@@ -11,7 +11,7 @@ import {
   insertImage,
   updateTask,
 } from "../controllers/task.controller.js"; // Importa los controladores de tarea
-import {fileUpload} from "../helpers/index.js";
+/* import {fileUpload} from "../helpers/index.js"; */
 const routerTask = express.Router(); // Crea un enrutador para manejar las rutas relacionadas con tareas
 
 // Define las rutas para las operaciones de tareas
@@ -29,12 +29,12 @@ routerTask.patch(
   validateSchema(taskSchema),
   updateTask
 );
-routerTask.patch(
+/* routerTask.patch(
   "/imagenes/:taskId/:boardId",
   revisarCookie,
   fileUpload,
   insertImage
-);
+); */
 routerTask.delete("/:taskId/:boardId", revisarCookie, deleteTask);
 routerTask.patch(
   "/asignacion/:username/:boardId/:taskId",

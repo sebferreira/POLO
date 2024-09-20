@@ -13,7 +13,7 @@ export async function setUpdateDateFromBoard({boardId}) {
   );
 }
 
-const diskstorage = multer.diskStorage({
+/* const diskstorage = multer.diskStorage({
   destination: path.join(__dirname, "src/uploads/"),
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
@@ -23,7 +23,7 @@ const diskstorage = multer.diskStorage({
 export const fileUpload = multer({
   storage: diskstorage,
 }).single("TaskImage");
-
+ */
 export async function saveImage(file) {
   const format = file.originalname.split(".")[1];
   const newPath = `./src/uploads/${file.filename}.${format}`;
