@@ -117,8 +117,16 @@ export default function BarBoards({boards}) {
                   <Button onClick={handleOpenModalDelete}>
                     <DeleteForeverIcon
                       fontSize="small"
+                      variant="contained"
+                      color="error"
                       style={{
-                        color: "white",
+                        marginLeft: "auto",
+                        backgroundColor: "#D32F2F",
+                        color: "#FFFFFF",
+                        borderRadius: "7px",
+                        boxShadow: "0px 4px 12px rgba(211, 47, 47, 0.4)",
+                        padding: "4px 16px",
+                        transition: "all 0.3s ease",
                       }}
                     />
                   </Button>
@@ -127,7 +135,6 @@ export default function BarBoards({boards}) {
                   id="modal-modal-title"
                   type="text"
                   value={name}
-                  
                   onChange={updateName}
                   variant="outlined"
                   sx={{
@@ -138,7 +145,6 @@ export default function BarBoards({boards}) {
                       fontSize: {xs: "1.25rem", xl: "1.5rem"},
                       width: "100%",
                       transition: "color 0.3s ease",
-                      
                     },
                     "& .MuiOutlinedInput-notchedOutline": {
                       border: "unset",
@@ -173,7 +179,6 @@ export default function BarBoards({boards}) {
                   fontWeight: "bold",
                   textTransform: "none",
                   marginRight: "1.5rem",
-                  
                 }}
                 sx={{
                   display: {xs: "none", lg: "flex"},
@@ -187,9 +192,9 @@ export default function BarBoards({boards}) {
                     fontWeight: "bold",
                     fontSize: "1.1rem",
                     transition: "color 0.3s ease",
-                      "&:hover": {
-                color: "#ffffff",
-                },
+                    "&:hover": {
+                      color: "#ffffff",
+                    },
                   }}>
                   {"Agregar Miembros"}
                 </Typography>
