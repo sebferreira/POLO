@@ -146,7 +146,7 @@ boardId: para que modifique la fecha de modificacion del tablero
 
 respuesta: devuelve un mensaje de que la tarea ha sido eliminada.
 
------------------------
+---
 Rutas de Usuario
 
 Registro de usuario
@@ -246,16 +246,8 @@ Perfil de usuario
 
 
 
-
-
-
-
-
-
-
-
-
 ________________________________________
+
 Actualizar perfil de usuario
 •	Método: PATCH
 •	Descripción: Actualiza los detalles del perfil del usuario autenticado. El token JWT se verifica mediante una cookie.
@@ -276,6 +268,7 @@ o	Un objeto JSON con los campos :
   "updatedAt": "2024-09-12T10:00:00.000Z"
 }
 
+---
 
 
 
@@ -284,7 +277,7 @@ o	Un objeto JSON con los campos :
 
 
 
-Rutas de User Boards
+Rutas de User_Boards
 
 Obtener todos los boards de un usuario
 •	Método: GET
@@ -354,3 +347,281 @@ o	boardId (en la URL): El ID del board asociado al usuario.
 •	Respuesta:
 "User-Board deleted successfully"
 
+-----------------------------
+Rutas de Board
+
+
+Obtener todos los Board
+• Metodo: GET
+• Descripcion: Obtiene todos los tableros de un usuario en especifico.
+• Endpoint: /api/boards/
+• Entrada: Ningun dato de entrada
+•	Respuesta:
+[
+  {
+    "id_board": "string",
+    "name": "string",
+    "date": "2024-09-18T03:29:21.660Z",
+    "createdAt": "2024-09-18T03:00:27.549Z",
+    "updatedAt": "2024-09-18T03:29:21.661Z"
+  }
+]
+
+• Bad request: Problemas con la solicitud (por ejemplo, si no se encuentran los tableros)
+
+________________________________________
+
+Obtener board por su ID
+
+
+• Metodo: GET
+• Descripcion: obtiene un tablero especifico segun el id
+• Endpoint: /api/boards/:boardId
+• Entrada:
+o	boardId (en la URL): El ID del board cuyos usuarios se desean obtener.
+•	Respuesta:
+[
+  {
+    "id_board": "string",
+    "name": "string",
+    "date": "2024-09-18T03:29:21.660Z",
+    "createdAt": "2024-09-18T03:00:27.549Z",
+    "updatedAt": "2024-09-18T03:29:21.661Z"
+  }
+]
+
+
+• Bad request: Problema con la solicitud (por ejemplo, si el tablero no fue encontrado)
+
+
+________________________________________
+
+
+Crear board
+
+
+• Metodo: POST
+• Descripcion: Ruta para que el usuario cree un Board
+• Endpoint: /api/boards/
+• Entrada:
+o name (en el Body): nombre del tablero.
+o username (en la sesion): nombre del usuario.
+o boardId (se genera por RandomUID): id del tablero.
+•	Respuesta:
+[
+  {
+  "newBoard": {
+    "date": "2024-09-18T15:29:03.881Z",
+    "id_board": "string",
+    "name": "string",
+    "updatedAt": "2024-09-18T15:38:20.195Z",
+    "createdAt": "2024-09-18T15:38:20.195Z"
+  }
+}
+]
+
+• Bad request: Problema con la solicitud (Por ejemplo, si hubo un error al crear el tablero) 
+
+
+________________________________________
+
+
+Actualizar Board
+
+
+• Metodo: PATCH
+• Descripcion: Permite al usuario actualizar algunas partes del board, como por ejemplo el nombre o la descripcion, esto solo lo puede hacer el usuario con "rol" de "OWNER"
+• Endpoint: /api/board/
+• Entrada:
+o name (en el Body): Se introduce el nombre del tablero.
+o boardId (en el URL): Solicita el id del tablero.
+•	Respuesta:
+[
+  {
+  "boardId": "string",
+  "name": "dato actualizado"
+}
+]
+
+
+• Bad request: Problema con la solicitud (Por ejemplo, si hubo un error al crear el tablero)
+
+
+________________________________________
+
+
+Eliminar un board
+
+
+• Metodo: DELETE
+• Descripcion: Permite al usuario eliminar un board especifico
+• Endpoint: /api/board/:boardId
+• Entrada:
+o boardId (en el URL): Solicita el id del tablero.
+•	Respuesta:
+
+
+"Board deleted successfully"
+
+
+• Bad request: Problema con la solicitud (Por ejemplo, si el tablero no existe)
+
+
+________________________________________
+
+
+Invitar miembros al board
+
+
+• Metodo: POST
+• Descripcion: Permite invitar miembros a un board en especifico, estos miembros serian otros usuarios y se les daria el "rol" de "USER"
+• Endpoint: /api/board/:boardId/invitedBoard
+• Entrada:
+o username (en el Body): Se introduce el nombre del usuario a invitar.
+o boardId (en el URL): Solicita el id del tablero.
+•	Respuesta:
+[
+{
+  "username": "string",
+  "boardId": "string",
+  "role": "user",
+  "updatedAt": "2024-09-18T15:46:38.038Z",
+  "createdAt": "2024-09-18T15:46:38.038Z"
+}
+]
+
+
+• Bad request: Problema con la solicitud (Por ejemplo, si el usuario no existe)
+
+
+________________________________________
+
+
+Obtener todo el contenido de un board segun su ID
+
+
+• Metodo: GET
+• Descripcion: Permite obtenes la informacion de un board segun el ID
+• Endpoint: /api/board/contains/:boardId
+• Entrada:
+o boardId (en el URL): Solicita el id del tablero.
+•	Respuesta:
+[
+  {
+  "id_board": "string",
+  "name": "string",
+  "date": "2024-09-18T15:29:03.881Z",
+  "createdAt": "2024-09-18T15:43:09.967Z",
+  "updatedAt": "2024-09-18T15:43:09.967Z"
+  }
+]
+
+
+• Bad request: Problema con la solicitud (Por ejemplo, si el board no existe)
+
+________________________________________
+Secciones Endpoints:
+
+-GET: Conseguir todas las secciones.
+Esta ruta pasa por un middleware el cual verifica si recibió el token del usuario y valida su autorización.
+endpoint: https://poloweb-api.vercel.app/api/sections/
+recibe: nada
+respuesta=Array de objetos con todas las secciones
+[
+{
+"title": "sec1",
+"createdAt": "2024-09-08T20:59:16.051Z",
+"updatedAt": "2024-09-08T21:37:17.972Z",
+"id_section": 2,
+"id_board": 1
+},
+...
+]
+
+________________________________________
+
+-GET: Conseguir una sección por id.
+Esta ruta pasa por un middleware el cual verifica si recibió el token del usuario y valida su autorización.
+endpoint: https://poloweb-api.vercel.app/api/sections/:sectionId
+recibe:
+  req.params:id de la sección
+respuesta=Objeto con la seccion
+{
+"title": "sec1",
+"createdAt": "2024-09-08T20:59:16.051Z",
+"updatedAt": "2024-09-08T21:37:17.972Z",
+"id_section": 2,
+"id_board": 1
+},
+
+________________________________________
+
+-POST: Crear una sección.
+Esta ruta pasa por dos middlewares, uno el cual verifica si recibió el token del usuario y valida su autorización y otro el cual hace las validaciones del cuerpo del formulario con la dependencia "zod".
+endpoint: https://poloweb-api.vercel.app/api/sections/:boardId/
+recibe: 
+  req.params:id del tablero 
+  req.body:{
+    "title": "sec1"
+  }
+respuesta=Objeto con la seccion
+{
+"title": "sec1",
+"createdAt": "2024-09-08T20:59:16.051Z",
+"updatedAt": "2024-09-08T21:37:17.972Z",
+"id_section": 2,
+"id_board": 1
+},
+
+________________________________________
+
+-PATCH: Actualizar sección.
+Esta ruta pasa por dos middlewares, uno el cual verifica si recibió el token del usuario y valida su autorización y otro el cual hace las validaciones del cuerpo del formulario con la dependencia "zod".
+endpoint: https://poloweb-api.vercel.app/api/sections/:sectionId/:boardId/
+recibe: 
+  req.params:id del tablero, id de la sección 
+  req.body:{
+    "title": "sec1"
+  }
+respuesta=Objeto con la seccion
+{
+"title": "sec1",
+"createdAt": "2024-09-08T20:59:16.051Z",
+"updatedAt": "2024-09-08T21:37:17.972Z",
+"id_section": 2,
+"id_board": 1
+},
+
+________________________________________
+
+-DELETE: Eliminar una sección por id.
+Esta ruta pasa por un middleware el cual verifica si recibió el token del usuario y valida su autorización.
+endpoint: https://poloweb-api.vercel.app/api/sections/:sectionId/:boardId
+recibe:
+  req.params:id de la sección, id del tablero
+respuesta=Un mensaje con la confirmación de que se eliminó la sección
+
+________________________________________
+
+-GET: Conseguir las tareas de una sección.
+Esta ruta pasa por un middleware el cual verifica si recibió el token del usuario y valida su autorización.
+endpoint: https://poloweb-api.vercel.app/api/tasks/:sectionId
+recibe:
+  req.params:id de la sección
+respuesta=Array de objetos con las tareas de una seccion
+[
+{
+"id_task": 1,
+"title": "tar1",
+"description": "desc1",
+"image": null,
+"due_date": null,
+"completed": false,
+"personaAsignada": "sebasGalarza",
+"personaCreador": "sebasGalarza",
+"createdAt": "2024-09-08T20:59:16.051Z",
+"updatedAt": "2024-09-08T21:37:17.972Z",
+"id_section": 2
+},
+...
+]
