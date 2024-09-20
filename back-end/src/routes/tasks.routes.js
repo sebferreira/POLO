@@ -11,8 +11,7 @@ import {
   insertImage,
   updateTask,
 } from "../controllers/task.controller.js"; // Importa los controladores de tarea
-import multer from "multer";
-const upload = multer({dest: "src/uploads/"});
+import {fileUpload} from "../helpers/index.js";
 const routerTask = express.Router(); // Crea un enrutador para manejar las rutas relacionadas con tareas
 
 // Define las rutas para las operaciones de tareas
@@ -33,7 +32,7 @@ routerTask.patch(
 routerTask.patch(
   "/imagenes/:taskId/:boardId",
   revisarCookie,
-  upload.single("TaskImages"),
+  fileUpload,
   insertImage
 );
 routerTask.delete("/:taskId/:boardId", revisarCookie, deleteTask);

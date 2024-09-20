@@ -1,7 +1,7 @@
 import {handleCustomApiRequest} from "./../shared/clientShared.js";
-//const URL = "https://poloweb-api.vercel.app/api";
+const URL = "https://poloweb-api.vercel.app/api";
 
-const URL = "http://localhost:3000/api";
+//const URL = "http://localhost:3000/api";
 
 function verifyCookies() {
   return handleCustomApiRequest({
@@ -154,6 +154,14 @@ function updateUser(username, body) {
     withToken: true,
   });
 }
+function UpdateImageTask(taskId, body, boardId) {
+  return handleCustomApiRequest({
+    url: `${URL}/tasks/imagenes/${taskId}/${boardId}`,
+    method: "PATCH",
+    body,
+    withToken: true,
+  });
+}
 export {
   verifyCookies,
   signIn,
@@ -175,4 +183,5 @@ export {
   UpdateBoard,
   updateInChargeTask,
   updateUser,
+  UpdateImageTask,
 };

@@ -1,7 +1,8 @@
-import {setUpdateDateFromBoard} from "../helpers/index.js";
+import {saveImage, setUpdateDateFromBoard} from "../helpers/index.js";
 import Board from "../models/boards.model.js";
 import Task from "../models/tasks.model.js";
-
+import path from "path";
+const __dirname = path.resolve();
 // Función para obtener todas las tareas.
 export const getAllTasks = async (req, res) => {
   try {
@@ -126,8 +127,7 @@ export const insertImage = async (req, res) => {
       // Imprime un error si no se encontró la tarea.
       return res.status(404).json(["Task not found"]);
     }
-    task.image = req.file.path;
-    console.log(req.file.path);
+    task.image = req.file.filename;
     await task.save();
     res.json(task);
   } catch (error) {

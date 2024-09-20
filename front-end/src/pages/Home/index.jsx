@@ -63,7 +63,7 @@ export default function Home() {
               flexDirection: {xs: "column", md: "row"},
               alignItems: "center",
               backdropFilter: "blur(8px)",
-              marginBottom: "1rem",
+              // modifique esto marginBottom: {xs: "6rem", sm: "8rem", md: "6rem", lg: "6rem", xxl: "6rem"},
               marginTop: "1rem",
             }}>
             <img
@@ -89,7 +89,7 @@ export default function Home() {
                   fontSize: {xs: "0.7rem", sm: "1.2rem", md: "1.6rem"},
                   padding: "1rem",
                   marginTop: {sx: 0, sm: "1rem"},
-                }}
+                  }}
                 color={"#1c1a42"}>
                 Puedes crear tableros donde se podran invitar miembros, guardar
                 y organizar las secciones y tareas. En las secciones se

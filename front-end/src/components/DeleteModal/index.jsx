@@ -86,6 +86,12 @@ export default function ModalDelete({data, type, message, boardId}) {
             color="error"
             style={{
               marginLeft: "auto",
+              backgroundColor: "#D32F2F",
+              color: "#FFFFFF",
+              borderRadius: "12px",
+              boxShadow: "0px 4px 12px rgba(211, 47, 47, 0.4)",
+              padding: "8px 16px",
+              transition: "all 0.3s ease",
             }}>
             Eliminar
           </Button>

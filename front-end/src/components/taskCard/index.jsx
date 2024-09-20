@@ -50,7 +50,20 @@ export default function TaskCard({tasks}) {
                     Persona Asignada:{" "}
                     {task.personaAsignada ? task.personaAsignada : "ninguna"}
                   </Typography>
-                  <img src={`${task.image}.jpg`} alt="imagenTask" />
+                  {/* {task.image && (
+                    <Box
+                      sx={{
+                        width: "100%",
+                      }}>
+                      <img
+                        style={{
+                          width: "100%",
+                        }}
+                        src={`http://localhost:3000/${task.image}`}
+                        alt="imagenTask"
+                      />
+                    </Box>
+                  )} */}
                   {verificarCompletado(task)}
                 </Box>
                 <TaskMenu task={task} />

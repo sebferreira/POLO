@@ -97,21 +97,6 @@ export default function ModalTaskView({task}) {
 
   return (
     <Box sx={[style, {width: {xs: 250, lg: 400}, height: {xs: 500, xl: 600}}]}>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}>
-        <Typography
-          sx={{
-            fontWeight: "bold",
-            color: "black",
-            fontSize: "12px",
-          }}>
-          Creador: {task.personaCreador}
-        </Typography>
-      </Box>
       <form
         onSubmit={onSubmit}
         style={{

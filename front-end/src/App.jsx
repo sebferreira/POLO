@@ -23,6 +23,7 @@ import background3 from "./assets/path_clouds_landscape_237076_1920x1080.jpg";
 import background4 from "./assets/8d98wrhcwlp51.webp";
 import linkedin from "./assets/pngwing.com.png";
 import github from "./assets/github-pages-logo-repository-fork-github-86eddab19cbc3ae293ada0fe0fb9e27d.png";
+import Footer from "./components/Footer/Footer";
 
 export default function App() {
   return (
@@ -36,93 +37,18 @@ export default function App() {
                 <main
                   style={{
                     backgroundImage: `url(${background})`,
+                    // modifique la configuracion de todas los background
                     backgroundSize: "cover",
-                    height: "100%",
-                    width: "100%",
+                    height: "100vh",
                     backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
+                    backgroundPosition: "69%",
                     backgroundAttachment: "fixed",
                     overflowY: "hidden",
                   }}>
                   <Navbar />
                   <Home />
                 </main>
-                <footer
-                  style={{
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    backgroundColor: "#000",
-                    color: "#fff",
-                    padding: "0.5rem",
-                    textAlign: "center",
-                  }}>
-                  <Box
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      marginBottom: "1rem",
-                    }}>
-                    <Typography
-                      component="p"
-                      variant="h5"
-                      sx={{
-                        fontWeight: "bold",
-                        fontSize: {xs: "1rem", md: "1.5rem"},
-                        marginBottom: "2rem",
-                        marginTop: "1rem",
-                      }}>
-                      Contactos
-                    </Typography>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "2rem",
-                      }}>
-                      <a
-                        href="https://www.linkedin.com/in/sebastian-galarza-3a9b48262/"
-                        style={{
-                          color: "#fff",
-                          textDecoration: "none",
-                        }}>
-                        <img
-                          src={linkedin}
-                          alt="linkedin"
-                          style={{
-                            width: "25px",
-                            height: "25px",
-                          }}
-                        />
-                      </a>
-                      <a href="https://github.com/sebferreira">
-                        <img
-                          src={github}
-                          alt="github"
-                          style={{
-                            width: "25px",
-                            height: "25px",
-                          }}
-                        />
-                      </a>
-                    </div>
-                  </Box>
-                  <Box>
-                    <Typography
-                      variant="subtitle1"
-                      sx={{
-                        fontSize: {xs: "0.9rem", md: "1.1rem"},
-                        fontWeight: "bold",
-                      }}
-                      style={{
-                        marginTop: "2rem",
-                        marginBottom: "1rem",
-                      }}>
-                      2024 POLO.
-                    </Typography>
-                  </Box>
-                </footer>
+                <Footer />
               </>
             }
           />
@@ -135,10 +61,10 @@ export default function App() {
                     backgroundImage: `url(${background2})`,
                     backgroundSize: "cover",
                     height: "100vh",
-                    width: "100%",
                     backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
+                    backgroundPosition: "69%",
                     backgroundAttachment: "fixed",
+                    overflowY: "hidden",
                   }}>
                   <NavbarAuth />
                   <Signin />
@@ -156,10 +82,10 @@ export default function App() {
                     backgroundImage: `url(${background2})`,
                     backgroundSize: "cover",
                     height: "100vh",
-                    width: "100%",
                     backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
+                    backgroundPosition: "69%",
                     backgroundAttachment: "fixed",
+                    overflowY: "hidden",
                   }}>
                   <Signup />
                 </main>
@@ -184,12 +110,11 @@ export default function App() {
                     style={{
                       backgroundImage: `url(${background4})`,
                       backgroundSize: "cover",
-                      minHeight: "100vh",
-                      maxHeight: "100vh",
-                      width: "100%",
+                      height: "100vh",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
+                      backgroundPosition: "69%",
                       backgroundAttachment: "fixed",
+                      overflowY: "hidden",
                     }}>
                     <NavbarBoards />
                     <Boards />
@@ -207,10 +132,10 @@ export default function App() {
                       backgroundImage: `url(${background3})`,
                       backgroundSize: "cover",
                       height: "100vh",
-                      width: "100%",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
+                      backgroundPosition: "69%",
                       backgroundAttachment: "fixed",
+                      overflowY: "hidden",
                     }}>
                     <NewBoard />
                   </main>
@@ -227,10 +152,10 @@ export default function App() {
                       backgroundImage: `url(${background3})`,
                       backgroundSize: "cover",
                       height: "100vh",
-                      width: "100%",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
+                      backgroundPosition: "69%",
                       backgroundAttachment: "fixed",
+                      overflowY: "hidden",
                     }}>
                     <InviteUsers />
                   </main>

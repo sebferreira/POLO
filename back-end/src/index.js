@@ -8,6 +8,8 @@ import routerBoard from "./routes/board.routes.js";
 import routerSection from "./routes/section.routes.js";
 import routerTask from "./routes/tasks.routes.js";
 import routerUserBoard from "./routes/users_boards.routes.js";
+import path from "path";
+const __dirname = path.resolve();
 
 const app = express(); // Crea una instancia de la aplicación Express
 
@@ -15,11 +17,12 @@ const app = express(); // Crea una instancia de la aplicación Express
 app.use(
   cors({
     credentials: true,
-    //origin: "https://poloweb.vercel.app",
-    origin: "http://localhost:5173",
+    origin: "https://poloweb.vercel.app",
+    //origin: "http://localhost:5173",
     methods: "GET,OPTIONS,PUT,PATCH,POST,DELETE",
   })
 );
+app.use(express.static(path.join(__dirname, "src/uploads")));
 app.use(morgan("dev")); // Registra las peticiones HTTP en la consola
 app.use(express.json()); // Analiza el cuerpo de las peticiones como JSON
 app.use(cookieParser()); // Analiza cookies en las peticiones
