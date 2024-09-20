@@ -117,8 +117,16 @@ export default function BarBoards({boards}) {
                   <Button onClick={handleOpenModalDelete}>
                     <DeleteForeverIcon
                       fontSize="small"
+                      variant="contained"
+                      color="error"
                       style={{
-                        color: "white",
+                        marginLeft: "auto",
+                        backgroundColor: "#D32F2F",
+                        color: "#FFFFFF",
+                        borderRadius: "7px",
+                        boxShadow: "0px 4px 12px rgba(211, 47, 47, 0.4)",
+                        padding: "8px 16px",
+                        transition: "all 0.3s ease",
                       }}
                     />
                   </Button>
