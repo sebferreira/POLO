@@ -97,6 +97,21 @@ export default function ModalTaskView({task}) {
 
   return (
     <Box sx={[style, {width: {xs: 250, lg: 400}, height: {xs: 500, xl: 600}}]}>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}>
+        <Typography
+          sx={{
+            fontWeight: "bold",
+            color: "black",
+            fontSize: "12px",
+          }}>
+          Creador: {task.personaCreador}
+        </Typography>
+      </Box>
       <form
         onSubmit={onSubmit}
         style={{
@@ -149,6 +164,9 @@ export default function ModalTaskView({task}) {
               "& .MuiOutlinedInput-notchedOutline": {
                 border: "unset",
               },
+              "&:hover": {
+                backgroundColor: "#dddddf",
+              },
               "& :focus": {
                 border: "1px solid",
                 padding: "2px",
@@ -189,6 +207,9 @@ export default function ModalTaskView({task}) {
               "& .MuiOutlinedInput-notchedOutline": {
                 border: "unset",
               },
+              "&:hover": {
+                backgroundColor: "#dddddf",
+              },
               "& :focus": {
                 border: "1px solid",
               },
@@ -222,6 +243,9 @@ export default function ModalTaskView({task}) {
             sx={{
               marginBottom: "1rem",
               width: "100%",
+              "&:hover": {
+                backgroundColor: "#dddddf",
+              },
             }}
           />
           <div
@@ -249,6 +273,9 @@ export default function ModalTaskView({task}) {
               sx={{
                 padding: 0,
                 marginLeft: "1rem",
+                "&:hover": {
+                backgroundColor: "#dddddf",
+              },
               }}
             />
           </div>
