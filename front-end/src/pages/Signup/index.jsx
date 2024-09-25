@@ -81,7 +81,7 @@ export default function Signup() {
                 margin: 0,
                 fontSize: {xs: "1rem", md: "1.2rem"},
               }}>
-              Username
+              Nombre de usuario
             </Typography>
             <TextField
               fullWidth
