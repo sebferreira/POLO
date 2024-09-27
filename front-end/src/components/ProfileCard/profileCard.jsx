@@ -77,43 +77,45 @@ export default function ProfileCard({user, logout}) {
             justifyContent: "center",
             gap: "20px",
           }}>
-          <Box sx={{display: "flex",
-                    alignItems: "center",
-                    borderRadius: "10px",
-                    backgroundColor: "#f7f7f7",
-                    border: "2px solid #edecec",
-                    padding: "7px",
-            }}>
-              <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: {xs: 70, sm: 100},
-            height: {xs: 70, sm: 100},
-            borderRadius: "50%",
-            backgroundColor: "#f5f5f5",
-            border: "2px solid #edecec",
-          }}>
-            <Avatar
+          <Box
             sx={{
-              width: "100px",
-              height: "100px",
-              objectFit: "cover",
-              borderRadius: "50%",
-              fontSize: {xs: "1.5rem", sm: "3rem"},
+              display: "flex",
+              alignItems: "center",
+              borderRadius: "10px",
+              backgroundColor: "#f7f7f7",
+              border: "2px solid #edecec",
+              padding: "7px",
             }}>
-            {FirsLetter}
-          </Avatar>
-          </Box>
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              fontSize: "20px",
-              marginLeft: "10px",
-            }}>
-            {user.username}
-          </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: {xs: 70, sm: 100},
+                height: {xs: 70, sm: 100},
+                borderRadius: "50%",
+                backgroundColor: "#f5f5f5",
+                border: "2px solid #edecec",
+              }}>
+              <Avatar
+                sx={{
+                  width: "100px",
+                  height: "100px",
+                  objectFit: "cover",
+                  borderRadius: "50%",
+                  fontSize: {xs: "1.5rem", sm: "3rem"},
+                }}>
+                {FirsLetter}
+              </Avatar>
+            </Box>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontSize: "20px",
+                marginLeft: "10px",
+              }}>
+              {user.username}
+            </Typography>
           </Box>
 
           <form
@@ -144,7 +146,7 @@ export default function ProfileCard({user, logout}) {
                 sx={{
                   fontSize: {xs: "12px", sm: "17px"},
                   alignContent: "center",
-                  fontWeight:"bold",
+                  fontWeight: "bold",
                 }}>
                 Correo electrónico
               </Typography>
@@ -169,11 +171,11 @@ export default function ProfileCard({user, logout}) {
                   textAlign: "left",
                   color: "black",
                   padding: "7px",
-                  "&:hover":{
-                  backgroundColor: "#f3f1f1",
-                  width: "fit-content",
-                  borderRadius: "15px",
-                  }
+                  "&:hover": {
+                    backgroundColor: "#f3f1f1",
+                    width: "fit-content",
+                    borderRadius: "15px",
+                  },
                 }}
               />
               {user.email !== email && (
@@ -217,7 +219,11 @@ export default function ProfileCard({user, logout}) {
               display: "flex",
             }}>
             <Typography
-              sx={{fontSize: {xs: "12px", sm: "17px"}, alignContent: "center", fontWeight:"bold",}}>
+              sx={{
+                fontSize: {xs: "12px", sm: "17px"},
+                alignContent: "center",
+                fontWeight: "bold",
+              }}>
               Contraseña
             </Typography>
             <Button
