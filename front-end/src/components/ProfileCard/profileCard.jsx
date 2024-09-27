@@ -99,8 +99,8 @@ export default function ProfileCard({user, logout}) {
               }}>
               <Avatar
                 sx={{
-                  width: "100px",
-                  height: "100px",
+                  width: {xs:"50px", sm:"100px"},
+                  height: {xs:"50px", sm:"100px"},
                   objectFit: "cover",
                   borderRadius: "50%",
                   fontSize: {xs: "1.5rem", sm: "3rem"},
