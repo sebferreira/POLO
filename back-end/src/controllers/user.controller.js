@@ -43,15 +43,20 @@ export const loginUser = async (req, res, next) => {
   try {
     // Obtiene el nombre de usuario y la contraseña enviada  de la solicitud
     const {username, password: contraseñaNueva} = req.body;
-    // Verifica si el usuario existe en la base de datos
-    const userFound = await User.findOne({where: {username}});
+    /* const userFound = await User.findOne({where: {username}});
     if (!userFound) {
       return res.status(401).json(["User not found"]); // Si no se encuentra, devuelve un error 401
-    }
-    // Compara la contraseña enviada con la contraseña guardada en la base de datos
-    const isMatch = bcrypt.compareSync(contraseñaNueva, userFound.password);
+    } */
+    /* const isMatch = bcrypt.compareSync(contraseñaNueva, userFound.password);
     if (!isMatch) {
       return res.status(404).json(["Incorrect password"]); // Si no coincide, devuelve un error 404
+    } */
+
+    //compara la contaseña enviada y si el usuario ya existe
+    const userFound = await User.findOne({where: {username}});
+    const isMatch = bcrypt.compareSync(contraseñaNueva, userFound.password);
+    if(!userFound || !isMatch){
+       return res.status(404).json(["El nombre de usuario o la contraseña no son correctos."]); //devuelve el error en el caso de que no exista el usuario o la contraseña sea incorrecta
     }
     // Excluye la contraseña de los datos del usuario para el token
     const {password, ...user} = userFound._previousDataValues;
