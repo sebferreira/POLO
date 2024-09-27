@@ -77,27 +77,44 @@ export default function ProfileCard({user, logout}) {
             justifyContent: "center",
             gap: "20px",
           }}>
+          <Box sx={{display: "flex",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                    backgroundColor: "#f7f7f7",
+                    border: "2px solid #edecec",
+                    padding: "7px",
+            }}>
+              <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: {xs: 70, sm: 100},
+            height: {xs: 70, sm: 100},
+            borderRadius: "50%",
+            backgroundColor: "#f5f5f5",
+            border: "2px solid #edecec",
+          }}>
+            <Avatar
+            sx={{
+              width: "100px",
+              height: "100px",
+              objectFit: "cover",
+              borderRadius: "50%",
+              fontSize: {xs: "1.5rem", sm: "3rem"},
+            }}>
+            {FirsLetter}
+          </Avatar>
+          </Box>
           <Typography
             sx={{
               fontWeight: "bold",
-              fontSize: "24px",
+              fontSize: "20px",
+              marginLeft: "10px",
             }}>
-            Acerca de ti
+            {user.username}
           </Typography>
-          <Typography
-            sx={{
-              fontSize: {xs: "12px", sm: "17px"},
-            }}>
-            <Typography
-              sx={{
-                fontSize: {xs: "12px", sm: "17px"},
-                alignContent: "center",
-              }}
-              color="error">
-              no se permite cambiar
-            </Typography>
-            Username: {user.username}
-          </Typography>
+          </Box>
 
           <form
             onSubmit={onSubmit}
@@ -127,8 +144,9 @@ export default function ProfileCard({user, logout}) {
                 sx={{
                   fontSize: {xs: "12px", sm: "17px"},
                   alignContent: "center",
+                  fontWeight:"bold",
                 }}>
-                Dirección:
+                Correo electrónico
               </Typography>
               <TextField
                 id="modal-modal-title"
@@ -150,6 +168,12 @@ export default function ProfileCard({user, logout}) {
                   },
                   textAlign: "left",
                   color: "black",
+                  padding: "7px",
+                  "&:hover":{
+                  backgroundColor: "#f3f1f1",
+                  width: "fit-content",
+                  borderRadius: "15px",
+                  }
                 }}
               />
               {user.email !== email && (
@@ -193,14 +217,15 @@ export default function ProfileCard({user, logout}) {
               display: "flex",
             }}>
             <Typography
-              sx={{fontSize: {xs: "12px", sm: "17px"}, alignContent: "center"}}>
+              sx={{fontSize: {xs: "12px", sm: "17px"}, alignContent: "center", fontWeight:"bold",}}>
               Contraseña
             </Typography>
             <Button
               onClick={handleOpenModal}
-              color="success"
+              color="info"
+              variant="outlined"
               sx={{
-                textDecoration: "underline",
+                marginLeft: "5px",
                 fontSize: {xs: "12px", sm: "17px"},
                 textTransform: "none",
               }}>
@@ -216,30 +241,8 @@ export default function ProfileCard({user, logout}) {
               fontSize: {xs: "12px", sm: "14px"},
             }}
             onClick={logout}>
-            Desloguearse
+            Cerrar Sesión
           </Button>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: {xs: 70, sm: 130},
-            height: {xs: 50, sm: 100},
-            borderRadius: "50%",
-            backgroundColor: "#f5f5f5",
-            border: "2px solid #ccc",
-          }}>
-          <Avatar
-            sx={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              borderRadius: "50%",
-              fontSize: {xs: "1.5rem", sm: "3rem"},
-            }}>
-            {FirsLetter}
-          </Avatar>
         </Box>
       </CardContent>
       <Modal

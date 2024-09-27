@@ -249,7 +249,7 @@ export default function ModalTasksCreate({section}) {
                 textTransform: "none",
               }}
               type="submit">
-              Crear Sección
+              Crear Tarea
             </Button>
           </form>
         </Box>
