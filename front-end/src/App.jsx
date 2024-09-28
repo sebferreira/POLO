@@ -110,7 +110,7 @@ export default function App() {
                     style={{
                       backgroundImage: `url(${background4})`,
                       backgroundSize: "cover",
-                      height: "100vmax",
+                      height: "100vmin",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
                       backgroundAttachment: "fixed",
