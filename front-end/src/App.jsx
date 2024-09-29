@@ -39,7 +39,7 @@ export default function App() {
                     backgroundImage: `url(${background})`,
                     // modifique la configuracion de todas los background
                     backgroundSize: "cover",
-                    height: "100vh",
+                    height: "100dvh",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "69%",
                     backgroundAttachment: "fixed",
