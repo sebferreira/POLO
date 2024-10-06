@@ -44,9 +44,11 @@ export const getBoardNamesByUser = async (req, res) => {
       return res
         .status(404)
         .json({message: ["No se han encontrado tableros, crea uno."]});
+    /* 
+    const boards = boardsByUsername.map((board) => board.Board); */
 
     // Mapea los boards obtenidos para devolver solo los detalles del board
-    const boards = boardsByUsername.map((board) => board.Board);
+    const boards = boardsByUsername.map((board) => board.board.dataValues);
 
     // Devuelve los nombres de los boards en formato JSON
     res.json(boards);

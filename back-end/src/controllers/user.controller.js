@@ -43,20 +43,14 @@ export const loginUser = async (req, res, next) => {
   try {
     // Obtiene el nombre de usuario y la contraseña enviada  de la solicitud
     const {username, password: contraseñaNueva} = req.body;
-    /* const userFound = await User.findOne({where: {username}});
-    if (!userFound) {
-      return res.status(401).json(["User not found"]); // Si no se encuentra, devuelve un error 401
-    } */
-    /* const isMatch = bcrypt.compareSync(contraseñaNueva, userFound.password);
-    if (!isMatch) {
-      return res.status(404).json(["Incorrect password"]); // Si no coincide, devuelve un error 404
-    } */
-
-    //compara la contaseña enviada y si el usuario ya existe
+    // Verifica si el usuario existe en la base de datos
     const userFound = await User.findOne({where: {username}});
+    if (!userFound) {
+      return res.status(401).json(["Username or Password are incorrect"]); // Si no se encuentra, devuelve un error 401
+    }
     const isMatch = bcrypt.compareSync(contraseñaNueva, userFound.password);
-    if(!userFound || !isMatch){
-       return res.status(404).json(["El nombre de usuario o la contraseña no son correctos."]); //devuelve el error en el caso de que no exista el usuario o la contraseña sea incorrecta
+    if (!isMatch) {
+      return res.status(401).json(["Username or Password are incorrect"]); // Si no se encuentra, devuelve un error 401
     }
     // Excluye la contraseña de los datos del usuario para el token
     const {password, ...user} = userFound._previousDataValues;
@@ -160,7 +154,7 @@ export const updateUser = async (req, res, next) => {
       user.password = hashedPassword;
     }
     await user.save(); //guarda el usuario con los nuevos datos
-   
+
     const {password, ...userUpdated} = user.dataValues; //saco la contraseña del objeto usuario
     res.json(userUpdated); //devuelve el usuario sin la contraseña
   } catch (err) {

@@ -1,23 +1,18 @@
-import {Box, Button, Modal, TextField} from "@mui/material";
+import {Box, Button, TextField} from "@mui/material";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {UpdateSection} from "../../queryFn";
-
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import ModalDelete from "../DeleteModal";
 import {useNavigate, useParams} from "react-router-dom";
+import SectionMenu from "../Menu/sectionMenu";
 
-export default function InputSection({section}) {
+export default function InputSection({section, sections}) {
   const [title, setTitle] = useState(section.title);
-  const [openModalDelete, setOpenModalDelete] = useState(false);
   const navigate = useNavigate();
   const params = useParams();
   const {handleSubmit} = useForm();
   const updateTitle = (e) => {
     setTitle(e.target.value);
   };
-  const handleOpenModalDelete = () => setOpenModalDelete(true);
-  const handleCloseModalDelete = () => setOpenModalDelete(false);
 
   const onSubmit = handleSubmit(async () => {
     const body = {title};
@@ -36,7 +31,13 @@ export default function InputSection({section}) {
           flexDirection: "column",
           justifyContent: "space-between",
         }}>
-        <Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "10px",
+          }}>
           <TextField
             id="modal-modal-title"
             type="text"
@@ -81,28 +82,10 @@ export default function InputSection({section}) {
             </Button>
           )}
           {title === section.title && (
-            <Button
-              onClick={handleOpenModalDelete}
-              sx={{
-                color: "inherit",
-              }}>
-              <DeleteForeverIcon fontSize="small" color="error" />
-            </Button>
+            <SectionMenu section={section} sections={sections} />
           )}
         </Box>
       </form>
-      <Modal
-        open={openModalDelete}
-        onClose={handleCloseModalDelete}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
-        <ModalDelete
-          data={section}
-          type={"section"}
-          message={"¿Estas seguro de borrar la seccion?"}
-          boardId={params.boardId}
-        />
-      </Modal>
     </>
   );
 }

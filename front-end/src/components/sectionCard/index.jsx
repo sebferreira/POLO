@@ -8,13 +8,23 @@ import InputSection from "./InputSection";
 
 export default function SectionCard({boards}) {
   const [content, setContent] = useState([]);
+
   const params = useParams();
   const boardFound = boards.find((board) => board.id_board === params.boardId);
   useEffect(() => {
     const getContent = async () => {
       if (boardFound) {
         const res = await getAllContentBoard(boardFound.id_board);
-        setContent(res.Sections);
+        const ordenado = res.sections.sort(
+          (section1, section2) => section1.posicion - section2.posicion
+        );
+        ordenado.map((section) => {
+          section.tasks = section.tasks.sort(
+            (task1, task2) => task1.posicion - task2.posicion
+          );
+          return section;
+        });
+        setContent(ordenado);
       }
     };
     getContent();
@@ -34,83 +44,88 @@ export default function SectionCard({boards}) {
         style={{
           height: "calc(100% - 3rem)",
         }}>
-        {content.map((section) => {
-          return (
-            <Grid
-              item
-              key={section.id_section}
-              sx={{
-                width: {xs: 260, md: 330, xl: 400},
-                backgroundColor: "#f1f2f4",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                padding: "20px",
-                margin: "20px auto",
-                borderRadius: "1rem",
-                boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
-                transition: "all 0.3s ease-in-out",
-                height: "auto",
-                "&:hover": {
-                  transform: "scale(1.05)",
-                  boxShadow: "0 15px 25px rgba(0, 0, 0, 0.3)",
-                },
-                boxSizing: "border-box",
-              }}
-              style={{
-                maxHeight: " calc(100% - 5rem)",
-              }}>
-              <div
+        {content &&
+          content.map((section) => {
+            return (
+              <Grid
+                item
+                key={section.id_section}
+                sx={{
+                  width: {xs: 260, md: 330, xl: 400},
+                  backgroundColor: "#f1f2f4",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  padding: "20px",
+                  margin: "20px auto",
+                  borderRadius: "1rem",
+                  boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
+                  transition: "all 0.3s ease-in-out",
+                  height: "auto",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: "0 15px 25px rgba(0, 0, 0, 0.3)",
+                  },
+                  boxSizing: "border-box",
+                }}
                 style={{
-                  overflowX: "hidden",
-                  height: "100%",
-                  scrollbarColor: "#262626 transparent",
-                  scrollbarWidth: "thin",
-                  scrollbarGutter: "stable",
+                  maxHeight: " calc(100% - 5rem)",
                 }}>
-                <Card
-                  sx={{
-                    width: "100%",
-                    boxShadow: "none",
-                    backgroundColor: "transparent",
-                    marginLeft: "1rem",
-                    position: "relative",
+                <div
+                  style={{
+                    overflowX: "hidden",
+                    height: "100%",
+                    scrollbarColor: "#262626 transparent",
+                    scrollbarWidth: "thin",
+                    scrollbarGutter: "stable",
                   }}>
-                  <CardContent
-                    style={{
-                      padding: "5px",
-                    }}
+                  <Card
                     sx={{
-                      fontSize: {xs: 14, md: 16, xl: 18},
+                      width: "100%",
+                      boxShadow: "none",
+                      backgroundColor: "transparent",
+                      marginLeft: "1rem",
+                      position: "relative",
                     }}>
-                    <div>
-                      <InputSection section={section} />
-                    </div>
-                  </CardContent>
-                </Card>
-                <Divider />
+                    <CardContent
+                      style={{
+                        padding: "5px",
+                      }}
+                      sx={{
+                        fontSize: {xs: 14, md: 16, xl: 18},
+                      }}>
+                      <div>
+                        <InputSection section={section} sections={content} />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Divider />
 
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      marginBottom: "0.2rem",
+                    }}>
+                    <TaskCard
+                      tasks={section.tasks}
+                      section={section}
+                      sections={content}
+                    />
+                  </div>
+                </div>
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    marginBottom: "0.2rem",
+                    justifyContent: "center",
+                    marginTop: "1rem",
                   }}>
-                  <TaskCard tasks={section.Tasks} />
+                  <ModalTasksCreate section={section} />
                 </div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "1rem",
-                }}>
-                <ModalTasksCreate section={section} />
-              </div>
-            </Grid>
-          );
-        })}
+              </Grid>
+            );
+          })}
       </Grid>
     </>
   );

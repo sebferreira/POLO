@@ -2,7 +2,8 @@ import {Box, Card, CardContent, Typography} from "@mui/material";
 import TaskMenu from "../Menu/taskMenu.jsx";
 import {verificarCompletado} from "../../helpers/index.jsx";
 
-export default function TaskCard({tasks}) {
+export default function TaskCard({tasks, section, sections}) {
+  console.log(tasks);
   return (
     <>
       {tasks.length > 0 &&
@@ -38,8 +39,21 @@ export default function TaskCard({tasks}) {
                       fontSize: "1.1rem",
                       fontWeight: 400,
                       overflow: "auto",
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: "1rem",
                     }}>
                     {task.title}
+                    {task.color != "#FFFFFF" && task.color != "#ffffff" && (
+                      <Box
+                        sx={{
+                          width: "4rem",
+                          height: "1.3rem",
+                          borderRadius: 1,
+                          border: "1px solid #000",
+                          backgroundColor: task.color,
+                        }}></Box>
+                    )}
                   </Typography>
                   <Typography
                     sx={{
@@ -50,7 +64,7 @@ export default function TaskCard({tasks}) {
                     Persona Asignada:{" "}
                     {task.personaAsignada ? task.personaAsignada : "ninguna"}
                   </Typography>
-                  {/* {task.image && (
+                  {task.image && (
                     <Box
                       sx={{
                         width: "100%",
@@ -59,14 +73,14 @@ export default function TaskCard({tasks}) {
                         style={{
                           width: "100%",
                         }}
-                        src={`http://localhost:3000/${task.image}`}
+                        src={`https://poloweb-api.vercel.app/${task.image}`}
                         alt="imagenTask"
                       />
                     </Box>
-                  )} */}
+                  )}
                   {verificarCompletado(task)}
                 </Box>
-                <TaskMenu task={task} />
+                <TaskMenu task={task} section={section} sections={sections} />
               </Box>
             </CardContent>
           </Card>

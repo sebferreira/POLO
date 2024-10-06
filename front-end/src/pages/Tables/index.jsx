@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 
 export default function Tables() {
   const {boards} = useBoard();
- 
+
   return (
     <>
       <Box sx={{display: {sx: "flex", md: "none"}}}>
@@ -61,9 +61,10 @@ export default function Tables() {
             </Typography>
 
             <List>
-              {boards.map((board) => (
-                <BoardList board={board} key={board.id_board} />
-              ))}
+              {boards &&
+                boards.map((board) => (
+                  <BoardList board={board} key={board.id_board} />
+                ))}
             </List>
           </>
         )}

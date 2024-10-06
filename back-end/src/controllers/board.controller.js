@@ -144,5 +144,6 @@ export const getBoardContainById = async (req, res) => {
     // Atrapa los errores del servidor y los imprime.
     console.error(error);
     res.status(500).json("Server error");
+    console.log(error.message);
   }
 };

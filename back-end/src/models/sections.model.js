@@ -4,7 +4,7 @@ import Board from "./boards.model.js"; // Importa el modelo Board
 
 // Define el modelo Sections
 const Sections = sequelize.define(
-  "Sections",
+  "sections",
   {
     id_section: {
       type: DataTypes.INTEGER,
@@ -15,6 +15,10 @@ const Sections = sequelize.define(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    posicion: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
     },
   },
   {

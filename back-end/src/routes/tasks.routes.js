@@ -3,6 +3,7 @@ import validateSchema from "../middlewares/validaciones.middleware.js"; // Middl
 import {taskSchema} from "../schemas/task.schema.js"; //  validación para las tareas
 import {revisarCookie} from "../middlewares/authorization.middleware.js"; // Middleware para verificar la cookie de autenticación
 import {
+  changePositionTask,
   createTask,
   deleteTask,
   getAllTasks,
@@ -11,7 +12,7 @@ import {
   insertImage,
   updateTask,
 } from "../controllers/task.controller.js"; // Importa los controladores de tarea
-/* import {fileUpload} from "../helpers/index.js"; */
+import {fileUpload} from "../helpers/index.js";
 const routerTask = express.Router(); // Crea un enrutador para manejar las rutas relacionadas con tareas
 
 // Define las rutas para las operaciones de tareas
@@ -29,17 +30,22 @@ routerTask.patch(
   validateSchema(taskSchema),
   updateTask
 );
-/* routerTask.patch(
+routerTask.patch(
   "/imagenes/:taskId/:boardId",
   revisarCookie,
   fileUpload,
   insertImage
-); */
+);
 routerTask.delete("/:taskId/:boardId", revisarCookie, deleteTask);
 routerTask.patch(
   "/asignacion/:username/:boardId/:taskId",
   revisarCookie,
   hacerseCargo
+);
+routerTask.patch(
+  "/posicionTask/:taskId/:sectionId/:boardId",
+  revisarCookie,
+  changePositionTask
 );
 
 export default routerTask; // Exporta el enrutador para ser utilizado en la aplicación principal

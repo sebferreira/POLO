@@ -94,6 +94,7 @@ function UpdateTask(taskId, body, boardId) {
     withToken: true,
   });
 }
+
 function UpdateSection(sectionId, body, boardId) {
   return handleCustomApiRequest({
     url: `${URL}/sections/${sectionId}/${boardId}`,
@@ -159,9 +160,27 @@ function UpdateImageTask(taskId, body, boardId) {
     url: `${URL}/tasks/imagenes/${taskId}/${boardId}`,
     method: "PATCH",
     body,
+    isMultipart: true,
     withToken: true,
   });
 }
+function updatePositionSection(body, sectionId, boardId) {
+  return handleCustomApiRequest({
+    url: `${URL}/sections/posicionSection/${sectionId}/${boardId}`,
+    method: "PATCH",
+    body,
+    withToken: true,
+  });
+}
+function updatePositionTask(body, taskId, sectionId, boardId) {
+  return handleCustomApiRequest({
+    url: `${URL}/tasks/posicionTask/${taskId}/${sectionId}/${boardId}`,
+    method: "PATCH",
+    body,
+    withToken: true,
+  });
+}
+
 export {
   verifyCookies,
   signIn,
@@ -184,4 +203,6 @@ export {
   updateInChargeTask,
   updateUser,
   UpdateImageTask,
+  updatePositionSection,
+  updatePositionTask,
 };

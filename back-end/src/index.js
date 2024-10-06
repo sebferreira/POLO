@@ -22,7 +22,8 @@ app.use(
     methods: "GET,OPTIONS,PUT,PATCH,POST,DELETE",
   })
 );
-app.use(express.static(path.join(__dirname, "src/uploads")));
+console.log(__dirname);
+app.use(express.static(path.join(__dirname, "/src/uploads")));
 app.use(morgan("dev")); // Registra las peticiones HTTP en la consola
 app.use(express.json()); // Analiza el cuerpo de las peticiones como JSON
 app.use(cookieParser()); // Analiza cookies en las peticiones

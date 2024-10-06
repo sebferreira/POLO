@@ -3,7 +3,7 @@ import sequelize from "../config/db.js"; // Importa la instancia de conexión a 
 
 // Define el modelo User
 const User = sequelize.define(
-  "Users",
+  "users",
   {
     username: {
       type: DataTypes.STRING,

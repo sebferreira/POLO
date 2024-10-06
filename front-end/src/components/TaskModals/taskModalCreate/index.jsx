@@ -191,6 +191,7 @@ export default function ModalTasksCreate({section}) {
                   Task description is required
                 </Typography>
               )}
+             
               {/*<Typography
                 variant="h6"
                 component="label"

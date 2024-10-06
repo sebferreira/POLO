@@ -22,7 +22,6 @@ export async function revisarCookie(req, res, next) {
       // Busca el usuario en la base de datos usando el nombre de usuario
       const response = await User.findOne({where: {username}});
       // Excluye la contraseña de los datos del usuario
-
       const {password, ...user} = response._previousDataValues;
       req.user = user;
       // Llama a next() para pasar el control al siguiente middleware o ruta

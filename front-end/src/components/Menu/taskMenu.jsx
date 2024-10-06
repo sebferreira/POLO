@@ -20,8 +20,10 @@ import {getUsersBoard, updateInChargeTask} from "../../queryFn";
 import {useAuth} from "../../context/AuthContext";
 import TaskModalUpdateAsign from "../TaskModals/taskModalUpdateAsign/TaskModalUpdateAsign";
 import Salir from "@mui/icons-material/ExitToApp";
+import TaskModalUpdatePosicion from "../TaskModals/taskModalPositionUpdate/TaskModalUpdatePosicion";
+import ChangeCircleOutlinedIcon from "@mui/icons-material/ChangeCircleOutlined";
 
-export default function TaskMenu({task}) {
+export default function TaskMenu({task, section, sections}) {
   const {user} = useAuth();
   const params = useParams();
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ export default function TaskMenu({task}) {
   const [openModalView, setOpenModalView] = useState(false);
   const [openModalUpdateAsign, setOpenModalUpdateAsign] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
+  const [openModalPosicion, setOpenModalPosicion] = useState(false);
 
   const handleOpenModalView = () => setOpenModalView(true);
   const handleCloseModalView = () => setOpenModalView(false);
@@ -38,6 +41,9 @@ export default function TaskMenu({task}) {
 
   const handleOpenModalDelete = () => setOpenModalDelete(true);
   const handleCloseModalDelete = () => setOpenModalDelete(false);
+
+  const handleOpenModalPosicion = () => setOpenModalPosicion(true);
+  const handleCloseModalPosicion = () => setOpenModalPosicion(false);
 
   const handleInCharge = async (opcion) => {
     if (params.boardId) {
@@ -197,6 +203,18 @@ export default function TaskMenu({task}) {
             </ListItemButton>
           </MenuItem>
         )}
+        <MenuItem onClick={(() => handleClose, handleOpenModalPosicion)}>
+          <ListItemButton
+            sx={{
+              padding: 0,
+              width: "100%",
+            }}>
+            <ListItemIcon>
+              <ChangeCircleOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            Mover de lugar
+          </ListItemButton>
+        </MenuItem>
       </Menu>
       <Modal
         open={openModalView}
@@ -222,6 +240,18 @@ export default function TaskMenu({task}) {
           type={"task"}
           message={"¿Estas seguro de borrar la tarea?"}
           boardId={params.boardId}
+        />
+      </Modal>
+      <Modal
+        open={openModalPosicion}
+        onClose={handleCloseModalPosicion}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <TaskModalUpdatePosicion
+          task={task}
+          users={users}
+          section={section}
+          sections={sections}
         />
       </Modal>
     </>

@@ -1,5 +1,4 @@
-import {saveImage, setUpdateDateFromBoard} from "../helpers/index.js";
-import Board from "../models/boards.model.js";
+import {setUpdateDateFromBoard} from "../helpers/index.js";
 import Task from "../models/tasks.model.js";
 import path from "path";
 const __dirname = path.resolve();
@@ -39,10 +38,14 @@ export const createTask = async (req, res) => {
     const {sectionId, boardId} = req.params;
     const {title, description, due_date} = req.body;
     await setUpdateDateFromBoard({boardId}); //actualizo la fecha de modificacion del tablero
+    const tasksInSection = await Task.count({where: {id_section: sectionId}});
+    const posicion = Number(tasksInSection) + 1;
+
     const task = await Task.create({
       title,
       description,
       due_date,
+      posicion,
       id_section: sectionId,
       personaCreador: username,
     }); //creo una tarea con los datos del req
@@ -78,7 +81,7 @@ export const hacerseCargo = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const {taskId, boardId} = req.params;
-    const {title, description, image, completed, due_date} = req.body;
+    const {title, description, color, image, completed, due_date} = req.body;
     await setUpdateDateFromBoard({boardId});
     const task = await Task.findByPk(taskId);
     if (!task) {
@@ -88,6 +91,7 @@ export const updateTask = async (req, res) => {
     await task.update({
       title,
       description,
+      color,
       image,
       completed,
       due_date,
@@ -110,6 +114,18 @@ export const deleteTask = async (req, res) => {
       // Imprime un error si no se encontró la tarea.
       return res.status(404).json(["Task not found"]);
     }
+    const tasksInSection = await Task.count({
+      where: {id_section: task.id_section},
+    });
+    if (tasksInSection > 1) {
+      for (let i = task.dataValues.posicion + 1; i <= tasksInSection; i++) {
+        const taskEnLaSeccion = await Task.findOne({
+          where: {id_section: task.id_section, posicion: i},
+        });
+        taskEnLaSeccion.update({posicion: i - 1});
+      }
+    }
+
     await task.destroy();
     res.json({message: "Task deleted successfully"});
   } catch (error) {
@@ -118,17 +134,114 @@ export const deleteTask = async (req, res) => {
     res.status(500).json(["Server error"]);
   }
 };
+
 export const insertImage = async (req, res) => {
   try {
     const {taskId, boardId} = req.params;
     await setUpdateDateFromBoard({boardId});
     const task = await Task.findByPk(taskId);
+    console.log(task, req.file);
     if (!task) {
       // Imprime un error si no se encontró la tarea.
       return res.status(404).json(["Task not found"]);
     }
     task.image = req.file.filename;
     await task.save();
+    res.json(task);
+  } catch (error) {
+    // Atrapa los errores del servidor y los imprime.
+    console.log(error);
+    res.status(500).json(["Server error"]);
+  }
+};
+
+export const changePositionTask = async (req, res) => {
+  try {
+    const {taskId, sectionId, boardId} = req.params;
+    const {posicionNueva} = req.body;
+    await setUpdateDateFromBoard({boardId});
+    const task = await Task.findByPk(taskId);
+    if (!task) {
+      // Imprime un error si no se encontró la tarea.
+      return res.status(404).json(["Task not found"]);
+    }
+    if (sectionId != task.id_section) {
+      const tasksEnLaSeccion = await Task.count({
+        where: {id_section: task.id_section},
+      });
+      //si la seccion es diferente se mueve la tarea
+      if (task.posicion < Number(tasksEnLaSeccion)) {
+        for (let i = task.posicion; i <= Number(tasksEnLaSeccion); i++) {
+          //si el indice es mayor a la posicion en la que me encuentro hace lo siguiente
+          //busca una tarea con esa posicion
+          const taskPosicion = await Task.findOne({
+            where: {posicion: i, id_section: task.id_section},
+          });
+          //setea una nueva posicion que es una menos a la que se encuentra para dar lugar al siguiente
+          if (taskPosicion) {
+            if (taskPosicion.dataValues.id_task != task.id_task) {
+              await taskPosicion.update({
+                posicion: i - 1,
+              });
+            }
+          }
+        }
+      }
+
+      const tasksInTheNewSection = await Task.count({
+        where: {id_section: sectionId},
+      });
+      let numeroDeTareas = Number(tasksInTheNewSection);
+      for (let i = posicionNueva; i <= numeroDeTareas; i++) {
+        //busca una tarea con esa posicion
+        const taskPosicion = await Task.findOne({
+          where: {posicion: i, id_section: sectionId},
+        });
+
+        //setea una nueva posicion que es una más a la que se encuentra para dar lugar al siguiente
+        if (taskPosicion) {
+          await taskPosicion.update({
+            posicion: i + 1,
+          });
+        }
+      }
+    } else {
+      if (posicionNueva > task.posicion) {
+        //itero en todas las posiciones que son menores a la posicion nueva
+        for (let i = 1; i <= posicionNueva; i++) {
+          if (i > task.posicion) {
+            //si el indice es mayor a la posicion en la que me encuentro hace lo siguiente
+            //busca una tarea con esa posicion
+            const taskPosicion = await Task.findOne({
+              where: {posicion: i, id_section: task.id_section},
+            });
+            //setea una nueva posicion que es una menos a la que se encuentra para dar lugar al siguiente
+            if (taskPosicion) {
+              await taskPosicion.update({
+                posicion: i - 1,
+              });
+            }
+          }
+        }
+      } else {
+        // en el caso de que la posicionNueva sea menor a la actual se haria esto
+        //itero en las posiciones que son menores a la actual de una en una, para que inicie desde el lugar en el que me encuentro
+        for (let i = task.posicion; i >= posicionNueva; i--) {
+          //busco una tarea que tenga la posicion del indice actual
+
+          const taskPosicion = await Task.findOne({
+            where: {posicion: i, id_section: task.id_section},
+          });
+          //si hay una tarea con ese indice, entonces sumale uno a la posicion en la que se encuentra para que ocupe el lugar vacio
+          if (taskPosicion) {
+            await taskPosicion.update({
+              posicion: i + 1,
+            });
+          }
+        }
+      }
+    }
+    await task.update({posicion: posicionNueva, id_section: sectionId});
     res.json(task);
   } catch (error) {
     // Atrapa los errores del servidor y los imprime.
