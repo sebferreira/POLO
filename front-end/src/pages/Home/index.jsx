@@ -19,7 +19,7 @@ export default function Home() {
         <Box
           style={{
             width: "100%",
-            height: "100vh",
+            height: "90vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
@@ -27,14 +27,14 @@ export default function Home() {
           <Box
             sx={{
               width: {xs: "15rem", sm: "35rem", md: "50rem"},
-              marginTop: {xs: "2rem", sm: "2rem", md: "0"},
+              marginTop: {xs: "1rem", sm: "1rem", md: "1rem"},
             }}>
             <Typography
               component="p"
               variant="h3"
               sx={{
                 fontWeight: "bold",
-                marginBottom: {xs: "1rem", sm: "2rem"},
+                marginBottom: {xs: "1rem", sm: "1rem"},
               }}
               fontSize={{xs: "1.5rem", sm: "3rem", lg: "3rem", xl: "4rem"}}
               color={"#1c1a42"}>
@@ -60,7 +60,7 @@ export default function Home() {
               backgroundColor: "#f8f9fa6b",
               borderRadius: "1.5rem",
               display: "flex",
-              flexDirection: {xs: "column", md: "row"},
+              flexDirection: {xs: "column", sm: "row", md: "row"},
               alignItems: "center",
               backdropFilter: "blur(8px)",
               // modifique esto marginBottom: {xs: "6rem", sm: "8rem", md: "6rem", lg: "6rem", xxl: "6rem"},
@@ -89,7 +89,7 @@ export default function Home() {
                   fontSize: {xs: "0.7rem", sm: "1.2rem", md: "1.6rem"},
                   padding: "1rem",
                   marginTop: {sx: 0, sm: "1rem"},
-                  }}
+                }}
                 color={"#1c1a42"}>
                 Puedes crear tableros donde se podran invitar miembros, guardar
                 y organizar las secciones y tareas. En las secciones se

@@ -20,9 +20,9 @@ export default function Footer() {
           variant="h5"
           sx={{
             fontWeight: "bold",
-            fontSize: {xs: "3rem", md: "5rem"},
-            marginBottom: "2rem",
-            marginTop: "1rem",
+            fontSize: {xs: "2rem", sm: "3rem", md: "4rem"},
+            marginBottom: {xs: "1px", sm: "1px", md: "2px", xl: "2rem"},
+            marginTop: {xs: "0rem", sm: "0rem", xl: "1rem"},
           }}>
           POLO
         </Typography>
@@ -54,12 +54,14 @@ export default function Footer() {
           flexDirection: "row",
           justifyContent: "space-evenly",
           gap: {xs: "0px", sm: "10rem"},
+          maxHeight: {xs: "100%"},
         }}>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             gap: {xs: "1rem", sm: "2rem"},
+            marginTop: "1rem",
           }}>
           <Link
             href="https://www.linkedin.com/in/sebastian-galarza-3a9b48262/"
@@ -71,8 +73,8 @@ export default function Footer() {
               src={linkedin}
               alt="linkedin"
               style={{
-                width: "25px",
-                height: "25px",
+                width: "22px",
+                height: "22px",
               }}
             />
           </Link>
@@ -81,8 +83,8 @@ export default function Footer() {
               src={github}
               alt="github"
               style={{
-                width: "25px",
-                height: "25px",
+                width: "22px",
+                height: "22px",
               }}
             />
           </Link>

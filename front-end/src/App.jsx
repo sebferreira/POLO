@@ -1,5 +1,4 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import {Box, Typography} from "@mui/material";
 //providers
 import {AuthProvider} from "./context/AuthContext";
 //navbars
@@ -21,8 +20,6 @@ import background from "./assets/fondoHomeWebp.webp";
 import background2 from "./assets/wallpaperbetter1webp.webp";
 import background3 from "./assets/path_clouds_landscape_237076_1920x1080.jpg";
 import background4 from "./assets/8d98wrhcwlp51.webp";
-import linkedin from "./assets/pngwing.com.png";
-import github from "./assets/github-pages-logo-repository-fork-github-86eddab19cbc3ae293ada0fe0fb9e27d.png";
 import Footer from "./components/Footer/Footer";
 
 export default function App() {
@@ -39,7 +36,7 @@ export default function App() {
                     backgroundImage: `url(${background})`,
                     // modifique la configuracion de todas los background
                     backgroundSize: "cover",
-                    height: "100vh",
+                    height: "100vmax",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "69%",
                     backgroundAttachment: "fixed",
