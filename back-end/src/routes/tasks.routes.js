@@ -30,12 +30,12 @@ routerTask.patch(
   validateSchema(taskSchema),
   updateTask
 );
-routerTask.patch(
+/* routerTask.patch(
   "/imagenes/:taskId/:boardId",
   revisarCookie,
   fileUpload,
   insertImage
-);
+); */
 routerTask.delete("/:taskId/:boardId", revisarCookie, deleteTask);
 routerTask.patch(
   "/asignacion/:username/:boardId/:taskId",

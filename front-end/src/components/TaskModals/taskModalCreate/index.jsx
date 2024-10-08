@@ -191,29 +191,6 @@ export default function ModalTasksCreate({section}) {
                   Task description is required
                 </Typography>
               )}
-             
-              {/*<Typography
-                variant="h6"
-                component="label"
-                textAlign="center"
-                sx={{
-                  margin: 0,
-                  fontSize: {xs: "1rem", md: "1.2rem"},
-                }}>
-                ImageUrl
-              </Typography>
-                <TextField
-                fullWidth
-                sx={{
-                  display: "block",
-                  marginBottom: {xs: "1rem", xl: "2.5rem"},
-                }}
-                type="file"
-                fontWeight="bold"
-                {...register("image")}
-                size="small"
-                variant="outlined"
-              /> */}
               <Typography
                 variant="h6"
                 component="label"

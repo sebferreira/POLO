@@ -3,7 +3,6 @@ import TaskMenu from "../Menu/taskMenu.jsx";
 import {verificarCompletado} from "../../helpers/index.jsx";
 
 export default function TaskCard({tasks, section, sections}) {
-  console.log(tasks);
   return (
     <>
       {tasks.length > 0 &&

@@ -47,7 +47,7 @@ export const createTask = async (req, res) => {
       due_date,
       posicion,
       id_section: sectionId,
-      personaCreador: username,
+      username,
     }); //creo una tarea con los datos del req
     res.status(201).json(task);
   } catch (error) {
@@ -140,13 +140,13 @@ export const insertImage = async (req, res) => {
     const {taskId, boardId} = req.params;
     await setUpdateDateFromBoard({boardId});
     const task = await Task.findByPk(taskId);
-    console.log(task, req.file);
     if (!task) {
       // Imprime un error si no se encontró la tarea.
       return res.status(404).json(["Task not found"]);
     }
     task.image = req.file.filename;
     await task.save();
+    console.log(task, req.file);
     res.json(task);
   } catch (error) {
     // Atrapa los errores del servidor y los imprime.

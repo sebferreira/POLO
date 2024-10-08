@@ -158,7 +158,7 @@ export default function ModalTaskView({task}) {
             color: "black",
             fontSize: "12px",
           }}>
-          Creador: {task.personaCreador}
+          Creador: {task.username}
         </Typography>
       </Box>
       <form
@@ -348,7 +348,7 @@ export default function ModalTaskView({task}) {
               }}
             />
           </div>
-          <div
+          {/*  <div
             style={{
               display: "flex",
               flexDirection: "column",
@@ -391,7 +391,7 @@ export default function ModalTaskView({task}) {
                 }}
               />
             )}
-          </div>
+          </div> */}
         </Box>
         {validateErrors.map((error, i) => {
           return (
