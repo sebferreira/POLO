@@ -221,7 +221,7 @@ export default function ModalTasksCreate({section}) {
               style={{
                 marginTop: "1rem",
                 width: "100%",
-                backgroundColor: #1D2125",
+                backgroundColor: "#1D2125",
                 borderRadius: 12,
                 fontSize: "16px",
                 fontWeight: "bold",
