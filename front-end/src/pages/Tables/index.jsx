@@ -9,7 +9,11 @@ export default function Tables() {
 
   return (
     <>
-      <Box sx={{display: {sx: "flex", md: "none"}}}>
+      <Box
+        sx={{
+          display: {sx: "flex", md: "none"},
+          backgroundColor: "#fff",
+        }}>
         <Box
           sx={{
             display: "flex",
