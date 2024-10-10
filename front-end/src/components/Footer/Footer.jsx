@@ -1,5 +1,6 @@
 import {Box, Typography} from "@mui/material";
 import linkedin from "../../assets/pngwing.com.png";
+import polo from "../../assets/polo_blanco.png";
 import github from "../../assets/github-pages-logo-repository-fork-github-86eddab19cbc3ae293ada0fe0fb9e27d.png";
 import {Link} from "react-router-dom";
 export default function Footer() {
@@ -14,17 +15,52 @@ export default function Footer() {
         padding: "0.5rem",
         textAlign: "center",
       }}>
-      <Box style={{}}>
+      <Box
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "#fff",
+        }}>
         <Typography
           component="p"
           variant="h5"
           sx={{
             fontWeight: "bold",
             fontSize: {xs: "2rem", sm: "3rem", md: "4rem"},
-            marginBottom: {xs: "1px", sm: "1px", md: "2px", xl: "2rem"},
-            marginTop: {xs: "0rem", sm: "0rem", xl: "1rem"},
+            marginBottom: 0,
+            marginTop: 0,
           }}>
-          POLO
+          P
+        </Typography>
+        <Link
+          style={{
+            color: "#fff",
+            textDecoration: "none",
+          }}>
+          <img src={polo} alt="polo" className="logoFooter" />
+        </Link>
+        <Typography
+          component="p"
+          variant="h5"
+          sx={{
+            fontWeight: "bold",
+            fontSize: {xs: "2rem", sm: "3rem", md: "4rem"},
+            marginBottom: 0,
+            marginTop: 0,
+          }}>
+          L
+        </Typography>
+        <Typography
+          component="p"
+          variant="h5"
+          sx={{
+            fontWeight: "bold",
+            fontSize: {xs: "2rem", sm: "3rem", md: "4rem"},
+            marginBottom: 0,
+            marginTop: 0,
+          }}>
+          O
         </Typography>
         {/* <Typography
                       component="p"

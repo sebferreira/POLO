@@ -43,8 +43,11 @@ export default function Signup() {
         }}
         style={{
           padding: "1.7rem",
-          backgroundColor: "#F1F2F4",
+          backgroundColor: "#c0c0c036",
+          backdropFilter: "blur(5px)",
+          border: "solid 1px #FFFF",
           borderRadius: 12,
+          color: "#FFFF",
         }}>
         <CardContent>
           <Typography
@@ -88,11 +91,19 @@ export default function Signup() {
               sx={{
                 display: "block",
                 marginBottom: {xs: "0.5rem", md: "1rem"},
+                "& .css-953pxc-MuiInputBase-root-MuiInput-root": {
+                  "&:before": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                  "&:after": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                },
               }}
               type="text"
               {...register("username", {required: true})}
               size="small"
-              variant="outlined"
+              variant="standard"
             />
             {errors.username && (
               <Typography
@@ -121,11 +132,19 @@ export default function Signup() {
               sx={{
                 display: "block",
                 marginBottom: {xs: "0.5rem", md: "1rem"},
+                "& .css-953pxc-MuiInputBase-root-MuiInput-root": {
+                  "&:before": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                  "&:after": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                },
               }}
               type="email"
               {...register("email", {required: true})}
               size="small"
-              variant="outlined"
+              variant="standard"
             />
             {errors.email && (
               <Typography
@@ -142,6 +161,7 @@ export default function Signup() {
               variant="h6"
               component="label"
               textAlign="center"
+              htmlFor="password"
               sx={{
                 margin: 0,
                 fontSize: {xs: "1rem", md: "1.2rem"},
@@ -153,11 +173,19 @@ export default function Signup() {
               sx={{
                 display: "block",
                 marginBottom: {xs: "0.5rem", md: "1rem"},
+                "& .css-953pxc-MuiInputBase-root-MuiInput-root": {
+                  "&:before": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                  "&:after": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                },
               }}
               type="password"
               {...register("password", {required: true})}
               size="small"
-              variant="outlined"
+              variant="standard"
             />
             {errors.password && (
               <Typography
@@ -174,6 +202,7 @@ export default function Signup() {
               variant="h6"
               component="label"
               textAlign="center"
+              htmlFor="confirmPassword"
               sx={{
                 margin: 0,
                 fontSize: {xs: "1rem", md: "1.2rem"},
@@ -185,11 +214,19 @@ export default function Signup() {
               sx={{
                 display: "block",
                 marginBottom: {xs: "0.5rem", md: "1rem"},
+                "& .css-953pxc-MuiInputBase-root-MuiInput-root": {
+                  "&:before": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                  "&:after": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                },
               }}
               type="password"
               {...register("confirmPassword", {required: true})}
               size="small"
-              variant="outlined"
+              variant="standard"
             />
             {errors.confirmPassword && (
               <Typography
@@ -208,7 +245,8 @@ export default function Signup() {
               style={{
                 marginTop: "1rem",
                 width: "100%",
-                backgroundColor: "#3181FA",
+                backgroundColor: "#fff",
+                color: "#010206",
                 borderRadius: 12,
                 fontSize: "16px",
                 fontWeight: "bold",
@@ -227,9 +265,19 @@ export default function Signup() {
               marginTop: "1rem",
               color: "black",
             }}>
-            <Link to="/login" style={{color: "black", textDecoration: "none"}}>
-              ¿Ya tienes una cuenta? <br />
-              Iniciar Sesion.
+            <Link to="/login" style={{textDecoration: "none"}}>
+              <Typography
+                sx={{
+                  color: "#fff",
+                  "&:hover": {
+                    color: "#010206",
+                  },
+                  fontSize: "0.9rem",
+                  fontWeight: "bold",
+                }}>
+                ¿Ya tienes una cuenta? <br />
+                Iniciar Sesion.
+              </Typography>
             </Link>
           </Typography>
         </CardContent>

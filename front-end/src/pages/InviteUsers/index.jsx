@@ -59,8 +59,11 @@ export default function InviteUsers() {
         }}
         style={{
           padding: "1.7rem",
-          backgroundColor: "#F1F2F4",
+          backgroundColor: "#c0c0c036",
+          backdropFilter: "blur(5px)",
+          border: "solid 1px #FFFF",
           borderRadius: 12,
+          color: "#FFFF",
         }}>
         <CardContent
           sx={{
@@ -119,13 +122,21 @@ export default function InviteUsers() {
               fullWidth
               sx={{
                 display: "block",
-                marginBottom: "1rem",
+                marginBottom: {xs: "0.5rem", md: "1rem"},
+                "& .css-953pxc-MuiInputBase-root-MuiInput-root": {
+                  "&:before": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                  "&:after": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                },
               }}
               type="text"
               fontWeight="bold"
               {...register("username", {required: true})}
               size="small"
-              variant="outlined"
+              variant="standard"
             />
             {errors.username && (
               <Typography
@@ -142,9 +153,10 @@ export default function InviteUsers() {
               variant="contained"
               size="medium"
               style={{
-                marginTop: "1rem",
+                marginTop: "2.5rem",
                 width: "100%",
-                backgroundColor: "#3181FA",
+                backgroundColor: "#fff",
+                color: "#010206",
                 borderRadius: 12,
                 fontSize: "16px",
                 fontWeight: "bold",
@@ -165,8 +177,18 @@ export default function InviteUsers() {
             }}>
             <Link
               to={`/boards/${params.boardId}`}
-              style={{color: "black", textDecoration: "none"}}>
-              Ir al tablero
+              style={{textDecoration: "none"}}>
+              <Typography
+                sx={{
+                  color: "#fff",
+                  "&:hover": {
+                    color: "#010206",
+                  },
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                }}>
+                Ir al tablero
+              </Typography>
             </Link>
           </Typography>
         </CardContent>

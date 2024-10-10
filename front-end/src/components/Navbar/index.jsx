@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import NavDrawer from "./Drawers/NavDrawer";
+import polo from "../../assets/polo_blanco.png";
 import {useState} from "react";
 import {navLinks, navLinksAuthenticated} from "../../scripts/NavbarLinks";
 import {Link} from "react-router-dom";
@@ -45,19 +46,42 @@ export default function Navbar() {
             }}>
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            sx={{fontSize: {xs: "1.25rem", xl: "1.5rem"}}}>
+          <Box
+            style={{
+              display: "flex",
+              gap: "5px",
+              alignItems: "flex-end",
+            }}>
             <Link
               to="/"
               style={{
+                color: "#fff",
                 textDecoration: "none",
-                color: "#FFFF",
-                fontWeight: "bold",
               }}>
-              POLO
+              <img
+                src={polo}
+                alt="polo"
+                className="logoNavbar"
+                style={{
+                  width: {xs: "20px", m: "30px", xl: "40px"},
+                  height: {xs: "15px", m: "20px", xl: "30px"},
+                }}
+              />
             </Link>
-          </Typography>
+            <Typography
+              variant="h6"
+              sx={{fontSize: {xs: "1.25rem", xl: "1.5rem"}}}>
+              <Link
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  color: "#FFFF",
+                  fontWeight: "bold",
+                }}>
+                POLO
+              </Link>
+            </Typography>
+          </Box>
           <div
             style={{
               display: "flex",

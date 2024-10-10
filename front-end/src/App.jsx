@@ -17,9 +17,12 @@ import InviteUsers from "./pages/InviteUsers";
 import ProfilePage from "./pages/Profile/profile";
 //imagenes
 import background from "./assets/fondoHomeWebp.webp";
-import background2 from "./assets/wallpaperbetter1webp.webp";
 import background3 from "./assets/path_clouds_landscape_237076_1920x1080.jpg";
-import background4 from "./assets/8d98wrhcwlp51.webp";
+//import background4 from "./assets/8d98wrhcwlp51.webp";
+import background4 from "./assets/tim-oun-0Og_pvK5I4Q-unsplash.jpg";
+import background6 from "./assets/montañas5img.jpg";
+/* 
+import background5 from "./assets/background5.jpg"; */
 import Footer from "./components/Footer/Footer";
 
 export default function App() {
@@ -55,7 +58,7 @@ export default function App() {
               <>
                 <main
                   style={{
-                    backgroundImage: `url(${background2})`,
+                    backgroundImage: `url(${background6})`,
                     backgroundSize: "cover",
                     height: "100vh",
                     backgroundRepeat: "no-repeat",
@@ -73,10 +76,9 @@ export default function App() {
             path="/register"
             element={
               <>
-                <NavbarAuth />
                 <main
                   style={{
-                    backgroundImage: `url(${background2})`,
+                    backgroundImage: `url(${background6})`,
                     backgroundSize: "cover",
                     height: "100vh",
                     backgroundRepeat: "no-repeat",
@@ -84,6 +86,8 @@ export default function App() {
                     backgroundAttachment: "fixed",
                     overflowY: "hidden",
                   }}>
+                  <NavbarAuth />
+
                   <Signup />
                 </main>
               </>
@@ -94,8 +98,19 @@ export default function App() {
               path="/tables"
               element={
                 <>
-                  <NavbarBoards />
-                  <Tables />
+                  <main
+                    style={{
+                      backgroundImage: `url(${background6})`,
+                      backgroundSize: "cover",
+                      height: "100vmax",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "69%",
+                      backgroundAttachment: "fixed",
+                      overflowY: "hidden",
+                    }}>
+                    <NavbarBoards />
+                    <Tables />
+                  </main>
                 </>
               }
             />
@@ -123,7 +138,6 @@ export default function App() {
               path="/boards/new"
               element={
                 <>
-                  <NavbarAuth />
                   <main
                     style={{
                       backgroundImage: `url(${background3})`,
@@ -134,6 +148,7 @@ export default function App() {
                       backgroundAttachment: "fixed",
                       overflowY: "hidden",
                     }}>
+                    <NavbarAuth />
                     <NewBoard />
                   </main>
                 </>
@@ -143,7 +158,27 @@ export default function App() {
               path="/:boardId/invites"
               element={
                 <>
-                  <NavbarAuth />
+                  <main
+                    style={{
+                      backgroundImage: `url(${background6})`,
+                      backgroundSize: "cover",
+                      height: "100vh",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "69%",
+                      backgroundAttachment: "fixed",
+                      overflowY: "hidden",
+                    }}>
+                    <NavbarAuth />
+                    <InviteUsers />
+                  </main>
+                </>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <>
+                  {" "}
                   <main
                     style={{
                       backgroundImage: `url(${background3})`,
@@ -154,17 +189,9 @@ export default function App() {
                       backgroundAttachment: "fixed",
                       overflowY: "hidden",
                     }}>
-                    <InviteUsers />
+                    <NavbarAuth />
+                    <ProfilePage />
                   </main>
-                </>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <>
-                  <NavbarAuth />
-                  <ProfilePage />
                 </>
               }
             />

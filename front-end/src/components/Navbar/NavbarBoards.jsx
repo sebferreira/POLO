@@ -14,6 +14,7 @@ import {Link, useParams} from "react-router-dom";
 import NavDrawerBoards from "./Drawers/DrawerNavbarBoard";
 import {useAuth} from "../../context/AuthContext";
 import Profile from "../Menu/profile";
+import polo from "../../assets/polo_blanco.png";
 
 export default function NavbarBoards() {
   const {user} = useAuth();
@@ -26,6 +27,7 @@ export default function NavbarBoards() {
         position="static"
         sx={{
           boxShadow: "0",
+          backgroundColor: "#1D2125", // Aquí
         }}>
         <Toolbar
           style={{
@@ -43,19 +45,42 @@ export default function NavbarBoards() {
             }}>
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            sx={{fontSize: {xs: "1.25rem", xl: "1.5rem"}}}>
+          <Box
+            style={{
+              display: "flex",
+              gap: "5px",
+              alignItems: "flex-end",
+            }}>
             <Link
               to="/"
               style={{
+                color: "#fff",
                 textDecoration: "none",
-                color: "#FFFF",
-                fontWeight: "bold",
               }}>
-              POLO
+              <img
+                src={polo}
+                alt="polo"
+                className="logoNavbar"
+                style={{
+                  width: {xs: "20px", m: "30px", xl: "40px"},
+                  height: {xs: "15px", m: "20px", xl: "30px"},
+                }}
+              />
             </Link>
-          </Typography>
+            <Typography
+              variant="h6"
+              sx={{fontSize: {xs: "1.25rem", xl: "1.5rem"}}}>
+              <Link
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  color: "#FFFF",
+                  fontWeight: "bold",
+                }}>
+                POLO
+              </Link>
+            </Typography>
+          </Box>
           <div
             style={{
               display: "flex",
@@ -79,9 +104,12 @@ export default function NavbarBoards() {
                           width: "5rem",
                           fontWeight: "bold",
                           textTransform: "none",
-                          backgroundColor: "#1976d2",
+                          backgroundColor: "##1D2125",
                           color: "#fff",
                           paddingX: "3rem",
+                          "&:hover": {
+                            backgroundColor: "rgba(0, 0, 0, 0.1)",
+                          },
                         }}
                         variant="text"
                         component={Link}

@@ -21,7 +21,7 @@ export default function BoardDrawer({boards}) {
         sx={{
           width: 260,
           height: "100%",
-          backgroundColor: "#1976d2",
+          backgroundColor: "rgba(0, 0, 0, 0.4)",
           display: "flex",
           flexDirection: "column",
         }}>
@@ -55,12 +55,12 @@ export default function BoardDrawer({boards}) {
                       marginTop: "1rem",
                       color: "white",
                       textDecoration: "none",
-                      backgroundColor: "#2196f3",
+                      backgroundColor: "#1d2124",
                       "&:hover": {
-                        backgroundColor: "#2196f3",
+                        backgroundColor: " #383838 ",
                       },
                       "&:active": {
-                        backgroundColor: "#1565c0",
+                        backgroundColor: "#160d0d",
                       },
                     }}>
                     <ListItemIcon>{dash}</ListItemIcon>

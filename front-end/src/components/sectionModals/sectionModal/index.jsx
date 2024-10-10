@@ -65,8 +65,8 @@ export default function ModalSections() {
         sx={{
           marginTop: "2.5rem",
           marginRight: "2rem",
-          backgroundColor: "#fff",
-          color: "#3181FA",
+          backgroundColor: "#1d2124",
+          color: "#ffff",
           borderRadius: 2,
           minWidth: "15rem",
           fontSize: "16px",
@@ -74,7 +74,8 @@ export default function ModalSections() {
           textTransform: "none",
           cursor: "pointer",
           "&:hover": {
-            color: "#fff",
+            backgroundColor: "#ffff",
+            color: "#1d2124",
           },
         }}
         onClick={handleOpen}>
@@ -161,7 +162,7 @@ export default function ModalSections() {
               style={{
                 marginTop: "1rem",
                 width: "100%",
-                backgroundColor: "#3181FA",
+                backgroundColor: "#1d2124",
                 borderRadius: 12,
                 fontSize: "16px",
                 fontWeight: "bold",

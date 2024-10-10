@@ -61,7 +61,7 @@ export default function BarBoards({boards}) {
         position="static"
         sx={{
           boxShadow: "0",
-          backgroundColor: "#215af3",
+          backgroundColor: "rgba(0, 0, 0, 0.55)",
         }}>
         <Toolbar
           style={{
@@ -150,7 +150,7 @@ export default function BarBoards({boards}) {
                       border: "unset",
                     },
                     "&:hover": {
-                      backgroundColor: "#1b4bcd",
+                      backgroundColor: "rgba(0, 0, 0, 0.4)",
                     },
                     "& :focus": {
                       border: "1px solid",

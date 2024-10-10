@@ -67,15 +67,16 @@ export default function ModalTasksCreate({section}) {
         color="primary"
         size="medium"
         sx={{
-          backgroundColor: "#fff",
-          color: "#3181FA",
+          backgroundColor: "#1d2124",
+          color: "#ffff",
           borderRadius: 12,
           fontSize: "16px",
           fontWeight: "bold",
           textTransform: "none",
           cursor: "pointer",
           "&:hover": {
-            color: "#fff",
+            backgroundColor: "#ffff",
+            color: "#1d2124",
           },
         }}
         onClick={handleOpen}>

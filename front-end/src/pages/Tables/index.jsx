@@ -81,7 +81,7 @@ export default function Tables() {
             marginTop: "3rem",
             marginBottom: "3rem",
             fontWeight: "bold",
-            color: "#1e1e1e",
+            color: "#ffff",
             textAlign: "center",
           }}>
           Elige su tablero o cree uno nuevo

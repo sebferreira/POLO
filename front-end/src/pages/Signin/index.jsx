@@ -42,8 +42,11 @@ export default function Signin() {
         }}
         style={{
           padding: "1.7rem",
-          backgroundColor: "#F1F2F4",
+          backgroundColor: "#c0c0c036",
+          backdropFilter: "blur(5px)",
+          border: "solid 1px #FFFF",
           borderRadius: 12,
+          color: "#FFFF",
         }}>
         <CardContent>
           <Typography
@@ -86,13 +89,21 @@ export default function Signin() {
               fullWidth
               sx={{
                 display: "block",
-                marginBottom: "1rem",
+                marginBottom: "2rem",
+                "& .css-953pxc-MuiInputBase-root-MuiInput-root": {
+                  "&:before": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                  "&:after": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                },
               }}
               type="text"
               fontWeight="bold"
               {...register("username", {required: true})}
               size="small"
-              variant="outlined"
+              variant="standard"
             />
             {errors.username && (
               <Typography
@@ -120,12 +131,20 @@ export default function Signin() {
               fullWidth
               sx={{
                 display: "block",
-                marginBottom: "1rem",
+                marginBottom: {xs: "0.5rem", md: "1rem"},
+                "& .css-953pxc-MuiInputBase-root-MuiInput-root": {
+                  "&:before": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                  "&:after": {
+                    borderBottom: "1px solid  #fff",
+                  },
+                },
               }}
               type="password"
               {...register("password", {required: true})}
               size="small"
-              variant="outlined"
+              variant="standard"
             />
             {errors.password && (
               <Typography
@@ -144,7 +163,8 @@ export default function Signin() {
               style={{
                 marginTop: "1rem",
                 width: "100%",
-                backgroundColor: "#3181FA",
+                backgroundColor: "#fff",
+                color: "#010206",
                 borderRadius: 12,
                 fontSize: "16px",
                 fontWeight: "bold",
@@ -163,11 +183,19 @@ export default function Signin() {
               marginTop: "1rem",
               color: "black",
             }}>
-            <Link
-              to="/register"
-              style={{color: "black", textDecoration: "none"}}>
-              ¿No tienes una cuenta?
-              <br /> Registrate.
+            <Link to="/register" style={{textDecoration: "none"}}>
+              <Typography
+                sx={{
+                  color: "#fff",
+                  "&:hover": {
+                    color: "#010206",
+                  },
+                  fontSize: "0.9rem",
+                  fontWeight: "bold",
+                }}>
+                ¿No tienes una cuenta?
+                <br /> Registrate.
+              </Typography>
             </Link>
           </Typography>
         </CardContent>
