@@ -99,8 +99,8 @@ export default function ProfileCard({user, logout}) {
               }}>
               <Avatar
                 sx={{
-                  width: {xs:"50px", sm:"100px"},
-                  height: {xs:"50px", sm:"100px"},
+                  width: {xs: "50px", sm: "100px"},
+                  height: {xs: "50px", sm: "100px"},
                   objectFit: "cover",
                   borderRadius: "50%",
                   fontSize: {xs: "1.5rem", sm: "3rem"},
@@ -171,6 +171,7 @@ export default function ProfileCard({user, logout}) {
                   textAlign: "left",
                   color: "black",
                   padding: "7px",
+                  width: "fit-content",
                   "&:hover": {
                     backgroundColor: "#f3f1f1",
                     width: "fit-content",

@@ -9,7 +9,11 @@ export default function Boards() {
   const {boards} = useBoard();
   return (
     <>
-      <nav>
+      <nav
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+        }}>
         <BarBoards boards={boards} />
       </nav>
       <Box

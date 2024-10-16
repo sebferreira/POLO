@@ -180,7 +180,21 @@ function updatePositionTask(body, taskId, sectionId, boardId) {
     withToken: true,
   });
 }
-
+function allInvitesByUsername(username) {
+  return handleCustomApiRequest({
+    url: `${URL}/invites/${username}`,
+    method: "GET",
+    withToken: true,
+  });
+}
+function changeStateInvitation(body, boardId, username) {
+  return handleCustomApiRequest({
+    url: `${URL}/invites/${boardId}/${username}`,
+    method: "PATCH",
+    body,
+    withToken: true,
+  });
+}
 export {
   verifyCookies,
   signIn,
@@ -205,4 +219,6 @@ export {
   UpdateImageTask,
   updatePositionSection,
   updatePositionTask,
+  allInvitesByUsername,
+  changeStateInvitation,
 };

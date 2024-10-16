@@ -24,6 +24,7 @@ import background6 from "./assets/montañas5img.jpg";
 /* 
 import background5 from "./assets/background5.jpg"; */
 import Footer from "./components/Footer/Footer";
+import {Box} from "@mui/material";
 
 export default function App() {
   return (
@@ -39,7 +40,7 @@ export default function App() {
                     backgroundImage: `url(${background})`,
                     // modifique la configuracion de todas los background
                     backgroundSize: "cover",
-                    objectFit:"cover",
+                    objectFit: "cover",
                     height: "100vh",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "69%",
@@ -99,19 +100,20 @@ export default function App() {
               path="/tables"
               element={
                 <>
-                  <main
-                    style={{
-                      backgroundImage: `url(${background6})`,
+                  <Box
+                    sx={{
+                      backgroundImage: {xs: "", md: `url(${background6})`},
                       backgroundSize: "cover",
                       height: "100vmax",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
                       backgroundAttachment: "fixed",
                       overflowY: "hidden",
+                      backgroundColor: {xs: "#FFFF", md: ""},
                     }}>
                     <NavbarBoards />
                     <Tables />
-                  </main>
+                  </Box>
                 </>
               }
             />
@@ -161,7 +163,7 @@ export default function App() {
                 <>
                   <main
                     style={{
-                      backgroundImage: `url(${background6})`,
+                      backgroundImage: `url(${background3})`,
                       backgroundSize: "cover",
                       height: "100vh",
                       backgroundRepeat: "no-repeat",

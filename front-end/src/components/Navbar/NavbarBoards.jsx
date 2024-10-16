@@ -15,6 +15,7 @@ import NavDrawerBoards from "./Drawers/DrawerNavbarBoard";
 import {useAuth} from "../../context/AuthContext";
 import Profile from "../Menu/profile";
 import polo from "../../assets/polo_blanco.png";
+import InvitesMenu from "../Menu/invitaciones";
 
 export default function NavbarBoards() {
   const {user} = useAuth();
@@ -152,7 +153,18 @@ export default function NavbarBoards() {
                 );
               })}
             </Box>
-            {user && <Profile user={user} />}
+            {user && (
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "1rem",
+                  alignItems: "center",
+                  height: "100%",
+                }}>
+                <InvitesMenu />
+                <Profile user={user} />
+              </Box>
+            )}
           </div>
           <Drawer
             open={open}

@@ -27,12 +27,20 @@ export default function ModalSections() {
   } = useForm();
   const [validateErrors, setValidateErrors] = useState([]);
   const [create, setCreate] = useState(false);
+  const [loaded, setLoaded] = useState(true);
 
   const params = useParams();
 
   const navigate = useNavigate();
+  const onClick = (e) => {
+    if (!create && !loaded && validateErrors.length <= 0) {
+      let boton = e.target;
+      boton.disabled = true;
+    }
+  };
 
   const onSubmit = handleSubmit(async (data) => {
+    setLoaded(false);
     if (params.boardId) {
       const res = await createSections(data, params.boardId);
 
@@ -168,7 +176,8 @@ export default function ModalSections() {
                 fontWeight: "bold",
                 textTransform: "none",
               }}
-              type="submit">
+              type="submit"
+              onClick={onClick}>
               Crear Sección
             </Button>
           </form>

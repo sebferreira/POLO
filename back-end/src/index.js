@@ -9,6 +9,7 @@ import routerSection from "./routes/section.routes.js";
 import routerTask from "./routes/tasks.routes.js";
 import routerUserBoard from "./routes/users_boards.routes.js";
 import path from "path";
+import routerInvites from "./routes/board_invites.routes.js";
 const __dirname = path.resolve();
 
 const app = express(); // Crea una instancia de la aplicación Express
@@ -35,6 +36,7 @@ app.use("/api/sections", routerSection);
 app.use("/api", router);
 app.use("/api/users", routerUserBoard);
 app.use("/api/tasks", routerTask);
+app.use("/api/invites", routerInvites);
 
 //para que devuelva el error si es que hay alguno
 app.use((error, req, res, next) => {

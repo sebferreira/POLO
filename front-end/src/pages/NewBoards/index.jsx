@@ -20,8 +20,17 @@ export default function NewBoard() {
   const navigate = useNavigate();
   const [boardId, setBoardId] = useState(null);
   const [newBoardErrors, setNewBoardErrors] = useState([]);
+  const [loaded, setLoaded] = useState(true);
+
+  const onClick = (e) => {
+    if (!boardId && !loaded) {
+      let boton = e.target;
+      boton.disabled = true;
+    }
+  };
 
   const onSubmit = handleSubmit(async (data) => {
+    setLoaded(false);
     const response = await createBoards(data);
     if (response.length >= 0) {
       setNewBoardErrors(response);
@@ -57,7 +66,7 @@ export default function NewBoard() {
         }}
         style={{
           padding: "1.7rem",
-          backgroundColor: "#F1F2F4",
+          backgroundColor: "#fff",
           borderRadius: 12,
         }}>
         <CardContent
@@ -72,7 +81,7 @@ export default function NewBoard() {
             textAlign="center"
             fontWeight="bold"
             sx={{
-              marginBottom: 2,
+              marginBottom: {xs: 2, md: 5},
               fontSize: {xs: "1.1rem", md: "1.5rem"},
             }}>
             Crear Tablero
@@ -106,7 +115,7 @@ export default function NewBoard() {
               fullWidth
               sx={{
                 display: "block",
-                marginBottom: "1rem",
+                marginBottom: {xs: "0.5rem", md: "1rem"},
               }}
               type="text"
               fontWeight="bold"
@@ -128,15 +137,19 @@ export default function NewBoard() {
             <Button
               variant="contained"
               size="medium"
+              color="primary"
+              disabled={boardId ? true : false}
               style={{
-                marginTop: "1rem",
+                marginTop: "2.5rem",
                 width: "100%",
-                backgroundColor: "#3181FA",
+                backgroundColor: "rgb(24 32 68)",
+                color: "#fff",
                 borderRadius: 12,
                 fontSize: "16px",
                 fontWeight: "bold",
                 textTransform: "none",
               }}
+              onClick={onClick}
               type="submit">
               Crear tableros
             </Button>
@@ -150,8 +163,18 @@ export default function NewBoard() {
               marginTop: "1rem",
               color: "black",
             }}>
-            <Link to="/tables" style={{color: "black", textDecoration: "none"}}>
-              ¿Deseas volver?
+            <Link to="/tables" style={{textDecoration: "none"}}>
+              <Typography
+                sx={{
+                  color: "rgb(24 32 68)",
+                  "&:hover": {
+                    color: "#010206",
+                  },
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                }}>
+                ¿Deseas volver?
+              </Typography>
             </Link>
           </Typography>
         </CardContent>

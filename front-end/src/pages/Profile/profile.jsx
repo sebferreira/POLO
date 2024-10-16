@@ -22,7 +22,6 @@ export default function ProfilePage() {
             }}>
             <CardContent>
               <h1>Pagina del Perfil</h1>
-              <p>Bienvenido, {user.username}!</p>
               <ProfileCard user={user} logout={logout} />
             </CardContent>
           </Card>

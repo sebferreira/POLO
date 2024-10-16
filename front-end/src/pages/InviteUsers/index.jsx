@@ -59,11 +59,8 @@ export default function InviteUsers() {
         }}
         style={{
           padding: "1.7rem",
-          backgroundColor: "#c0c0c036",
-          backdropFilter: "blur(5px)",
-          border: "solid 1px #FFFF",
           borderRadius: 12,
-          color: "#FFFF",
+          color: "#000",
         }}>
         <CardContent
           sx={{
@@ -123,20 +120,12 @@ export default function InviteUsers() {
               sx={{
                 display: "block",
                 marginBottom: {xs: "0.5rem", md: "1rem"},
-                "& .css-953pxc-MuiInputBase-root-MuiInput-root": {
-                  "&:before": {
-                    borderBottom: "1px solid  #fff",
-                  },
-                  "&:after": {
-                    borderBottom: "1px solid  #fff",
-                  },
-                },
               }}
               type="text"
               fontWeight="bold"
               {...register("username", {required: true})}
               size="small"
-              variant="standard"
+              variant="outlined"
             />
             {errors.username && (
               <Typography
@@ -155,8 +144,8 @@ export default function InviteUsers() {
               style={{
                 marginTop: "2.5rem",
                 width: "100%",
-                backgroundColor: "#fff",
-                color: "#010206",
+                backgroundColor: "rgb(24 32 68)",
+                color: "#fff",
                 borderRadius: 12,
                 fontSize: "16px",
                 fontWeight: "bold",
@@ -180,7 +169,7 @@ export default function InviteUsers() {
               style={{textDecoration: "none"}}>
               <Typography
                 sx={{
-                  color: "#fff",
+                  color: "rgb(24 32 68)",
                   "&:hover": {
                     color: "#010206",
                   },

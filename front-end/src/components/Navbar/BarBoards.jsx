@@ -62,6 +62,7 @@ export default function BarBoards({boards}) {
         sx={{
           boxShadow: "0",
           backgroundColor: "rgba(0, 0, 0, 0.55)",
+          width: {xs: "100%", lg: "calc(100% - 260px)"},
         }}>
         <Toolbar
           style={{
@@ -79,7 +80,6 @@ export default function BarBoards({boards}) {
               sx={{
                 fontSize: {xs: "1.25rem", xl: "1.5rem"},
                 fontWeight: "bold",
-                marginLeft: {xs: "0", lg: "16rem"},
               }}>
               {name}
             </Typography>
@@ -91,11 +91,10 @@ export default function BarBoards({boards}) {
                 height: "100%",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "flex-end",
+                justifyContent: "flex-start",
               }}>
               <Box
                 sx={{
-                  marginLeft: {xs: "1rem", sm: 0, lg: "16rem"},
                   display: "flex",
                   alignItems: "center",
                   gap: "0.5rem",
@@ -109,6 +108,7 @@ export default function BarBoards({boards}) {
                       width: "10%",
                       fontSize: "10px",
                       textTransform: "none",
+                      marginLeft: "1rem",
                     }}>
                     Guardar
                   </Button>

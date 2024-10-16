@@ -5,6 +5,7 @@ import pg from "pg";
 // Importa la función config de dotenv para cargar las variables de entorno desde un archivo .env
 import {config} from "dotenv";
 config(); // Ejecuta la función para cargar las variables de entorno
+import nodemailer from "nodemailer";
 
 // Crea una instancia de Sequelize, configurando la conexión a la base de datos PostgreSQL
 const sequelize = new Sequelize({
@@ -19,6 +20,15 @@ const sequelize = new Sequelize({
       require: true,
       rejectUnauthorized: false,
     },
+  },
+});
+export const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // true for port 465, false for other ports
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD_EMAIL,
   },
 });
 

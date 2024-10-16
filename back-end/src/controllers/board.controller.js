@@ -1,5 +1,4 @@
 // Importa los modelos y librerias que se van a utilizar.
-import {resourceUsage} from "process"; // Importa para posibles análisis del uso de recursos (no usado aquí)
 import Board from "../models/boards.model.js"; // Modelo para tableros
 import Sections from "../models/sections.model.js"; // Modelo para secciones
 import Task from "../models/tasks.model.js"; // Modelo para tareas
@@ -7,6 +6,10 @@ import User from "../models/users.model.js"; // Modelo para usuarios
 import Users_Boards from "../models/users_boards.model.js"; // Modelo para usuarios y tableros
 import crypto from "crypto"; // para encriptar
 import {setUpdateDateFromBoard} from "../helpers/index.js"; // Importa función para actualizar fecha del tablero
+import Board_invites from "../models/board_invites.model.js";
+import {transporter} from "../config/db.js";
+import {config} from "dotenv";
+config(); // Ejecuta la función para cargar las variables de entorno
 
 // Función para obtener todos los tableros.
 export const getBoards = async (req, res) => {
@@ -103,20 +106,59 @@ export const inviteBoard = async (req, res) => {
   try {
     const {username} = req.body;
     const {boardId} = req.params;
-    const role = "user";
+    const {username: ownerUser} = req.user;
     await setUpdateDateFromBoard({boardId}); // Actualiza la fecha del tablero
+    const board = await Board.findByPk(boardId);
+    if (!board) return res.status(404).json(["Tablero no encontrado"]); // Imprime un error si no se encuentra el tablero.
     const invitedUser = await User.findOne({where: {username}});
-    if (!invitedUser) return res.status(404).json(["User not found"]); // Imprime un error si no se encuentra el usuario.
+    if (!invitedUser) return res.status(404).json(["Usuario no encontrado"]); // Imprime un error si no se encuentra el usuario.
     const userExist = await Users_Boards.findOne({
       where: {username: username, boardId: boardId},
     });
-    if (userExist)
+    if (userExist) {
       // Imprime un error si el usuario ya se encuentra en el tablero.
-      return res.status(404).json(["User already invited to board"]);
-    const invitedBoard = await Users_Boards.create({username, boardId, role});
+      return res.status(404).json(["El usuario ya esta en el tablero"]);
+    }
+    const userAlreadyInvited = await Board_invites.findAll({
+      where: {invitado: username, estado: "Pendiente", boardId},
+    });
+    if (userAlreadyInvited.length > 0)
+      return res.status(400).json(["El usuario ya ha sido invitado"]);
+    const invitedBoard = await Board_invites.create({
+      ownerUser,
+      boardId,
+      invitado: username,
+      boardName: board.name,
+    });
     if (!invitedBoard)
-      // Imprime un error si no se encuentra el tablero.
-      return res.status(404).json(["Error inviting user to board"]);
+      return res
+        .status(404)
+        .json(["no se ha podido invitar, intentelo mas tarde"]);
+
+    await transporter.sendMail({
+      from: `"Invitado a un tablero" <${process.env.EMAIL}>`,
+      to: invitedUser.email,
+      subject: `El usuario ${ownerUser} te ha invitado a un tablero`,
+      text: `El usuario ${ownerUser} te ha invitado a un tablero, puedes aceptar o cancelar la invitación desde el buzón de entrada`,
+      html: ` 
+      <div style="max-width:512px; margin: 0 auto; padding: 30px; background-color:#f3f2f0; justify-content:center; display:flex; ">
+      <div style="max-width:300px; margin: 0 auto;  background-color:#fff; padding: 20px; ">
+      <h1 style="color:black;">Invitación a un tablero</h1>
+      <p style="color:black; margin-top:1rem; margin-bottom:2rem;">El usuario ${ownerUser} te ha invitado a un tablero, puedes aceptar o cancelar la invitación desde el buzón de entrada.</p>
+      <div style=" max-width:300px; margin-bottom:1rem; margin-top:1rem;">
+      <a href="${process.env.BASE_URL}" style=" margin:0 auto;
+      color: #FFF; background-color: #010206; font-size: 14px; font-weight: bold; text-decoration: none;
+      cursor: pointer;
+      border: 1px solid #000;
+      border-radius: 6px;
+      padding:18px 25px;
+      ">Ir a la pagina</a> 
+      </div>
+      </div>
+      </div>
+      `,
+    });
+
     res.json(invitedBoard);
   } catch (error) {
     // Atrapa los errores del servidor y los imprime.

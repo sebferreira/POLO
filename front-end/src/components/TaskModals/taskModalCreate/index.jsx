@@ -33,8 +33,17 @@ export default function ModalTasksCreate({section}) {
   const [create, setCreate] = useState(false);
   const navigate = useNavigate();
   const params = useParams();
+  const [loaded, setLoaded] = useState(true);
+
+  const onClick = (e) => {
+    if (!create && !loaded && validateErrors.length <= 0) {
+      let boton = e.target;
+      boton.disabled = true;
+    }
+  };
 
   const onSubmit = handleSubmit(async (data) => {
+    setLoaded(false);
     const body = {
       title: data.title,
       description: data.description,
@@ -227,7 +236,8 @@ export default function ModalTasksCreate({section}) {
                 fontWeight: "bold",
                 textTransform: "none",
               }}
-              type="submit">
+              type="submit"
+              onClick={onClick}>
               Crear Tarea
             </Button>
           </form>

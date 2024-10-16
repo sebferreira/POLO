@@ -15,6 +15,7 @@ import {Link} from "react-router-dom";
 import {useAuth} from "../../context/AuthContext";
 import Profile from "../Menu/profile";
 import {ButtonsNavbar} from "./Drawers/ButtonsDrawers";
+import InvitesMenu from "../Menu/invitaciones";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -106,7 +107,19 @@ export default function Navbar() {
                   return ButtonsNavbar(item, "#1c1a42", "#FFF");
                 })}
             </Box>
-            {user && <Profile user={user} />}
+
+            {user && (
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "1rem",
+                  alignItems: "center",
+                  height: "100%",
+                }}>
+                <InvitesMenu />
+                <Profile user={user} />
+              </Box>
+            )}
           </div>
           <Drawer
             open={open}
