@@ -103,7 +103,7 @@ export default function TaskModalUpdateAsign({task, users}) {
               style={{
                 marginTop: "1rem",
                 width: "100%",
-                backgroundColor: "#3181FA",
+                backgroundColor: "#1d2124",
                 borderRadius: 12,
                 fontSize: "16px",
                 fontWeight: "bold",

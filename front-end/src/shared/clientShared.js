@@ -6,6 +6,7 @@ const handleCustomApiRequest = async ({
   body,
   isMultipart,
   withToken,
+  isAuth2fa,
 }) => {
   const cookie = Cookies.get();
   let headers = {
@@ -22,8 +23,13 @@ const handleCustomApiRequest = async ({
     body = body ? JSON.stringify(body) : undefined;
   }
   if (withToken) {
-    const Authorization = `Bearer ${cookie.token}`;
-    headers = {...headers, Authorization};
+    if (!isAuth2fa) {
+      const Authorization = `Bearer ${cookie.token}`;
+      headers = {...headers, Authorization};
+    } else {
+      const Authorization = `Bearer ${cookie.userRegistered}`;
+      headers = {...headers, Authorization};
+    }
   }
 
   const fetching = await fetch(url, {

@@ -10,6 +10,7 @@ import routerTask from "./routes/tasks.routes.js";
 import routerUserBoard from "./routes/users_boards.routes.js";
 import path from "path";
 import routerInvites from "./routes/board_invites.routes.js";
+import routerAuth from "./routes/authentication.routes.js";
 const __dirname = path.resolve();
 
 const app = express(); // Crea una instancia de la aplicación Express
@@ -37,6 +38,7 @@ app.use("/api", router);
 app.use("/api/users", routerUserBoard);
 app.use("/api/tasks", routerTask);
 app.use("/api/invites", routerInvites);
+app.use("/api/authentication", routerAuth);
 
 //para que devuelva el error si es que hay alguno
 app.use((error, req, res, next) => {

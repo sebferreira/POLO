@@ -1,32 +1,37 @@
 import {DataTypes} from "sequelize"; // Importa tipos de datos de Sequelize
 import sequelize from "../config/db.js"; // Importa la instancia de conexión a la base de datos
+import Sections from "./sections.model.js"; // Importa el modelo Sections
+import User from "./users.model.js";
 
-// Define el modelo User
-const User = sequelize.define(
-  "users",
+// Define el modelo Task
+const Auth2fa = sequelize.define(
+  "auth2fa",
   {
-    username: {
-      type: DataTypes.STRING,
+    id_codigo: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
       allowNull: false,
       primaryKey: true,
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    password: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    role: {
+    codigo: {
       type: DataTypes.STRING,
-      defaultValue: "user",
-      allowNull: true,
+      allowNull: false,
+    },
+    jsonuser: {
+      type: DataTypes.JSON,
+      allowNull: false,
     },
     estado: {
       type: DataTypes.STRING,
+      allowNull: true,
       defaultValue: "Pendiente",
+    },
+    expiracion: {
+      type: DataTypes.DATE,
       allowNull: true,
     },
   },
@@ -36,6 +41,6 @@ const User = sequelize.define(
 );
 
 // Sincroniza el modelo con la base de datos (crea la tabla si no existe)
-User.sync();
+Auth2fa.sync();
 
-export default User; // Exporta el modelo User
+export default Auth2fa; // Exporta el modelo Task

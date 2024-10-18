@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useState} from "react";
-import {signIn, signUp,userLogout, verifyCookies} from "./../queryFn";
+import {signIn, signUp, userLogout, verifyCookies} from "./../queryFn";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -19,31 +19,37 @@ export const AuthProvider = ({children}) => {
   const [registerErrors, setRegisterErrors] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
- 
+
   const signup = async (value) => {
+    if (Cookies.get("userRegistered")) {
+      Cookies.remove("userRegistered");
+    }
     const data = await signUp(value);
     if (data.length > 0) {
       return setRegisterErrors(data);
     }
-    setUser(data);
+    setUser(data.user);
     setIsAuthRegistered(true);
     setRegisterErrors([]);
+    Cookies.set("userRegistered", data.token);
   };
 
   const signin = async (value) => {
+    if (Cookies.get("userRegistered")) {
+      Cookies.remove("userRegistered");
+    }
     const data = await signIn(value);
     if (data.length > 0) {
       return setLoginErrors(data);
     }
     setUser(data.user);
-    
-    Cookies.set("token", data.token)
+
+    Cookies.set("token", data.token);
     setIsAuthenticated(true);
     setLoginErrors([]);
   };
 
   const logout = () => {
-    
     Cookies.remove("token");
     userLogout();
     setUser(null);

@@ -25,6 +25,7 @@ import background6 from "./assets/montañas5img.jpg";
 import background5 from "./assets/background5.jpg"; */
 import Footer from "./components/Footer/Footer";
 import {Box} from "@mui/material";
+import AuthCode from "./pages/AuthCode/AuthCode";
 
 export default function App() {
   return (
@@ -91,6 +92,26 @@ export default function App() {
                   <NavbarAuth />
 
                   <Signup />
+                </main>
+              </>
+            }
+          />
+          <Route
+            path="/auth"
+            element={
+              <>
+                <main
+                  style={{
+                    backgroundImage: `url(${background6})`,
+                    backgroundSize: "cover",
+                    height: "100vh",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "69%",
+                    backgroundAttachment: "fixed",
+                    overflowY: "hidden",
+                  }}>
+                  <NavbarAuth />
+                  <AuthCode />
                 </main>
               </>
             }

@@ -22,7 +22,7 @@ export default function Signup() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthRegistered) navigate("/login");
+    if (isAuthRegistered) navigate("/auth");
   }, [isAuthRegistered, navigate]);
 
   const onSubmit = handleSubmit(async (data) => {

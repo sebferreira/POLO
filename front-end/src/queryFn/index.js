@@ -195,6 +195,15 @@ function changeStateInvitation(body, boardId, username) {
     withToken: true,
   });
 }
+function authenticateCode(body) {
+  return handleCustomApiRequest({
+    url: `${URL}/authentication/`,
+    method: "POST",
+    withToken: true,
+    isAuth2fa: true,
+    body,
+  });
+}
 export {
   verifyCookies,
   signIn,
@@ -221,4 +230,5 @@ export {
   updatePositionTask,
   allInvitesByUsername,
   changeStateInvitation,
+  authenticateCode,
 };

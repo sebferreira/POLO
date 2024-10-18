@@ -4,6 +4,9 @@ import jwt from "jsonwebtoken";
 // Importa el modelo User para las operaciones en la base de datos de usuarios
 import User from "../models/users.model.js";
 import {config} from "dotenv";
+import {crearCodigo} from "../helpers/index.js";
+import Auth2fa from "../models/auth2fa.model.js";
+import {transporter} from "../config/db.js";
 config();
 // Obtiene el número de salt para el hashing de contraseñas desde las variables de entorno
 const salt = Number(process.env.SALT);
@@ -11,7 +14,12 @@ const salt = Number(process.env.SALT);
 // Controlador para registrar un nuevo usuario
 export const registerUser = async (req, res, next) => {
   try {
-    const {username, email, password, confirmPassword} = req.body; // Obtiene el nombre de usuario, correo electrónico y contraseña del cuerpo de la solicitud
+    const {
+      username,
+      email,
+      password: passwordSended,
+      confirmPassword,
+    } = req.body; // Obtiene el nombre de usuario, correo electrónico y contraseña del cuerpo de la solicitud
 
     // Verifica si el usuario ya existe en la base de datos
     const userFound = await User.findOne({where: {username}});
@@ -19,20 +27,59 @@ export const registerUser = async (req, res, next) => {
       return res.status(400).json(["El usuario ya existe"]); // Si existe, devuelve un error 400
     }
 
-    if (password !== confirmPassword) {
+    if (passwordSended !== confirmPassword) {
       return res.status(400).json(["Las contraseñas son diferentes"]);
     }
     // Hash de la contraseña utilizando bcrypt y el salt especificado
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(passwordSended, salt);
     // Crea un nuevo usuario con los datos proporcionados
-    const newUser = await User.create({
+    const user = {
       username,
       email,
       password: hashedPassword,
+    };
+
+    const code = await crearCodigo();
+    const codigo = await bcrypt.hash(code, salt);
+
+    const authFinded = await Auth2fa.findOne({where: {username}});
+    if (authFinded) {
+      authFinded.destroy();
+    }
+    const authenticacion = await Auth2fa.create({
+      codigo,
+      username,
+      jsonuser: JSON.stringify(user),
+      expiracion: new Date(Date.now() + 10 * 60 * 1000),
     });
-    // Guarda el usuario en la base de datos
-    const userSaved = await newUser.save();
-    res.json(userSaved);
+
+    if (!authenticacion)
+      return res.status(401).json(["La autenticación ha salido mal"]);
+    // Envia el código de verificación al correo electrónico del usuario
+    await transporter.sendMail({
+      from: `"POLO código de autenticación" <${process.env.EMAIL}>`,
+      to: email,
+      subject: `Código de autenticación.`,
+      text: `Has recibido un código de autenticación para hacer tu cuenta más segura contra terceros.`,
+      html: ` 
+      <div style="max-width:512px; margin: 0 auto; padding: 30px; background-color:#f3f2f0; justify-content:center; display:flex; ">
+      <div style="max-width:300px; margin: 0 auto;  background-color:#fff; padding: 20px; ">
+      <h1 style="color:black;">Código</h1> 
+       <p style="color:black; margin-top:1rem; margin-bottom:2rem;">Este es un codigo que <strong>solamente durará 10 minutos</strong>, sirve para validar la cuenta. <br/> Ingresa este codigo en la página para poder crear tu cuenta.</p>
+      <div style="width:100%; background: #faf9fa;
+    border: 1px solid #dad8de;
+    text-align: center;
+    padding: 5px;
+    margin: 0 0 5px 0;
+    font-size: 24px;">${code} 
+      </div>
+      </div>
+      </div>
+      `,
+    });
+    // Devuelve el usuario y el token en la respuesta
+    const token = jwt.sign({username}, process.env.SECRET_KEY, {});
+    res.json({user, authenticacion, token});
   } catch (error) {
     next(error); // Pasa cualquier error al siguiente middleware
   }
@@ -44,7 +91,9 @@ export const loginUser = async (req, res, next) => {
     // Obtiene el nombre de usuario y la contraseña enviada  de la solicitud
     const {username, password: contraseñaNueva} = req.body;
     // Verifica si el usuario existe en la base de datos
-    const userFound = await User.findOne({where: {username}});
+    const userFound = await User.findOne({
+      where: {username, estado: "Aprobado"},
+    });
     if (!userFound) {
       return res.status(401).json(["Username or Password are incorrect"]); // Si no se encuentra, devuelve un error 401
     }

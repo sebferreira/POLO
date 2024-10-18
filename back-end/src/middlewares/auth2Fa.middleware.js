@@ -6,7 +6,7 @@ config();
 import User from "../models/users.model.js";
 
 // Middleware para revisar la autenticación del token JWT en las cookies
-export async function revisarCookie(req, res, next) {
+export async function revisarCookie2FA(req, res, next) {
   try {
     // Obtiene el token JWT del encabezado de autorización
     const token = req.headers.authorization.split(" ")[1]; //agregarlo en produccion
@@ -19,12 +19,9 @@ export async function revisarCookie(req, res, next) {
       if (err) return res.status(401).json(["Unauthorized"]);
       // obtiene el nombre de usuario del token decodificado
       const username = decoded.username;
-      // Busca el usuario en la base de datos usando el nombre de usuario
-      const response = await User.findOne({where: {username}});
-      // Excluye la contraseña de los datos del usuario
-
-      const {password, ...user} = response._previousDataValues;
-      req.user = user;
+      req.user = {
+        username,
+      };
       // Llama a next() para pasar el control al siguiente middleware o ruta
 
       next();
