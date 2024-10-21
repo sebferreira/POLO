@@ -42,7 +42,7 @@ export default function App() {
                     // modifique la configuracion de todas los background
                     backgroundSize: "cover",
                     objectFit: "cover",
-                    height: "100svh",
+                    height: "100dvh",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "69%",
                     backgroundAttachment: "fixed",
