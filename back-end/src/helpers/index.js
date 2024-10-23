@@ -35,7 +35,7 @@ export async function crearCodigo() {
   return otp;
 }
 
-cron.schedule("*/60 * * * *", async () => {
+cron.schedule("*/50 * * * *", async () => {
   try {
     const tiempo = new Date();
     await Auth2fa.destroy({
