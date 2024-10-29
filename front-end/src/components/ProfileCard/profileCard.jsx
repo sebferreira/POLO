@@ -150,83 +150,95 @@ export default function ProfileCard({user, logout}) {
                 }}>
                 Correo electrónico
               </Typography>
-              <TextField
-                id="modal-modal-title"
-                type="text"
-                value={email}
-                onChange={updateEmail}
-                variant="outlined"
+              <Box
                 sx={{
-                  "& .MuiOutlinedInput-input": {
-                    padding: 0,
-                    fontSize: {xs: "12px", sm: "17px"},
-                  },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    border: "unset",
-                  },
-                  "& :focus": {
-                    border: "1px solid",
-                    padding: "2px",
-                  },
-                  textAlign: "left",
-                  color: "black",
-                  padding: "7px",
-                  width: "fit-content",
-                  "&:hover": {
-                    backgroundColor: "#f3f1f1",
-                    width: "fit-content",
-                    borderRadius: "15px",
-                  },
-                }}
-              />
-              {user.email !== email && (
-                <>
-                  <Button
-                    color="success"
-                    variant="outlined"
-                    type="submit"
-                    sx={{
-                      marginLeft: ".4rem",
-                      height: "31px",
+                  display: "flex",
+                  flexDirection: "row",
+                }}>
+                <TextField
+                  id="modal-modal-title"
+                  type="text"
+                  value={email}
+                  onChange={updateEmail}
+                  variant="outlined"
+                  sx={{
+                    "& .MuiOutlinedInput-input": {
+                      padding: 0,
                       fontSize: {xs: "12px", sm: "17px"},
-                      textTransform: "none",
-                    }}>
-                    Cambiar
-                  </Button>
-                  <Button
-                    color="error"
-                    variant="outlined"
-                    onClick={() => {
-                      setEmail(user.email);
-                      setValidateErrors([]);
-                    }}
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "unset",
+                    },
+                    "& :focus": {
+                      border: "1px solid",
+                      padding: "2px",
+                    },
+                    textAlign: "left",
+                    color: "black",
+                    padding: "7px",
+                    width: "65%",
+                    "&:hover": {
+                      backgroundColor: "#f3f1f1",
+                      width: "65%",
+                      borderRadius: "15px",
+                    },
+                  }}
+                />
+                {user.email !== email && (
+                  <Box
                     sx={{
-                      minWidth: "40px",
-                      marginLeft: ".4rem",
-                      height: "31px",
-                      fontSize: {xs: "12px", sm: "17px"},
-                      textTransform: "none",
-                      paddingLeft: "1px",
-                      paddingRight: "1px",
+                      display: "flex",
+                      justifyContent: "row",
+                      width: "fit-content",
+                      alignItems: "center",
                     }}>
-                    <Close />
-                  </Button>
-                </>
-              )}
+                    <Button
+                      color="success"
+                      variant="outlined"
+                      type="submit"
+                      sx={{
+                        marginLeft: ".4rem",
+                        height: "31px",
+                        fontSize: {xs: "12px", sm: "17px"},
+                        textTransform: "none",
+                      }}>
+                      Cambiar
+                    </Button>
+                    <Button
+                      color="error"
+                      variant="outlined"
+                      onClick={() => {
+                        setEmail(user.email);
+                        setValidateErrors([]);
+                      }}
+                      sx={{
+                        minWidth: "40px",
+                        marginLeft: ".4rem",
+                        height: "31px",
+                        fontSize: {xs: "12px", sm: "17px"},
+                        textTransform: "none",
+                        paddingLeft: "1px",
+                        paddingRight: "1px",
+                      }}>
+                      <Close />
+                    </Button>
+                  </Box>
+                )}
+              </Box>
             </Box>
           </form>
           <Box
             sx={{
               display: "flex",
             }}>
-            <Typography
+            {/*   <Typography
               sx={{
                 fontSize: {xs: "12px", sm: "17px"},
                 alignContent: "center",
                 fontWeight: "bold",
               }}>
               Contraseña
-            </Typography>
+            </Typography> */}
             <Button
               onClick={handleOpenModal}
               color="info"
@@ -236,7 +248,7 @@ export default function ProfileCard({user, logout}) {
                 fontSize: {xs: "12px", sm: "17px"},
                 textTransform: "none",
               }}>
-              Cambiar
+              Cambiar Contraseña
             </Button>
           </Box>
           <Button
