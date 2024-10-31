@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate, Link} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {useAuth} from "../../context/AuthContext";
@@ -20,14 +20,23 @@ export default function Signup() {
   } = useForm();
   const {signup, isAuthRegistered, registerErrors} = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  const onClick = (e) => {
+    if (isAuthRegistered && registerErrors.length <= 0 && !loading) {
+      let boton = e.target;
+      boton.disabled = true;
+    }
+  };
+
+  const onSubmit = handleSubmit(async (data) => {
+    setLoading(false);
+    signup(data);
+  });
 
   useEffect(() => {
     if (isAuthRegistered) navigate("/auth");
   }, [isAuthRegistered, navigate]);
-
-  const onSubmit = handleSubmit(async (data) => {
-    signup(data);
-  });
 
   return (
     <Grid
@@ -252,6 +261,7 @@ export default function Signup() {
                 fontWeight: "bold",
                 textTransform: "none",
               }}
+              onClick={onClick}
               type="submit">
               Registrarse
             </Button>
