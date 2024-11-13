@@ -28,6 +28,7 @@ export default function BarBoards({boards}) {
   useEffect(() => {
     const getAllUsers = async () => {
       const data = await getUsersBoard(params.boardId);
+      console.log(data);
       setUsers(data);
     };
     getAllUsers();
@@ -55,6 +56,7 @@ export default function BarBoards({boards}) {
       navigate(0);
     }
   });
+
   return (
     <>
       <AppBar
@@ -212,6 +214,7 @@ export default function BarBoards({boards}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
         <ModalDelete
+          setOpenModalDelete={setOpenModalDelete}
           data={boardFound}
           type={"board"}
           message={"¿Estas seguro de borrar el tablero?"}

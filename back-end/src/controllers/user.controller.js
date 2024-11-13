@@ -7,6 +7,9 @@ import {config} from "dotenv";
 import {crearCodigo} from "../helpers/index.js";
 import Auth2fa from "../models/auth2fa.model.js";
 import {transporter} from "../config/db.js";
+import Users_Boards from "../models/users_boards.model.js";
+import Board_invites from "../models/board_invites.model.js";
+import Task from "../models/tasks.model.js";
 config();
 // Obtiene el número de salt para el hashing de contraseñas desde las variables de entorno
 const salt = Number(process.env.SALT);
@@ -151,7 +154,8 @@ export const verifyToken = async (req, res) => {
   jwt.verify(token, process.env.SECRET_KEY, async (err, user) => {
     if (err) return res.status(401).json(["Unauthorized"]); // Si hay un error en la verificación, devuelve un error 401
     // Busca el usuario en la base de datos usando el nombre de usuario del token
-    const userFound = await User.findByPk(user.username);
+
+    const userFound = await User.findOne({where: {id_user: user.id_user}});
     // Si no se encuentra el usuario, devuelve un error 401
 
     if (!userFound) return res.status(401).json(["Unauthorized"]);
@@ -165,12 +169,46 @@ export const updateUser = async (req, res, next) => {
   try {
     //saco el usuairo del req.params y los datos a actualizar del req.body
     const {username} = req.params;
-    const {email, contraseñaNueva, confirmarContraseña, contraseñaAnterior} =
-      req.body;
-    const user = await User.findByPk(username); //busco un usuario con ese username
+    const {
+      usernameSended,
+      email,
+      contraseñaNueva,
+      confirmarContraseña,
+      contraseñaAnterior,
+      color,
+    } = req.body;
+    const user = await User.findOne({where: {username}}); //busco un usuario con ese username
     if (!user) {
       //si no hay ninguno, me manda error
       return res.status(404).json(["User not found"]);
+    }
+    if (usernameSended) {
+      // si le pasamos un username, busca si el username ya esta en uso, si no está en uso le setea el nuevo valor
+      const userFound = await User.findOne({where: {username: usernameSended}});
+      if (userFound) {
+        return res.status(400).json(["El username ya existe"]);
+      }
+      user.username = usernameSended;
+      await Users_Boards.update(
+        {username: usernameSended},
+        {where: {username}}
+      );
+      await Board_invites.update(
+        {invitado: usernameSended},
+        {where: {invitado: username}}
+      );
+      await Task.update(
+        {personaCreador: usernameSended},
+        {where: {personaCreador: username}}
+      );
+      await Task.update(
+        {personaAsignada: usernameSended},
+        {where: {personaAsignada: username}}
+      );
+    }
+    if (color) {
+      // si le pasamos un color, lo setea al usuario
+      user.color = color;
     }
     if (email) {
       // si le pasamos un email, busca si el email ya esta en uso, si no está en uso le setea el nuevo valor
@@ -205,7 +243,21 @@ export const updateUser = async (req, res, next) => {
     await user.save(); //guarda el usuario con los nuevos datos
 
     const {password, ...userUpdated} = user.dataValues; //saco la contraseña del objeto usuario
-    res.json(userUpdated); //devuelve el usuario sin la contraseña
+    // Genera un token JWT para el usuario autenticado
+    const token = jwt.sign(userUpdated, process.env.SECRET_KEY, {});
+    // Configura las opciones de la cookie
+    const cookieOption = {
+      expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // la cookie expira en un día
+      secure: true,
+      sameSite: "none",
+      domain: process.env.DOMAIN,
+      maxAge: Date.now() + 1000 * 60 * 30, // Tiempo máximo de vida de la cookie
+    };
+    // Envía la cookie con el token al cliente
+    res.cookie("token-back", token, cookieOption);
+
+    // Devuelve el usuario actualizado y el token en la respuesta
+    res.json(userUpdated);
   } catch (err) {
     next(err); //envia el error en caso de que el intento falle
   }

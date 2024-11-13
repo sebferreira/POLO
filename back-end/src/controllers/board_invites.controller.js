@@ -34,6 +34,7 @@ export const getAllPendingsByUsername = async (req, res, next) => {
 export const changeState = async (req, res, next) => {
   try {
     const {username, boardId} = req.params;
+    const {id_user} = req.user;
     const estado = req.body.estado;
     const role = "user";
     const pendings = await Board_invites.findOne({
@@ -49,7 +50,7 @@ export const changeState = async (req, res, next) => {
       updatedAt: new Date(),
     });
     if (estado === "Confirmado") {
-      await Users_Boards.create({username, boardId, role});
+      await Users_Boards.create({username, boardId, role, id_user});
     }
 
     res.status(200).json(pendings);

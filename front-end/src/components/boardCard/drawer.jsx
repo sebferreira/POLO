@@ -84,6 +84,17 @@ export default function BoardDrawer({boards}) {
                   <ListItemButton
                     component={Link}
                     to={`/boards/${item.id_board}`}
+                    onClick={() => {
+                      const pathAnterior = sessionStorage.getItem("actualPath");
+                      console.log(pathAnterior, `/boards/${item.id_board}`);
+                      if (pathAnterior != `/boards/${item.id_board}`) {
+                        sessionStorage.setItem("previousPath", pathAnterior);
+                        sessionStorage.setItem(
+                          "actualPath",
+                          `/boards/${item.id_board}`
+                        );
+                      }
+                    }}
                     sx={{
                       marginTop: "1rem",
                       color: "white",

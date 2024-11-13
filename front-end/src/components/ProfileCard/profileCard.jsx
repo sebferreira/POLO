@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Card,
@@ -14,37 +13,94 @@ import Close from "@mui/icons-material/Close";
 import {updateUser} from "../../queryFn";
 import {useNavigate} from "react-router-dom";
 import ProfileModal from "../ModalProfile/ModalProfile";
+import AvatarProfile from "../Avatar/AvatarProfile";
+import Cookies from "js-cookie";
 
 export default function ProfileCard({user, logout}) {
   const navigate = useNavigate();
   const {handleSubmit} = useForm();
   const [validateErrors, setValidateErrors] = useState([]);
+  const [error, setError] = useState([]);
   const [email, setEmail] = useState(user ? user.email : "");
+  const [username, setUsername] = useState(user ? user.username : "");
   const [openModal, setOpenModal] = useState(false);
+  const [option, setOption] = useState("");
+  const [color, setColor] = useState(
+    user.color ? `${user.color}` : `${user.user.color}`
+  );
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
+    setOption("email");
+    setError([]);
     setValidateErrors([]);
   };
-  const onSubmit = handleSubmit(async () => {
-    if (!email) {
-      setValidateErrors(["Email es necesario"]);
-      return;
-    }
+  const updateUsername = (e) => {
+    setUsername(e.target.value);
+    setOption("username");
+    setError([]);
+    setValidateErrors([]);
+  };
+  const updateColor = (e) => {
+    setColor(e.target.value);
+    setOption("color");
+    setError([]);
+    setValidateErrors([]);
+  };
+  const updateUserEmail = async () => {
     const body = {email};
+
     const res = await updateUser(user.username, body);
     if (res.length > 0) {
       setValidateErrors(res);
+      console.log(res);
       return;
     }
     setValidateErrors([]);
+    console.log(res);
     navigate(0);
+  };
+  const updateUserColor = async () => {
+    const body = {color};
+
+    const res = await updateUser(user.username, body);
+    if (res.length > 0) {
+      setValidateErrors(res);
+    }
+    setValidateErrors([]);
+    navigate(0);
+  };
+  const updateUserUsername = async () => {
+    const body = {usernameSended: username};
+
+    const res = await updateUser(user.username, body);
+    if (res.length > 0) {
+      setError(res);
+    }
+    setError([]);
+    navigate(0);
+  };
+  const onSubmit = handleSubmit(async () => {
+    if (!email && color === user.color) {
+      setValidateErrors(["Email es necesario"]);
+      return;
+    }
+    switch (option) {
+      case "email":
+        await updateUserEmail();
+        break;
+      case "username":
+        await updateUserUsername();
+        break;
+      case "color":
+        await updateUserColor();
+        break;
+      default:
+        break;
+    }
   });
-  const FirsLetter = user.username
-    ? user.username[0].toUpperCase()
-    : user.user.username[0].toUpperCase();
 
   return (
     <Card
@@ -97,16 +153,7 @@ export default function ProfileCard({user, logout}) {
                 backgroundColor: "#f5f5f5",
                 border: "2px solid #edecec",
               }}>
-              <Avatar
-                sx={{
-                  width: {xs: "50px", sm: "100px"},
-                  height: {xs: "50px", sm: "100px"},
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                  fontSize: {xs: "1.5rem", sm: "3rem"},
-                }}>
-                {FirsLetter}
-              </Avatar>
+              <AvatarProfile color={color} user={user} isNavbar={false} />
             </Box>
             <Typography
               sx={{
@@ -142,6 +189,169 @@ export default function ProfileCard({user, logout}) {
               );
             })}
             <Box>
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: {xs: "12px", sm: "17px"},
+                    alignContent: "center",
+                    fontWeight: "bold",
+                  }}>
+                  Cambiar color de perfil
+                </Typography>
+                <TextField
+                  id="modal-modal-title"
+                  value={color}
+                  onChange={updateColor}
+                  variant="outlined"
+                  type="color"
+                  sx={{
+                    width: "4rem",
+                    padding: "0rem",
+                    "& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input":
+                      {
+                        padding: ".3rem",
+                      },
+                    marginBottom: "1rem",
+                  }}
+                />
+                {user.color !== color && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "row",
+                      width: "fit-content",
+                      alignItems: "center",
+                    }}>
+                    <Button
+                      color="success"
+                      variant="outlined"
+                      type="submit"
+                      sx={{
+                        marginLeft: ".4rem",
+                        height: "31px",
+                        fontSize: {xs: "12px", sm: "17px"},
+                        textTransform: "none",
+                      }}>
+                      Cambiar
+                    </Button>
+                    <Button
+                      color="error"
+                      variant="outlined"
+                      onClick={() => {
+                        setColor(user.color);
+                        setError([]);
+                        setValidateErrors([]);
+                      }}
+                      sx={{
+                        minWidth: "40px",
+                        marginLeft: ".4rem",
+                        height: "31px",
+                        fontSize: {xs: "12px", sm: "17px"},
+                        textTransform: "none",
+                        paddingLeft: "1px",
+                        paddingRight: "1px",
+                      }}>
+                      <Close />
+                    </Button>
+                  </Box>
+                )}
+              </Box>
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: {xs: "12px", sm: "17px"},
+                    alignContent: "center",
+                    fontWeight: "bold",
+                  }}>
+                  Cambiar mombre de usuario
+                </Typography>
+                {error.map((error, i) => {
+                  return (
+                    <Typography
+                      color="error"
+                      variant="body2"
+                      sx={{
+                        marginTop: "0.5rem",
+                        fontSize: {xs: "12px", sm: "14px"},
+                      }}
+                      fontWeight="bold"
+                      key={i}>
+                      {error}
+                    </Typography>
+                  );
+                })}
+                <TextField
+                  id="modal-modal-title"
+                  type="text"
+                  value={username}
+                  onChange={updateUsername}
+                  variant="outlined"
+                  sx={{
+                    "& .MuiOutlinedInput-input": {
+                      padding: 0,
+                      fontSize: {xs: "12px", sm: "17px"},
+                      width: "100%",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "unset",
+                    },
+                    "& :focus": {
+                      border: "1px solid",
+                      padding: "2px",
+                    },
+                    textAlign: "left",
+                    color: "black",
+                    padding: "7px",
+                    width: "65%",
+                    "&:hover": {
+                      backgroundColor: "#f3f1f1",
+                      width: "65%",
+                      borderRadius: "15px",
+                    },
+                  }}
+                />
+                {user.username !== username && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "row",
+                      width: "fit-content",
+                      alignItems: "center",
+                    }}>
+                    <Button
+                      color="success"
+                      variant="outlined"
+                      type="submit"
+                      sx={{
+                        marginLeft: ".4rem",
+                        height: "31px",
+                        fontSize: {xs: "12px", sm: "17px"},
+                        textTransform: "none",
+                      }}>
+                      Cambiar
+                    </Button>
+                    <Button
+                      color="error"
+                      variant="outlined"
+                      onClick={() => {
+                        setUsername(user.username);
+                        setError([]);
+                        setValidateErrors([]);
+                      }}
+                      sx={{
+                        minWidth: "40px",
+                        marginLeft: ".4rem",
+                        height: "31px",
+                        fontSize: {xs: "12px", sm: "17px"},
+                        textTransform: "none",
+                        paddingLeft: "1px",
+                        paddingRight: "1px",
+                      }}>
+                      <Close />
+                    </Button>
+                  </Box>
+                )}
+              </Box>
               <Typography
                 sx={{
                   fontSize: {xs: "12px", sm: "17px"},
@@ -165,6 +375,7 @@ export default function ProfileCard({user, logout}) {
                     "& .MuiOutlinedInput-input": {
                       padding: 0,
                       fontSize: {xs: "12px", sm: "17px"},
+                      width: "100%",
                     },
                     "& .MuiOutlinedInput-notchedOutline": {
                       border: "unset",
@@ -208,7 +419,9 @@ export default function ProfileCard({user, logout}) {
                       color="error"
                       variant="outlined"
                       onClick={() => {
-                        setEmail(user.email);
+                        console.log(user.email);
+                        setColor(user.email);
+                        setError([]);
                         setValidateErrors([]);
                       }}
                       sx={{
@@ -231,14 +444,6 @@ export default function ProfileCard({user, logout}) {
             sx={{
               display: "flex",
             }}>
-            {/*   <Typography
-              sx={{
-                fontSize: {xs: "12px", sm: "17px"},
-                alignContent: "center",
-                fontWeight: "bold",
-              }}>
-              Contraseña
-            </Typography> */}
             <Button
               onClick={handleOpenModal}
               color="info"

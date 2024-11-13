@@ -15,12 +15,12 @@ const sequelize = new Sequelize({
   host: process.env.POSTGRES_HOST,
   dialectModule: pg,
   dialect: "postgres",
-  dialectOptions: {
+  /* dialectOptions: {
     ssl: {
       require: true,
       rejectUnauthorized: false,
     },
-  },
+  }, */
 });
 export const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",

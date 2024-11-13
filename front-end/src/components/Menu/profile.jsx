@@ -1,4 +1,3 @@
-import Avatar from "@mui/material/Avatar";
 import Logout from "@mui/icons-material/Logout";
 import {useState} from "react";
 import {
@@ -12,12 +11,14 @@ import {
 } from "@mui/material";
 import {useAuth} from "../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
+import AvatarProfile from "../Avatar/AvatarProfile";
 
 export default function Profile() {
   const {user, logout} = useAuth();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
   const handleLogout = () => {
     logout();
   };
@@ -53,7 +54,7 @@ export default function Profile() {
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}>
-            <Avatar sx={{width: 32, height: 32}}>{FirsLetter}</Avatar>
+            <AvatarProfile color={user.color} user={user} isNavbar={true} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -73,7 +74,7 @@ export default function Profile() {
             onClick={() => {
               navigate("/profile");
             }}>
-            <Avatar sx={{width: 27, height: 27, marginRight: "0.3rem"}} />
+            <AvatarProfile color={user.color} user={user} isNavbar={true} />
             {name}
           </ListItemButton>
         </MenuItem>

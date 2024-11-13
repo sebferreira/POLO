@@ -8,9 +8,9 @@ import {
   Button,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {BoardLinks} from "../../scripts/NavbarLinks";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import NavDrawerBoards from "./Drawers/DrawerNavbarBoard";
 import {useAuth} from "../../context/AuthContext";
 import Profile from "../Menu/profile";
@@ -20,8 +20,18 @@ import InvitesMenu from "../Menu/invitaciones";
 export default function NavbarBoards() {
   const {user} = useAuth();
   const [open, setOpen] = useState(false);
+  const previousValue = sessionStorage.getItem("previousPath");
+  const [pathPrevio, setPathPrevio] = useState(
+    previousValue ? previousValue : ""
+  );
+  const navigate = useNavigate();
   const params = useParams();
-
+  useState(() => {
+    if (previousValue) {
+      console.log(previousValue);
+      setPathPrevio(previousValue);
+    }
+  }, [previousValue]);
   return (
     <>
       <AppBar
@@ -53,7 +63,7 @@ export default function NavbarBoards() {
               alignItems: "flex-end",
             }}>
             <Link
-              to="/"
+              to="/tables"
               style={{
                 color: "#fff",
                 textDecoration: "none",
@@ -72,7 +82,7 @@ export default function NavbarBoards() {
               variant="h6"
               sx={{fontSize: {xs: "1.25rem", xl: "1.5rem"}}}>
               <Link
-                to="/"
+                to="/tables"
                 style={{
                   textDecoration: "none",
                   color: "#FFFF",
@@ -112,9 +122,21 @@ export default function NavbarBoards() {
                             backgroundColor: "rgba(0, 0, 0, 0.1)",
                           },
                         }}
-                        variant="text"
-                        component={Link}
-                        to={item.href}>
+                        onClick={() => {
+                          const actualPath =
+                            sessionStorage.getItem("actualPath");
+                          if (actualPath === `/boards/${params.boardId}`) {
+                            const previo =
+                              sessionStorage.getItem("previousPath");
+                            sessionStorage.setItem("actualPath", previo);
+                            sessionStorage.setItem(
+                              "previousPath",
+                              `/boards/${params.boardId}`
+                            );
+                            navigate(previo);
+                          }
+                        }}
+                        variant="text">
                         <Typography
                           style={{
                             fontWeight: "bold",

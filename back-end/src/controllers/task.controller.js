@@ -47,7 +47,7 @@ export const createTask = async (req, res) => {
       due_date,
       posicion,
       id_section: sectionId,
-      username,
+      personaCreador: username,
     }); //creo una tarea con los datos del req
     res.status(201).json(task);
   } catch (error) {

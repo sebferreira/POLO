@@ -23,9 +23,10 @@ export default function BorrarUser({user, boardId}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
         <ModalDelete
+          setOpenModalDelete={setOpenModalDelete}
           data={user.username}
           type={"users"}
-          message={"¿Estas seguro de eliminar a este usuario?"}
+          message={"¿Estas seguro de sacar a este usuario?"}
           boardId={boardId}
         />
       </Modal>

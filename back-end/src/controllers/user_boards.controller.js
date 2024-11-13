@@ -31,11 +31,11 @@ export const getUsers_Boards = async (req, res) => {
 // Función para obtener los nombres de los boards asociados a un usuario
 export const getBoardNamesByUser = async (req, res) => {
   try {
-    const {username} = req.user; // Obtiene el nombre de usuario del request
+    const {id_user} = req.user; // Obtiene el nombre de usuario del request
 
     // Busca todos los registros de Users_Boards relacionados con el usuario y sus  boards
     const boardsByUsername = await Users_Boards.findAll({
-      where: {username: username}, // Filtro por nombre de usuario
+      where: {id_user}, // Filtro por nombre de usuario
       include: [{model: Board, attributes: ["name", "id_board", "updatedAt"]}], // Atributos específicos del modelo Board
     });
 
@@ -80,7 +80,7 @@ export const getBoard_Users = async (req, res) => {
 // Función para eliminar la relación de un usuario con un board
 export const deleteUser_Board = async (req, res) => {
   try {
-    const {username, boardId} = req.params; // Obtiene el nombre de usuario y el ID del board de los parámetros del request
+    const {id_user, boardId} = req.params; // Obtiene el nombre de usuario y el ID del board de los parámetros del request
     // Busca la relación User-Board específica
     const userBoard = await Users_Boards.findOne({where: {username, boardId}});
     // Actualiza la fecha de actualización del board

@@ -98,9 +98,10 @@ export default function SectionMenu({section, sections}) {
         aria-describedby="modal-modal-description"
         aria-colorby="modal-modal-color">
         <ModalDelete
+          setOpenModalDelete={setOpenModalDelete}
           data={section}
           type={"section"}
-          message={"¿Estas seguro de borrar la seccion?"}
+          message={"¿Estas seguro de sacar la seccion?"}
           boardId={params.boardId}
         />
       </Modal>

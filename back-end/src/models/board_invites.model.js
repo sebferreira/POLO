@@ -26,6 +26,10 @@ const Board_invites = sequelize.define(
       allowNull: true,
       defaultValue: "Pendiente",
     },
+    ownerUser: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     timestamps: true,
@@ -39,10 +43,10 @@ Board_invites.belongsTo(Board, {foreignKey: "boardId"});
 Board.hasMany(Board_invites, {foreignKey: "boardId"});
 
 // Establece la relación: un User tiene muchas Tasks
-User.hasMany(Board_invites, {foreignKey: "ownerUser"});
+User.hasMany(Board_invites, {foreignKey: "id_user"});
 
 // Establece la relación: una Task pertenece a un User
-Board_invites.belongsTo(User, {foreignKey: "ownerUser"});
+Board_invites.belongsTo(User, {foreignKey: "id_user"});
 
 Board_invites.sync();
 

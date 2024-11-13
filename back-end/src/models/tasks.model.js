@@ -46,10 +46,10 @@ const Task = sequelize.define(
       allowNull: true,
       defaultValue: 0,
     },
-    // personaCreador: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true,
-    // },
+    personaCreador: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     timestamps: true,
@@ -61,12 +61,6 @@ Task.belongsTo(Sections, {foreignKey: "id_section"});
 
 // Establece la relación: una Section tiene muchas Tasks
 Sections.hasMany(Task, {foreignKey: "id_section"});
-
-// Establece la relación: un User tiene muchas Tasks
-User.hasMany(Task, {foreignKey: "username"});
-
-// Establece la relación: una Task pertenece a un User
-Task.belongsTo(User, {foreignKey: "username"});
 
 // Sincroniza el modelo con la base de datos (crea la tabla si no existe)
 Task.sync();

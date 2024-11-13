@@ -91,8 +91,9 @@ export default function UsersMenu({users, boardId}) {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description">
                     <ModalDelete
+                      setOpenModalDelete={setOpenModalLeave}
                       data={user.username}
-                      type={"leave"}
+                      type={"Salir"}
                       message={"¿Estas seguro de salir?"}
                       boardId={boardId}
                     />

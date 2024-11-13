@@ -47,42 +47,82 @@ export default function Navbar() {
             }}>
             <MenuIcon />
           </IconButton>
-          <Box
-            style={{
-              display: "flex",
-              gap: "5px",
-              alignItems: "flex-end",
-            }}>
-            <Link
-              to="/"
+          {user && (
+            <Box
               style={{
-                color: "#fff",
-                textDecoration: "none",
+                display: "flex",
+                gap: "5px",
+                alignItems: "flex-end",
               }}>
-              <img
-                src={polo}
-                alt="polo"
-                className="logoNavbar"
+              <Link
+                to="/tables"
                 style={{
-                  width: {xs: "20px", m: "30px", xl: "40px"},
-                  height: {xs: "15px", m: "20px", xl: "30px"},
-                }}
-              />
-            </Link>
-            <Typography
-              variant="h6"
-              sx={{fontSize: {xs: "1.25rem", xl: "1.5rem"}}}>
+                  color: "#fff",
+                  textDecoration: "none",
+                }}>
+                <img
+                  src={polo}
+                  alt="polo"
+                  className="logoNavbar"
+                  style={{
+                    width: {xs: "20px", m: "30px", xl: "40px"},
+                    height: {xs: "15px", m: "20px", xl: "30px"},
+                  }}
+                />
+              </Link>
+              <Typography
+                variant="h6"
+                sx={{fontSize: {xs: "1.25rem", xl: "1.5rem"}}}>
+                <Link
+                  to="/tables"
+                  style={{
+                    textDecoration: "none",
+                    color: "#FFFF",
+                    fontWeight: "bold",
+                  }}>
+                  POLO
+                </Link>
+              </Typography>
+            </Box>
+          )}
+          {!user && (
+            <Box
+              style={{
+                display: "flex",
+                gap: "5px",
+                alignItems: "flex-end",
+              }}>
               <Link
                 to="/"
                 style={{
+                  color: "#fff",
                   textDecoration: "none",
-                  color: "#FFFF",
-                  fontWeight: "bold",
                 }}>
-                POLO
+                <img
+                  src={polo}
+                  alt="polo"
+                  className="logoNavbar"
+                  style={{
+                    width: {xs: "20px", m: "30px", xl: "40px"},
+                    height: {xs: "15px", m: "20px", xl: "30px"},
+                  }}
+                />
               </Link>
-            </Typography>
-          </Box>
+              <Typography
+                variant="h6"
+                sx={{fontSize: {xs: "1.25rem", xl: "1.5rem"}}}>
+                <Link
+                  to="/"
+                  style={{
+                    textDecoration: "none",
+                    color: "#FFFF",
+                    fontWeight: "bold",
+                  }}>
+                  POLO
+                </Link>
+              </Typography>
+            </Box>
+          )}
           <div
             style={{
               display: "flex",

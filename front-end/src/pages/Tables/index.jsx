@@ -6,6 +6,8 @@ import {Link} from "react-router-dom";
 
 export default function Tables() {
   const {boards} = useBoard();
+  sessionStorage.setItem("previousPath", "/tables");
+  sessionStorage.setItem("actualPath", "/tables");
 
   return (
     <>
@@ -148,6 +150,13 @@ export default function Tables() {
                 }}>
                 <Link
                   to={`/boards/${board.id_board}`}
+                  onClick={() => {
+                    sessionStorage.setItem("previousPath", "/tables");
+                    sessionStorage.setItem(
+                      "actualPath",
+                      `/boards/${board.id_board}`
+                    );
+                  }}
                   style={{
                     textDecoration: "none",
                     color: "white",

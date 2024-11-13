@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {useEffect, useState} from "react";
 import {inviteUsers} from "../../queryFn";
@@ -19,8 +19,9 @@ export default function InviteUsers() {
   } = useForm();
   const [validateErrors, setValidateErrors] = useState([]);
   const [invited, setinvited] = useState(false);
-
+  const navigate = useNavigate();
   const params = useParams();
+  const [path, setPath] = useState("");
 
   const onSubmit = handleSubmit(async (data) => {
     if (params.boardId) {
@@ -34,6 +35,11 @@ export default function InviteUsers() {
       }
     }
   });
+  const click = () => {
+    sessionStorage.setItem("actualPath", `/boards/${params.boardId}`);
+    sessionStorage.setItem("previousPath", `/${params.boardId}/invites`);
+    setPath(`/boards/${params.boardId}`);
+  };
 
   useEffect(() => {
     if (validateErrors) {
@@ -165,8 +171,12 @@ export default function InviteUsers() {
               color: "black",
             }}>
             <Link
-              to={`/boards/${params.boardId}`}
-              style={{textDecoration: "none"}}>
+              style={{
+                textDecoration: "none",
+                textTransform: "none",
+              }}
+              onClick={click}
+              to={`/boards/${params.boardId}`}>
               <Typography
                 sx={{
                   color: "rgb(24 32 68)",

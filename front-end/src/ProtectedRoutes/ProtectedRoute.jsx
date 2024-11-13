@@ -1,5 +1,5 @@
 import {Navigate, Outlet} from "react-router-dom";
-import {useAuth} from "./context/AuthContext";
+import {useAuth} from "../context/AuthContext";
 import {Box} from "@mui/material";
 import {CircularProgress} from "@mui/material";
 

@@ -17,7 +17,7 @@ const router = express.Router(); // Crea un enrutador para manejar las rutas rel
 router.post("/register", validateSchema(registerSchema), registerUser);
 router.post("/login", validateSchema(loginSchema), loginUser);
 router.post("/logout", logoutUser);
-router.get("/verify", verifyToken);
+router.get("/verify/", verifyToken);
 /* router.get("/profile", revisarCookie, profileUser); */
 router.patch("/profile/:username", revisarCookie, updateUser);
 router.get("/", (req, res) =>

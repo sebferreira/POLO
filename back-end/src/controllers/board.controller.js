@@ -54,7 +54,8 @@ export const createBoard = async (req, res) => {
 
     const user = await User.findOne({where: {username}});
 
-    user.addBoard(newBoard); // Asocia el tablero al usuario
+    user.addBoard(newBoard, {through: {username}}); // Asocia el tablero al usuario
+
     res.json({newBoard});
   } catch (error) {
     // Atrapa los errores del servidor y los imprime.
@@ -86,7 +87,6 @@ export const updateBoard = async (req, res) => {
 export const deleteBoard = async (req, res) => {
   try {
     const {boardId} = req.params;
-    await setUpdateDateFromBoard({boardId}); // Actualiza la fecha del tablero
     const deletedBoard = await Board.destroy({where: {id_board: boardId}});
     if (deletedBoard <= 0) return res.status(404).json(["Board not found"]); // Imprime un error si no se encontró el tablero.
     const deleteBoard_user = await Users_Boards.destroy({where: {boardId}});
@@ -106,7 +106,7 @@ export const inviteBoard = async (req, res) => {
   try {
     const {username} = req.body;
     const {boardId} = req.params;
-    const {username: ownerUser} = req.user;
+    const {username: ownerUser, id_user} = req.user;
     await setUpdateDateFromBoard({boardId}); // Actualiza la fecha del tablero
     const board = await Board.findByPk(boardId);
     if (!board) return res.status(404).json(["Tablero no encontrado"]); // Imprime un error si no se encuentra el tablero.
@@ -126,6 +126,7 @@ export const inviteBoard = async (req, res) => {
       return res.status(400).json(["El usuario ya ha sido invitado"]);
     const invitedBoard = await Board_invites.create({
       ownerUser,
+      id_user,
       boardId,
       invitado: username,
       boardName: board.name,

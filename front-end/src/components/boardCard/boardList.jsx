@@ -37,6 +37,10 @@ export default function BoardList({board}) {
       <ListItemButton
         component={Link}
         to={`/boards/${board.id_board}`}
+        onClick={() => {
+          sessionStorage.setItem("previousPath", "/tables");
+          sessionStorage.setItem("actualPath", `/boards/${board.id_board}`);
+        }}
         sx={{
           color: "#1e1e1e",
           textDecoration: "none",

@@ -25,7 +25,7 @@ export default function Signin() {
   });
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      navigate("/tables");
     }
   }, [isAuthenticated, navigate]);
   return (

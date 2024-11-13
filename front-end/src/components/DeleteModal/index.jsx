@@ -19,7 +19,13 @@ const style = {
   color: "black",
 };
 
-export default function ModalDelete({data, type, message, boardId}) {
+export default function ModalDelete({
+  data,
+  type,
+  message,
+  boardId,
+  setOpenModalDelete,
+}) {
   let handleDelete;
   const navigate = useNavigate();
 
@@ -48,13 +54,15 @@ export default function ModalDelete({data, type, message, boardId}) {
         navigate(0);
       };
       break;
-    case "leave":
+    case "Salir":
       handleDelete = async () => {
         await DeleteUserfromBoard(data, boardId);
         navigate("/tables");
       };
       break;
   }
+  let msjDelete = type === "Salir" ? type : "Sacar";
+  if (msjDelete === "Sacar" && type === "board") msjDelete = "Borrar";
 
   return (
     <Box sx={[style, {width: {xs: 250, lg: 400}}]}>
@@ -72,7 +80,7 @@ export default function ModalDelete({data, type, message, boardId}) {
           sx={{
             marginLeft: "1rem",
           }}>
-          {message ? message : "¿Está Seguro de eliminar esta sección?"}
+          {message ? message : "¿Está Seguro de sacar esta sección?"}
         </Typography>
         <Box
           sx={{
@@ -80,6 +88,22 @@ export default function ModalDelete({data, type, message, boardId}) {
             marginTop: "4rem",
             alignItems: "center",
           }}>
+          <Button
+            onClick={() => {
+              setOpenModalDelete(false);
+            }}
+            variant="contained"
+            color="inherit"
+            style={{
+              marginLeft: "auto",
+              color: "#000",
+              borderRadius: "12px",
+              padding: "8px 16px",
+              transition: "all 0.3s ease",
+              marginRight: "2rem",
+            }}>
+            Cerrar
+          </Button>
           <Button
             onClick={handleDelete}
             variant="contained"
@@ -93,7 +117,7 @@ export default function ModalDelete({data, type, message, boardId}) {
               padding: "8px 16px",
               transition: "all 0.3s ease",
             }}>
-            Eliminar
+            {msjDelete}
           </Button>
         </Box>
       </div>

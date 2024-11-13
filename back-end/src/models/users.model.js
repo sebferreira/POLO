@@ -5,10 +5,16 @@ import sequelize from "../config/db.js"; // Importa la instancia de conexión a 
 const User = sequelize.define(
   "users",
   {
+    id_user: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false,
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -26,6 +32,11 @@ const User = sequelize.define(
     estado: {
       type: DataTypes.STRING,
       defaultValue: "Pendiente",
+      allowNull: true,
+    },
+    color: {
+      type: DataTypes.STRING,
+      defaultValue: "#ffffff",
       allowNull: true,
     },
   },

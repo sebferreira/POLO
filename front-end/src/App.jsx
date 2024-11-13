@@ -1,4 +1,5 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoutes/ProtectedRoute";
 //providers
 import {AuthProvider} from "./context/AuthContext";
 //navbars
@@ -11,7 +12,6 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Tables from "./pages/Tables";
-import ProtectedRoute from "./ProtectedRoute";
 import Boards from "./pages/Boards";
 import InviteUsers from "./pages/InviteUsers";
 import ProfilePage from "./pages/Profile/profile";
@@ -26,35 +26,38 @@ import background5 from "./assets/background5.jpg"; */
 import Footer from "./components/Footer/Footer";
 import {Box} from "@mui/material";
 import AuthCode from "./pages/AuthCode/AuthCode";
+import HomeAuth from "./ProtectedRoutes/HomeAuth";
 
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <main
-                  style={{
-                    backgroundImage: `url(${background})`,
-                    // modifique la configuracion de todas los background
-                    backgroundSize: "cover",
-                    objectFit: "cover",
-                    height: "100dvh",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "69%",
-                    backgroundAttachment: "fixed",
-                    overflowY: "hidden",
-                  }}>
-                  <Navbar />
-                  <Home />
-                </main>
-                <Footer />
-              </>
-            }
-          />
+          <Route element={<HomeAuth />}>
+            <Route
+              path="/"
+              element={
+                <>
+                  <main
+                    style={{
+                      backgroundImage: `url(${background})`,
+                      // modifique la configuracion de todas los background
+                      backgroundSize: "cover",
+                      objectFit: "cover",
+                      height: "100dvh",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "69%",
+                      backgroundAttachment: "fixed",
+                      overflowY: "hidden",
+                    }}>
+                    <Navbar />
+                    <Home />
+                  </main>
+                  <Footer />
+                </>
+              }
+            />
+          </Route>
           <Route
             path="/login"
             element={

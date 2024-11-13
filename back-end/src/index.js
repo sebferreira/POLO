@@ -19,8 +19,8 @@ const app = express(); // Crea una instancia de la aplicación Express
 app.use(
   cors({
     credentials: true,
-    origin: "https://poloweb.vercel.app",
-    //origin: "http://localhost:5173",
+    //origin: "https://poloweb.vercel.app",
+    origin: "http://localhost:5173",
     methods: "GET,OPTIONS,PUT,PATCH,POST,DELETE",
   })
 );

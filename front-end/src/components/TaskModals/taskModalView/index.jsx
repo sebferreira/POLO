@@ -158,7 +158,7 @@ export default function ModalTaskView({task}) {
             color: "black",
             fontSize: "12px",
           }}>
-          Creador: {task.username}
+          Creador: {task.personaCreador}
         </Typography>
       </Box>
       <form

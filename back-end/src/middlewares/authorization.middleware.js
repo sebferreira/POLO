@@ -18,9 +18,9 @@ export async function revisarCookie(req, res, next) {
       // Si hay un error en la verificación del token, devuelve un error 401
       if (err) return res.status(401).json(["Unauthorized"]);
       // obtiene el nombre de usuario del token decodificado
-      const username = decoded.username;
+      const id_user = decoded.id_user;
       // Busca el usuario en la base de datos usando el nombre de usuario
-      const response = await User.findOne({where: {username}});
+      const response = await User.findByPk(id_user);
       // Excluye la contraseña de los datos del usuario
 
       const {password, ...user} = response._previousDataValues;

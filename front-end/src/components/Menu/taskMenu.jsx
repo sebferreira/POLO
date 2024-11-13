@@ -236,9 +236,10 @@ export default function TaskMenu({task, section, sections}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
         <ModalDelete
+          setOpenModalDelete={setOpenModalDelete}
           data={task}
           type={"task"}
-          message={"¿Estas seguro de borrar la tarea?"}
+          message={"¿Estas seguro de sacar la tarea?"}
           boardId={params.boardId}
         />
       </Modal>
