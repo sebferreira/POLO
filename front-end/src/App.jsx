@@ -41,11 +41,11 @@ export default function App() {
                   <main
                     style={{
                       backgroundImage: `url(${background})`,
-                      backgroundSize: "cover",
+                      backgroundSize: "contain", // Cambia a 'contain' para pantallas pequeñas
+                      backgroundPosition: "top",
                       objectFit: "cover",
                       minHeight: "100vh",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
                       backgroundAttachment: "scroll",
                       overflowY: "auto",
                     }}>
