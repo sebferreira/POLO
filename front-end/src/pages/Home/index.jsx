@@ -37,7 +37,7 @@ export default function Home() {
                 marginBottom: {xs: "1rem", sm: "1rem"},
               }}
               fontSize={{xs: "1.5rem", sm: "3rem", lg: "3rem", xl: "4rem"}}
-              color={"#1c1a42"}>
+              color={"#ffffff"}>
               Con Polo puedes organizarte mejor.
             </Typography>
             <Typography
@@ -47,7 +47,7 @@ export default function Home() {
                 fontWeight: "bold",
                 fontSize: {xs: "0.8rem", sm: "1.1rem", md: "1.5rem"},
               }}
-              color={"#1c1a42"}>
+              color={"#0b0838"}>
               Polo unifica tus tareas, compañeros de equipo y herramientas. Te
               ayudamos a organizar tus areas laborales para una mayor
               productividad.
