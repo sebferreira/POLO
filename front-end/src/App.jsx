@@ -47,7 +47,7 @@ export default function App() {
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
                       backgroundAttachment: "scroll",
-                      overflowY: "auto",
+                      overflowY: "hidden",
                     }}>
                     <Navbar />
                     <Home />
@@ -70,7 +70,7 @@ export default function App() {
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "69%",
                     backgroundAttachment: "scroll",
-                    overflowY: "auto",
+                    overflowY: "hidden",
                   }}>
                   <NavbarAuth />
                   <Signin />
@@ -91,7 +91,7 @@ export default function App() {
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "69%",
                     backgroundAttachment: "scroll",
-                    overflowY: "auto",
+                    overflowY: "hidden",
                   }}>
                   <NavbarAuth />
 
@@ -113,7 +113,7 @@ export default function App() {
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "69%",
                     backgroundAttachment: "scroll",
-                    overflowY: "auto",
+                    overflowY: "hidden",
                   }}>
                   <NavbarAuth />
                   <AuthCode />
@@ -135,7 +135,7 @@ export default function App() {
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
                       backgroundAttachment: "scroll",
-                      overflowY: "auto",
+                      overflowY: "hidden",
                       backgroundColor: {xs: "#FFFF", md: ""},
                     }}>
                     <NavbarBoards />
@@ -157,7 +157,7 @@ export default function App() {
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
                       backgroundAttachment: "scroll",
-                      overflowY: "auto",
+                      overflowY: "hidden",
                     }}>
                     <NavbarBoards />
                     <Boards />
@@ -178,7 +178,7 @@ export default function App() {
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
                       backgroundAttachment: "scroll",
-                      overflowY: "auto",
+                      overflowY: "hidden",
                     }}>
                     <NavbarAuth />
                     <NewBoard />
@@ -199,7 +199,7 @@ export default function App() {
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
                       backgroundAttachment: "scroll",
-                      overflowY: "auto",
+                      overflowY: "hidden",
                     }}>
                     <NavbarAuth />
                     <InviteUsers />
@@ -221,7 +221,7 @@ export default function App() {
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
                       backgroundAttachment: "scroll",
-                      overflowY: "auto",
+                      overflowY: "hidden",
                     }}>
                     <NavbarAuth />
                     <ProfilePage />
