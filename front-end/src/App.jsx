@@ -41,13 +41,14 @@ export default function App() {
                   <main
                     style={{
                       backgroundImage: `url(${background})`,
-                      backgroundSize: "contain", // Cambiado de "cover" a "contain" para que no se estire
+                      // modifique la configuracion de todas los background
+                      backgroundSize: "cover",
                       objectFit: "cover",
-                      minHeight: "100vh",
+                      height: "100dvh",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition: "top", // Cambiado de "center" a "top" para mejor visualización en móvil
-                      backgroundAttachment: "scroll",
-                      overflowY: "auto",
+                      backgroundPosition: "69%",
+                      backgroundAttachment: "fixed",
+                      overflowY: "hidden",
                     }}>
                     <Navbar />
                     <Home />
