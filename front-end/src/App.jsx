@@ -41,12 +41,11 @@ export default function App() {
                   <main
                     style={{
                       backgroundImage: `url(${background})`,
-                      // modifique la configuracion de todas los background
-                      backgroundSize: "100% 100%",
+                      backgroundSize: "cover",
                       objectFit: "cover",
                       minHeight: "100vh",
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition: "69%",
+                      backgroundPosition: "center",
                       backgroundAttachment: "scroll",
                       overflowY: "auto",
                     }}>
