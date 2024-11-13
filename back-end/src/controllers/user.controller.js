@@ -98,11 +98,15 @@ export const loginUser = async (req, res, next) => {
       where: {username, estado: "Aprobado"},
     });
     if (!userFound) {
-      return res.status(401).json(["Username or Password are incorrect"]); // Si no se encuentra, devuelve un error 401
+      return res
+        .status(401)
+        .json(["El nombre de usuario o la contraseña son incorrectos"]); // Si no se encuentra, devuelve un error 401
     }
     const isMatch = bcrypt.compareSync(contraseñaNueva, userFound.password);
     if (!isMatch) {
-      return res.status(401).json(["Username or Password are incorrect"]); // Si no se encuentra, devuelve un error 401
+      return res
+        .status(401)
+        .json(["El nombre de usuario o la contraseña son incorrectos"]); // Si no se encuentra, devuelve un error 401
     }
     // Excluye la contraseña de los datos del usuario para el token
     const {password, ...user} = userFound._previousDataValues;
