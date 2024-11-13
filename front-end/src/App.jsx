@@ -42,13 +42,13 @@ export default function App() {
                     style={{
                       backgroundImage: `url(${background})`,
                       // modifique la configuracion de todas los background
-                      backgroundSize: "cover",
+                      backgroundSize: "100% 100%",
                       objectFit: "cover",
-                      height: "100dvh",
+                      minHeight: "100vh",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
                       backgroundAttachment: "fixed",
-                      overflowY: "hidden",
+                      overflowY: "auto",
                     }}>
                     <Navbar />
                     <Home />
