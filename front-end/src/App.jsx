@@ -27,8 +27,32 @@ import Footer from "./components/Footer/Footer";
 import {Box} from "@mui/material";
 import AuthCode from "./pages/AuthCode/AuthCode";
 import HomeAuth from "./ProtectedRoutes/HomeAuth";
+import {useEffect, useState} from "react";
 
 export default function App() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize(); // Inicializa con el tamaño actual
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const mainStyle = {
+    backgroundImage: `url(${background})`,
+    backgroundSize: isMobile ? "contain" : "cover", // Ajuste condicional para móvil
+    objectFit: "cover",
+    minHeight: "100vh",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: isMobile ? "top" : "center", // Ajuste de posición
+    backgroundAttachment: "scroll",
+    overflowY: "auto",
+  };
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -38,17 +62,7 @@ export default function App() {
               path="/"
               element={
                 <>
-                  <main
-                    style={{
-                      backgroundImage: `url(${background})`,
-                      backgroundSize: "contain", // Cambia a 'contain' para pantallas pequeñas
-                      backgroundPosition: "top",
-                      objectFit: "cover",
-                      minHeight: "100vh",
-                      backgroundRepeat: "no-repeat",
-                      backgroundAttachment: "scroll",
-                      overflowY: "auto",
-                    }}>
+                  <main style={mainStyle}>
                     <Navbar />
                     <Home />
                   </main>
