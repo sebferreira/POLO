@@ -129,6 +129,7 @@ export default function AuthCode() {
                 display: "block",
                 marginBottom: {xs: "0.5rem", md: "1rem"},
                 "& .css-953pxc-MuiInputBase-root-MuiInput-root": {
+                  color: "white",
                   "&:before": {
                     borderBottom: "1px solid  #fff",
                   },
