@@ -41,7 +41,6 @@ export default function App() {
                   <main
                     style={{
                       backgroundImage: `url(${background})`,
-                      // modifique la configuracion de todas los background
                       backgroundSize: "cover",
                       objectFit: "cover",
                       minHeight: "100vh",
@@ -66,11 +65,12 @@ export default function App() {
                   style={{
                     backgroundImage: `url(${background6})`,
                     backgroundSize: "cover",
-                    height: "100vh",
+                    objectFit: "cover",
+                    minHeight: "100vh",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "69%",
-                    backgroundAttachment: "fixed",
-                    overflowY: "hidden",
+                    backgroundAttachment: "scroll",
+                    overflowY: "auto",
                   }}>
                   <NavbarAuth />
                   <Signin />
@@ -86,11 +86,12 @@ export default function App() {
                   style={{
                     backgroundImage: `url(${background6})`,
                     backgroundSize: "cover",
-                    height: "100vh",
+                    objectFit: "cover",
+                    minHeight: "100vh",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "69%",
-                    backgroundAttachment: "fixed",
-                    overflowY: "hidden",
+                    backgroundAttachment: "scroll",
+                    overflowY: "auto",
                   }}>
                   <NavbarAuth />
 
@@ -107,11 +108,12 @@ export default function App() {
                   style={{
                     backgroundImage: `url(${background6})`,
                     backgroundSize: "cover",
-                    height: "100vh",
+                    objectFit: "cover",
+                    minHeight: "100vh",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "69%",
-                    backgroundAttachment: "fixed",
-                    overflowY: "hidden",
+                    backgroundAttachment: "scroll",
+                    overflowY: "auto",
                   }}>
                   <NavbarAuth />
                   <AuthCode />
@@ -128,11 +130,12 @@ export default function App() {
                     sx={{
                       backgroundImage: {xs: "", md: `url(${background6})`},
                       backgroundSize: "cover",
-                      height: "100vmax",
+                      objectFit: "cover",
+                      minHeight: "100vh",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
-                      backgroundAttachment: "fixed",
-                      overflowY: "hidden",
+                      backgroundAttachment: "scroll",
+                      overflowY: "auto",
                       backgroundColor: {xs: "#FFFF", md: ""},
                     }}>
                     <NavbarBoards />
@@ -149,11 +152,12 @@ export default function App() {
                     style={{
                       backgroundImage: `url(${background4})`,
                       backgroundSize: "cover",
-                      height: "100dvh",
+                      objectFit: "cover",
+                      minHeight: "100vh",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
-                      backgroundAttachment: "fixed",
-                      overflowY: "hidden",
+                      backgroundAttachment: "scroll",
+                      overflowY: "auto",
                     }}>
                     <NavbarBoards />
                     <Boards />
@@ -169,11 +173,12 @@ export default function App() {
                     style={{
                       backgroundImage: `url(${background3})`,
                       backgroundSize: "cover",
-                      height: "100vh",
+                      objectFit: "cover",
+                      minHeight: "100vh",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
-                      backgroundAttachment: "fixed",
-                      overflowY: "hidden",
+                      backgroundAttachment: "scroll",
+                      overflowY: "auto",
                     }}>
                     <NavbarAuth />
                     <NewBoard />
@@ -189,11 +194,12 @@ export default function App() {
                     style={{
                       backgroundImage: `url(${background3})`,
                       backgroundSize: "cover",
-                      height: "100vh",
+                      objectFit: "cover",
+                      minHeight: "100vh",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
-                      backgroundAttachment: "fixed",
-                      overflowY: "hidden",
+                      backgroundAttachment: "scroll",
+                      overflowY: "auto",
                     }}>
                     <NavbarAuth />
                     <InviteUsers />
@@ -210,11 +216,12 @@ export default function App() {
                     style={{
                       backgroundImage: `url(${background3})`,
                       backgroundSize: "cover",
-                      height: "100vh",
+                      objectFit: "cover",
+                      minHeight: "100vh",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
-                      backgroundAttachment: "fixed",
-                      overflowY: "hidden",
+                      backgroundAttachment: "scroll",
+                      overflowY: "auto",
                     }}>
                     <NavbarAuth />
                     <ProfilePage />
