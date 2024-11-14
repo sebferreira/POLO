@@ -43,10 +43,10 @@ export default function App() {
                       backgroundImage: `url(${background})`,
                       backgroundSize: "cover",
                       objectFit: "cover",
-                      height: "100vh",
+                      minHeight: "100vh",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
-                      backgroundAttachment: "scroll",
+                      backgroundAttachment: "fixed",
                       overflowY: "hidden",
                     }}>
                     <Navbar />
