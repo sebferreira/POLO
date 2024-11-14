@@ -46,7 +46,7 @@ export default function App() {
                       minHeight: "100vh",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
-                      backgroundAttachment: "fixed",
+                      backgroundAttachment: "scroll",
                       overflowY: "hidden",
                     }}>
                     <Navbar />
