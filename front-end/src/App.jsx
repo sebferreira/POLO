@@ -43,7 +43,7 @@ export default function App() {
                       backgroundImage: `url(${background})`,
                       backgroundSize: "cover",
                       objectFit: "cover",
-                      minHeight: "100vh",
+                      height: "100vh",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "69%",
                       backgroundAttachment: "scroll",
