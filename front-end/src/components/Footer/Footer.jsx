@@ -99,7 +99,7 @@ export default function Footer() {
             gap: {xs: "1rem", sm: "2rem"},
             marginTop: "1rem",
           }}>
-          <Link
+          <a
             href="https://www.linkedin.com/in/sebastian-galarza-3a9b48262/"
             style={{
               color: "#fff",
@@ -113,8 +113,8 @@ export default function Footer() {
                 height: "22px",
               }}
             />
-          </Link>
-          <Link href="https://github.com/sebferreira">
+          </a>
+          <a href="https://github.com/sebferreira">
             <img
               src={github}
               alt="github"
@@ -123,7 +123,7 @@ export default function Footer() {
                 height: "22px",
               }}
             />
-          </Link>
+          </a>
         </Box>
         <Typography
           variant="subtitle1"
