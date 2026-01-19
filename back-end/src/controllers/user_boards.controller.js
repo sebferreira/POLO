@@ -80,7 +80,7 @@ export const getBoard_Users = async (req, res) => {
 // Función para eliminar la relación de un usuario con un board
 export const deleteUser_Board = async (req, res) => {
   try {
-    const {id_user, boardId} = req.params; // Obtiene el nombre de usuario y el ID del board de los parámetros del request
+    const {username, boardId} = req.params; // Obtiene el nombre de usuario y el ID del board de los parámetros del request
     // Busca la relación User-Board específica
     const userBoard = await Users_Boards.findOne({where: {username, boardId}});
     // Actualiza la fecha de actualización del board
