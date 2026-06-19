@@ -45,8 +45,3 @@ A Trello-inspired project management web application built with a modern fullsta
 - LinkedIn: [sebastian-galarza](https://www.linkedin.com/in/sebastian-galarza-3a9b48262/)
 - GitHub: [@sebferreira](https://github.com/sebferreira)
 
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
